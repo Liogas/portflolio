@@ -1,10 +1,12 @@
 #include "App.hpp"
 
 App::App():
+	_running(false),
 	_sdl(ESDLOption::VIDEO | ESDLOption::EVENTS),
 	_window("test", 1280, 720, EWindowOption::SHOWN),
-	_
-
+	_renderer(this->_window, ERendererOption::ACCELERATED),
+	_input(),
+	_event()
 {
 	std::cout << "App created" << std::endl;
 }
@@ -16,12 +18,12 @@ App::~App()
 
 void	App::run()
 {
+	this->_running = true;
 	while (this->_running)
 	{
 		this->handleEvents();
-		
+		std::this_thread::sleep_for(std::chrono::milliseconds(16));
 	}
-	std::this_thread::sleep_for(std::chrono::milliseconds(16));
 }
 
 void	App::handleEvents()

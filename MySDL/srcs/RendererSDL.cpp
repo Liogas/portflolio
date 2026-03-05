@@ -36,3 +36,35 @@ SDL_Renderer	*RendererSDL::getRenderer() const
 {
 	return (this->_renderer);
 }
+
+SDL_Texture	*RendererSDL::loadImg(char *path)
+{
+	SDL_Surface	*surface = NULL;
+	SDL_Texture	*texture, *tmp = NULL;
+
+	surface = SDL_LoadBMP(path);
+	if (!surface)
+	{
+		std::cerr << "Error on load : " << SDL_GetError() << std::endl;
+		return (NULL);
+	}
+	tmp = SDL_CreateTextureFromSurface(this->_renderer, surface);
+	if (!tmp)
+	{
+		std::cerr << "Error on create texture from surface : " << SDL_GetError() << std::endl;
+		return (NULL);
+	}
+	texture = SDL_CreateTexture(this->_renderer, SDL_PIXELFORMAT_RGBA8888,
+				SDL_TEXTUREACCESS_TARGET, surface->w, surface->h);
+	if (!texture)
+	{
+		std::cerr << "Error on create texture : " << SDL_GetError() << std::endl;
+		return (NULL);
+	}
+	SDL_SetRenderTarget(this->_renderer, texture);
+	SDL_RenderCopy(this->_renderer, tmp, NULL, NULL);
+	SDL_DestroyTexture(tmp);
+	SDL_FreeSurface(surface);
+	SDL_SetRenderTarget(this->_renderer, NULL);
+	return (texture);
+}
