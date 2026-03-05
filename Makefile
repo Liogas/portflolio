@@ -16,7 +16,9 @@ SRCS_SDL_DIR	=	MySDL/srcs
 OBJS_SDL_DIR	= 	MySDL/objs
 SRCS_SDL		=	$(SRCS_SDL_DIR)/AppSDL.cpp \
 					$(SRCS_SDL_DIR)/WindowSDL.cpp \
-					$(SRCS_SDL_DIR)/RendererSDL.cpp
+					$(SRCS_SDL_DIR)/RendererSDL.cpp \
+					$(SRCS_SDL_DIR)/EventSDL.cpp \
+					$(SRCS_SDL_DIR)/InputSDL.cpp
 OBJS_SDL		=	$(SRCS_SDL:$(SRCS_SDL_DIR)/%.cpp=$(OBJS_SDL_DIR)/%.o)
 
 
