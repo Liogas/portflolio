@@ -14,7 +14,7 @@ InputSDL::~InputSDL()
 void	InputSDL::update()
 {
 	SDL_PumpEvents();
-	this->_keyboard = (Uint8 *)SDL_GetKeyboardState(NULL);
+	this->_keyboard = SDL_GetKeyboardState(NULL);
 }
 
 bool	InputSDL::isKeyPressed(SDL_Scancode code)

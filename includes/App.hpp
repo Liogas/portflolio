@@ -12,6 +12,9 @@
 # include "InputSDL.hpp"
 # include "RendererSDL.hpp"
 
+# include "Sprite.hpp"
+# include "RessourceManager.hpp"
+
 class App
 {
 	public:
@@ -19,12 +22,13 @@ class App
 		~App();
 		void	run();
 	private:
-		bool		_running;
-		AppSDL		_sdl;
-		WindowSDL	_window;
-		RendererSDL	_renderer;
-		InputSDL	_input;
-		EventSDL	_event;
+		bool				_running;
+		AppSDL				_sdl;
+		WindowSDL			_window;
+		RendererSDL			_renderer;
+		InputSDL			_input;
+		EventSDL			_event;
+		RessourceManager	_ressources;
 		void	handleEvents();
 		// void	update();
 		// void	render();

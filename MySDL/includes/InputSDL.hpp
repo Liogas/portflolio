@@ -15,7 +15,7 @@ class InputSDL
 		void	update();
 		bool	isKeyPressed(SDL_Scancode);
 	private:
-		Uint8	*_keyboard;
+		const Uint8	*_keyboard;
 };
 
 #endif

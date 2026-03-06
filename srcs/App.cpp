@@ -6,7 +6,8 @@ App::App():
 	_window("test", 1280, 720, EWindowOption::SHOWN),
 	_renderer(this->_window, ERendererOption::ACCELERATED),
 	_input(),
-	_event()
+	_event(),
+	_ressources(this->_renderer)
 {
 	std::cout << "App created" << std::endl;
 }
