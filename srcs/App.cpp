@@ -10,6 +10,7 @@ App::App():
 	_ressources(this->_renderer)
 {
 	std::cout << "App created" << std::endl;
+	this->_ressources.loadTest();
 }
 
 App::~App()

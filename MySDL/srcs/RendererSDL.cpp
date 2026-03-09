@@ -7,6 +7,8 @@ RendererSDL::RendererSDL(WindowSDL &win, ERendererOption opt)
 		-1,
 		static_cast<Uint32>(opt)
 	);
+	if (!this->_renderer)
+		throw std::runtime_error(SDL_GetError());
 }
 
 RendererSDL::~RendererSDL()
@@ -37,34 +39,35 @@ SDL_Renderer	*RendererSDL::getRenderer() const
 	return (this->_renderer);
 }
 
-SDL_Texture	*RendererSDL::loadImg(char *path)
+SDL_Texture	*RendererSDL::loadImg(const char *path)
 {
-	SDL_Surface	*surface = NULL;
-	SDL_Texture	*texture, *tmp = NULL;
+	SDL_Texture	*texture = NULL;
 
-	surface = SDL_LoadBMP(path);
-	if (!surface)
-	{
-		std::cerr << "Error on load : " << SDL_GetError() << std::endl;
-		return (NULL);
-	}
-	tmp = SDL_CreateTextureFromSurface(this->_renderer, surface);
+	SDL_Texture	*tmp = IMG_LoadTexture(this->_renderer, path);
 	if (!tmp)
+		throw std::runtime_error(IMG_GetError());
+	int	w, h;
+	if (SDL_QueryTexture(tmp, NULL, NULL, &w, &h) != 0)
 	{
-		std::cerr << "Error on create texture from surface : " << SDL_GetError() << std::endl;
-		return (NULL);
+		SDL_DestroyTexture(tmp);
+		throw std::runtime_error(SDL_GetError());
 	}
 	texture = SDL_CreateTexture(this->_renderer, SDL_PIXELFORMAT_RGBA8888,
-				SDL_TEXTUREACCESS_TARGET, surface->w, surface->h);
+				SDL_TEXTUREACCESS_TARGET, w, h);
 	if (!texture)
 	{
-		std::cerr << "Error on create texture : " << SDL_GetError() << std::endl;
-		return (NULL);
+		SDL_DestroyTexture(tmp);
+		throw std::runtime_error(SDL_GetError());
 	}
 	SDL_SetRenderTarget(this->_renderer, texture);
-	SDL_RenderCopy(this->_renderer, tmp, NULL, NULL);
-	SDL_DestroyTexture(tmp);
-	SDL_FreeSurface(surface);
+	if (SDL_RenderCopy(this->_renderer, tmp, NULL, NULL) != 0)
+	{
+		SDL_DestroyTexture(tmp);
+		SDL_DestroyTexture(texture);
+		SDL_RenderTarget(this->_renderer, NULL);
+		throw std::runtime_error(SDL_GetError());
+	}
 	SDL_SetRenderTarget(this->_renderer, NULL);
+	SDL_DestroyTexture(tmp);
 	return (texture);
 }

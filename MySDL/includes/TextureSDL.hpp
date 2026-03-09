@@ -13,7 +13,10 @@ class TextureSDL
 		TextureSDL(RendererSDL &, const std::string &);
 		~TextureSDL();
 		SDL_Texture	*getTexture() const;
-		bool		render(SDL_Rect *src, SDL_Rect *dst);
+		void		getSize(int *w, int *h);
+		bool		render(SDL_Rect *src = nullptr, SDL_Rect *dst = nullptr);
+		void		setAsTarget();
+		void		resetTarget();
 	private:
 		SDL_Texture	*_texture;
 		RendererSDL	&_renderer;

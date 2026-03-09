@@ -19,6 +19,11 @@ Sprite::Sprite(
 	std::cout << "Sprite created" << std::endl;
 }
 
+Sprite::~Sprite()
+{
+	std::cout << "Sprite destroyed" << std::endl;
+}
+
 void	Sprite::setDestPosition(int x, int y)
 {
 	this->_dest.x = x;

@@ -8,6 +8,7 @@ class Sprite
 {
 	public:
 		Sprite(TextureSDL &, int w, int h);
+		~Sprite();
 		void	setDestPosition(int x, int y);
 		void	render();
 	private:
