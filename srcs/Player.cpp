@@ -14,9 +14,9 @@ Player::~Player()
 	std::cout << "Player destroyed" << std::endl;
 }
 
-void	Player::move(EDirection &dir)
+void	Player::move()
 {
-	(void)dir;
+	this->_posX += this->_speed;
 }
 
 Sprite	&Player::getSprite()
@@ -26,5 +26,6 @@ Sprite	&Player::getSprite()
 
 void	Player::render()
 {
+	this->_sprite.setDestPosition(this->_posX, this->_posY);
 	this->_sprite.render();
 }

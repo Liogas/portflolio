@@ -7,7 +7,8 @@ App::App():
 	_renderer(this->_window, ERendererOption::ACCELERATED | ERendererOption::PRESENTVSYNC | ERendererOption::TARGETTEXTURE),
 	_input(),
 	_event(),
-	_ressources(this->_renderer)
+	_ressources(this->_renderer),
+	_player(this->_ressources.getTexture("srcs/imgs/char1.png"), 64, 64)
 {
 	std::cout << "App created" << std::endl;
 }
@@ -22,13 +23,9 @@ void	App::run()
 	try
 	{
 		this->_running = true;
-		Player player(this->_ressources.getTexture("srcs/imgs/char1.png"), 64, 64);
-		player.getSprite().setSrcPosition(0, 64 * 2);
-		player.getSprite().setDestPosition(0, 0);
+		this->_player.getSprite().setSrcPosition(0, 64 * 2);
+		this->_player.getSprite().setDestPosition(0, 0);
 
-		Player player2(this->_ressources.getTexture("srcs/imgs/char1.png"), 64, 64);
-		player2.getSprite().setSrcPosition(0, 64 * 3);
-		player2.getSprite().setDestPosition(0, 128);
 		while (this->_running)
 		{
 			this->handleEvents();
@@ -36,9 +33,8 @@ void	App::run()
 			this->_renderer.clear();
 
 			// update player
-			player.render();
-			player2.render();
-			this->_renderer.present();
+			this->update();
+			this->render();
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(16));
 		}
@@ -57,4 +53,16 @@ void	App::handleEvents()
 			this->_running = false;
 	}
 	this->_input.update();
+}
+
+void	App::update()
+{
+	if (this->_input.isKeyPressed(SDL_SCANCODE_D))
+		this->_player.move();
+}
+
+void	App::render()
+{
+	this->_player.render();
+	this->_renderer.present();
 }

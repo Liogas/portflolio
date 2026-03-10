@@ -30,9 +30,10 @@ class App
 		InputSDL			_input;
 		EventSDL			_event;
 		RessourceManager	_ressources;
+		Player				_player;
 		void	handleEvents();
 		void	update();
-		// void	render();
+		void	render();
 };
 
 #endif

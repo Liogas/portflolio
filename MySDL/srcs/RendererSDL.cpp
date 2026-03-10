@@ -52,7 +52,6 @@ SDL_Texture	*RendererSDL::loadImg(const char *path)
 		SDL_DestroyTexture(tmp);
 		throw std::runtime_error(SDL_GetError());
 	}
-	std::cout << "w : " << w << " h : " << h << std::endl;
 	texture = SDL_CreateTexture(this->_renderer, SDL_PIXELFORMAT_RGBA8888,
 				SDL_TEXTUREACCESS_TARGET, w, h);
 	if (!texture)

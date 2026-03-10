@@ -16,7 +16,7 @@ class Player
 	public:
 		Player(TextureSDL &t, int w, int h);
 		~Player();
-		void	move(EDirection &);
+		void	move();
 		Sprite	&getSprite();
 		void	render();
 	private:
