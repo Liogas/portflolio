@@ -15,6 +15,6 @@ RessourceManager::~RessourceManager()
 TextureSDL	&RessourceManager::getTexture(const std::string &path)
 {
 	if (!this->_textures.contains(path))
-		this->_textures.emplace(path, TextureSDL(this->_renderer, path));
-	return (this->_textures.at(path));
-}
+		this->_textures[path] = std::make_unique<TextureSDL>(this->_renderer, path);
+	return (*this->_textures.at(path));
+}			

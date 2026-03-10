@@ -27,7 +27,7 @@ bool	TextureSDL::render(SDL_Rect *src, SDL_Rect *dst)
 		this->_texture,
 		src,
 		dst
-	) == 0;
+	) == 0);
 }
 
 void	TextureSDL::getSize(int *w, int *h)
@@ -37,12 +37,12 @@ void	TextureSDL::getSize(int *w, int *h)
 
 void	TextureSDL::setAsTarget()
 {
-	if (SDL_SetRenderTarget(this->_renderer, this->_texture) == -1)
+	if (SDL_SetRenderTarget(this->_renderer.getRenderer(), this->_texture) == -1)
 		throw std::runtime_error(SDL_GetError());
 }
 
 void	TextureSDL::resetTarget()
 {
-	if (SDL_SetRenderTarget(this->_renderer, NULL) == -1)
+	if (SDL_SetRenderTarget(this->_renderer.getRenderer(), NULL) == -1)
 		throw std::runtime_error(SDL_GetError());
 }

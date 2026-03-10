@@ -10,6 +10,8 @@ class Sprite
 		Sprite(TextureSDL &, int w, int h);
 		~Sprite();
 		void	setDestPosition(int x, int y);
+		void	setSrcPosition(int x, int y);
+		TextureSDL	&getTexture() const;
 		void	render();
 	private:
 		TextureSDL	&_texture;

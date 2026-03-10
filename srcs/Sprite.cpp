@@ -1,7 +1,7 @@
 #include "Sprite.hpp"
 
 Sprite::Sprite(
-	TextureSDL &t
+	TextureSDL &t,
 	int	width,
 	int	height
 ):
@@ -30,7 +30,20 @@ void	Sprite::setDestPosition(int x, int y)
 	this->_dest.y = y;
 }
 
+void	Sprite::setSrcPosition(int x, int y)
+{
+	this->_src.x = x;
+	this->_src.y = y;
+}
+
 void	Sprite::render()
 {
+	// std::cout << " SRC -> y:" << this->_src.y << " x:" << this->_src.x << " w:" << this->_src.w << " h:" << this->_src.h << std::endl;
+	// std::cout << " dest -> y:" << this->_dest.y << " x:" << this->_dest.x << " w:" << this->_dest.w << " h:" << this->_dest.h << std::endl;
 	this->_texture.render(&this->_src, &this->_dest);
+}
+
+TextureSDL	&Sprite::getTexture() const
+{
+	return (this->_texture);
 }

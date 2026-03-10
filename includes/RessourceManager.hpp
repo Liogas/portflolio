@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include <unordered_map>
+# include <memory>
 
 # include "TextureSDL.hpp"
 
@@ -12,9 +13,8 @@ class RessourceManager
 		RessourceManager(RendererSDL &);
 		~RessourceManager();
 		TextureSDL	&getTexture(const std::string &);
-		void		loadTest();
 	private:
-		std::unordered_map<std::string, TextureSDL> _textures;
+		std::unordered_map<std::string, std::unique_ptr<TextureSDL>> _textures;
 		RendererSDL									&_renderer;
 };
 

@@ -14,6 +14,7 @@
 
 # include "Sprite.hpp"
 # include "RessourceManager.hpp"
+# include "Player.hpp"
 
 class App
 {
@@ -30,7 +31,7 @@ class App
 		EventSDL			_event;
 		RessourceManager	_ressources;
 		void	handleEvents();
-		// void	update();
+		void	update();
 		// void	render();
 };
 

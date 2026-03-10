@@ -14,13 +14,16 @@ enum class EDirection
 class Player
 {
 	public:
-		Player(RendererSDL &, std::string &, int w, int h);
+		Player(TextureSDL &t, int w, int h);
 		~Player();
 		void	move(EDirection &);
+		Sprite	&getSprite();
+		void	render();
 	private:
 		Sprite	_sprite;
 		int		_posX;
 		int		_posY;
+		int		_speed;
 };
 
 #endif
