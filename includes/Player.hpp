@@ -9,7 +9,8 @@ enum class EDirection
 	LEFT,
 	RIGHT,
 	TOP,
-	BOTTOM
+	BOTTOM,
+	NONE
 };
 
 class Player
@@ -22,6 +23,7 @@ class Player
 		void	setupAnim();
 		Sprite	&getSprite();
 		void	render();
+		void	choiceStandAnimation(T_paramAnimation &p);
 	private:
 		Sprite	_sprite;
 		int		_posX;

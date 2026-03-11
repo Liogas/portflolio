@@ -64,7 +64,8 @@ void	App::update()
 		this->_player.move(EDirection::BOTTOM, this->_window);
 	else if (this->_input.isKeyPressed(SDL_SCANCODE_W))
 		this->_player.move(EDirection::TOP, this->_window);
-	
+	else
+		this->_player.move(EDirection::NONE, this->_window);
 	this->_player.update();
 }
 

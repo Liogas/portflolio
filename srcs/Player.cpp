@@ -11,7 +11,7 @@ Player::Player(TextureSDL &t, int w, int h):
 	this->_sizeW = w;
 	this->setupAnim();
 	T_paramAnimation	p;
-	p.currName = "stand";
+	p.currName = "standS";
 	p.currPos = 0;
 	p.prevAnim = "xxx";
 	this->_sprite.setParamAnimation(p);
@@ -39,7 +39,16 @@ void	Player::setupAnim()
 	this->_sprite.getTexture().addAnimation("walkW", a);
 	a.posY = 0;
 	a.nbTiles = 1;
-	this->_sprite.getTexture().addAnimation("stand", a);
+	this->_sprite.getTexture().addAnimation("standS", a);
+	a.posY = 1;
+	a.nbTiles = 1;
+	this->_sprite.getTexture().addAnimation("standN", a);
+	a.posY = 2;
+	a.nbTiles = 1;
+	this->_sprite.getTexture().addAnimation("standE", a);
+	a.posY = 3;
+	a.nbTiles = 1;
+	this->_sprite.getTexture().addAnimation("standW", a);
 
 	// this->_sprite.getTexture().printAnimations();
 }
@@ -72,6 +81,9 @@ void	Player::move(EDirection dir, WindowSDL &win)
 			anim.prevAnim = anim.currName;
 			anim.currName = "walkN";
 			break;
+		case EDirection::NONE :
+			this->choiceStandAnimation(anim);
+			return ;
 	}
 	int	winWidth, winHeight;
 	SDL_GetWindowSize(win.getWindow(), &winWidth, &winHeight);
@@ -81,6 +93,19 @@ void	Player::move(EDirection dir, WindowSDL &win)
 		this->_posX = tmpX;
 		this->_posY = tmpY;
 	}
+}
+
+void	Player::choiceStandAnimation(T_paramAnimation &p)
+{
+	p.prevAnim = p.currName;
+	if (p.currName[p.currName.length() - 1] == 'N')
+		p.currName = "standN";
+	else if (p.currName[p.currName.length() - 1] == 'S')
+		p.currName = "standS";
+	else if (p.currName[p.currName.length() - 1] == 'E')
+		p.currName = "standE";
+	else if (p.currName[p.currName.length() - 1] == 'W')
+		p.currName = "standW";
 }
 
 void	Player::update()
