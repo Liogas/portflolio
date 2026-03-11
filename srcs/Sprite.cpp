@@ -5,7 +5,8 @@ Sprite::Sprite(
 	int	width,
 	int	height
 ):
-	_texture(t)
+	_texture(t),
+	_paramAnimation()
 {
 	this->_dest.h = height;
 	this->_dest.w = width;
@@ -46,4 +47,14 @@ void	Sprite::render()
 TextureSDL	&Sprite::getTexture() const
 {
 	return (this->_texture);
+}
+
+void	Sprite::setParamAnimation(T_paramAnimation &param)
+{
+	this->_paramAnimation = param;
+}
+
+T_paramAnimation	&Sprite::getParamAnimation()
+{
+	return (this->_paramAnimation);
 }

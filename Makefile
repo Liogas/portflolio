@@ -30,6 +30,7 @@ SRCS_SDL = \
 	$(SRCS_SDL_DIR)/WindowSDL.cpp \
 	$(SRCS_SDL_DIR)/RendererSDL.cpp \
 	$(SRCS_SDL_DIR)/EventSDL.cpp \
+	$(SRCS_SDL_DIR)/AnimationSDL.cpp \
 	$(SRCS_SDL_DIR)/TextureSDL.cpp \
 	$(SRCS_SDL_DIR)/InputSDL.cpp
 

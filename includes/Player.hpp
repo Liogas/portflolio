@@ -18,6 +18,8 @@ class Player
 		Player(TextureSDL &t, int w, int h);
 		~Player();
 		void	move(EDirection, WindowSDL &win);
+		void	update();
+		void	setupAnim();
 		Sprite	&getSprite();
 		void	render();
 	private:

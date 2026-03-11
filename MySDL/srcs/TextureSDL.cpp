@@ -35,6 +35,11 @@ void	TextureSDL::getSize(int *w, int *h)
 	SDL_QueryTexture(this->_texture, NULL, NULL, w, h);
 }
 
+const AnimationSDL	&TextureSDL::getAnimations() const
+{
+	return (this->_animations);
+}
+
 void	TextureSDL::setAsTarget()
 {
 	if (SDL_SetRenderTarget(this->_renderer.getRenderer(), this->_texture) == -1)
@@ -45,4 +50,14 @@ void	TextureSDL::resetTarget()
 {
 	if (SDL_SetRenderTarget(this->_renderer.getRenderer(), NULL) == -1)
 		throw std::runtime_error(SDL_GetError());
+}
+
+void	TextureSDL::addAnimation(std::string name, T_animation animation)
+{
+	this->_animations.addAnimation(name, animation);
+}
+
+void	TextureSDL::printAnimations()
+{
+	this->_animations.print();
 }
