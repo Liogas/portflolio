@@ -32,7 +32,6 @@ void	App::run()
 			this->_renderer.setDrawColor(0, 0, 0, 255);
 			this->_renderer.clear();
 
-			// update player
 			this->update();
 			this->render();
 
@@ -58,7 +57,13 @@ void	App::handleEvents()
 void	App::update()
 {
 	if (this->_input.isKeyPressed(SDL_SCANCODE_D))
-		this->_player.move();
+		this->_player.move(EDirection::RIGHT, this->_window);
+	if (this->_input.isKeyPressed(SDL_SCANCODE_A))
+		this->_player.move(EDirection::LEFT, this->_window);
+	if (this->_input.isKeyPressed(SDL_SCANCODE_S))
+		this->_player.move(EDirection::BOTTOM, this->_window);
+	if (this->_input.isKeyPressed(SDL_SCANCODE_W))
+		this->_player.move(EDirection::TOP, this->_window);
 }
 
 void	App::render()
