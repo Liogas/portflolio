@@ -54,7 +54,7 @@ void	Player::setupAnim()
 }
 
 // Plus tard prendre en compte une SCENE plutot que la fenetre
-void	Player::move(EDirection dir, WindowSDL &win)
+void	Player::move(EDirection dir, const Scene &scene)
 {
 	int	tmpX = this->_posX;
 	int tmpY = this->_posY;
@@ -85,10 +85,8 @@ void	Player::move(EDirection dir, WindowSDL &win)
 			this->choiceStandAnimation(anim);
 			return ;
 	}
-	int	winWidth, winHeight;
-	SDL_GetWindowSize(win.getWindow(), &winWidth, &winHeight);
-	if (tmpX >= 0 && tmpX < winWidth - this->_sizeW
-		&& tmpY >= 0 && tmpY < winHeight - this->_sizeH)
+	if (tmpX >= 0 && tmpX < scene.getWidth() - this->_sizeW
+		&& tmpY >= 0 && tmpY < scene.getHeight() - this->_sizeH)
 	{
 		this->_posX = tmpX;
 		this->_posY = tmpY;

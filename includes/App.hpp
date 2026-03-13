@@ -15,6 +15,11 @@
 # include "Sprite.hpp"
 # include "RessourceManager.hpp"
 # include "Player.hpp"
+# include "SceneManager.hpp"
+# include "GameState.hpp"
+
+// SCENES
+# include "GameScene.hpp"
 
 class App
 {
@@ -30,10 +35,9 @@ class App
 		InputSDL			_input;
 		EventSDL			_event;
 		RessourceManager	_ressources;
-		Player				_player;
+		SceneManager		_sceneManager;
+		GameState			_gameState;
 		void	handleEvents();
-		void	update();
-		void	render();
 };
 
 #endif

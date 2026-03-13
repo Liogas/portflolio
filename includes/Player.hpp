@@ -2,7 +2,7 @@
 # define PLAYER_HPP
 
 # include "Sprite.hpp"
-# include "WindowSDL.hpp"
+# include "Scene.hpp"
 
 enum class EDirection
 {
@@ -13,12 +13,14 @@ enum class EDirection
 	NONE
 };
 
+class Scene;
+
 class Player
 {
 	public:
 		Player(TextureSDL &t, int w, int h);
 		~Player();
-		void	move(EDirection, WindowSDL &win);
+		void	move(EDirection, const Scene &scene);
 		void	update();
 		void	setupAnim();
 		Sprite	&getSprite();

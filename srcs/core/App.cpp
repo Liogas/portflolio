@@ -8,7 +8,8 @@ App::App():
 	_input(),
 	_event(),
 	_ressources(this->_renderer),
-	_player(this->_ressources.getTexture("srcs/imgs/char1.png"), 64, 64)
+	_sceneManager(),
+	_gameState(this->_ressources)
 {
 	std::cout << "App created" << std::endl;
 }
@@ -23,8 +24,7 @@ void	App::run()
 	try
 	{
 		this->_running = true;
-		this->_player.getSprite().setSrcPosition(0, 64 * 2);
-		this->_player.getSprite().setDestPosition(0, 0);
+		this->_sceneManager.changeScene(std::make_unique<GameScene>());
 
 		while (this->_running)
 		{
@@ -32,8 +32,9 @@ void	App::run()
 			this->_renderer.setDrawColor(0, 0, 0, 255);
 			this->_renderer.clear();
 
-			this->update();
-			this->render();
+			this->_sceneManager.handleEvent(this->_event, this->_gameState);
+			this->_sceneManager.update(this->_input, this->_gameState);
+			this->_sceneManager.render(this->_renderer, this->_gameState);
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(16));
 		}
@@ -52,25 +53,4 @@ void	App::handleEvents()
 			this->_running = false;
 	}
 	this->_input.update();
-}
-
-void	App::update()
-{
-	if (this->_input.isKeyPressed(SDL_SCANCODE_D))
-		this->_player.move(EDirection::RIGHT, this->_window);
-	else if (this->_input.isKeyPressed(SDL_SCANCODE_A))
-		this->_player.move(EDirection::LEFT, this->_window);
-	else if (this->_input.isKeyPressed(SDL_SCANCODE_S))
-		this->_player.move(EDirection::BOTTOM, this->_window);
-	else if (this->_input.isKeyPressed(SDL_SCANCODE_W))
-		this->_player.move(EDirection::TOP, this->_window);
-	else
-		this->_player.move(EDirection::NONE, this->_window);
-	this->_player.update();
-}
-
-void	App::render()
-{
-	this->_player.render();
-	this->_renderer.present();
 }
