@@ -28,7 +28,7 @@ void	GameScene::handleEvents(EventSDL &events, const GameState &gameState)
 	(void)events;
 }
 
-void	GameScene::update(InputSDL &inputs, const GameState &gameState)
+void	GameScene::update(InputSDL &inputs, const GameState &gameState, float deltaTime)
 {
 	if (inputs.isKeyPressed(SDL_SCANCODE_D))
 		gameState.player->move(EDirection::RIGHT, *this);
@@ -40,7 +40,7 @@ void	GameScene::update(InputSDL &inputs, const GameState &gameState)
 		gameState.player->move(EDirection::TOP, *this);
 	else
 		gameState.player->move(EDirection::NONE, *this);
-	gameState.player->update();
+	gameState.player->update(deltaTime);
 }
 
 void	GameScene::render(RendererSDL &renderer, const GameState &gameState)

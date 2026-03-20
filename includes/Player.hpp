@@ -20,12 +20,12 @@ class Player
 	public:
 		Player(TextureSDL &t, int w, int h);
 		~Player();
-		void	move(EDirection, const Scene &scene);
-		void	update();
-		void	setupAnim();
-		Sprite	&getSprite();
-		void	render();
-		void	choiceStandAnimation(T_paramAnimation &p);
+		void					move(EDirection, const Scene &scene);
+		void					update(float deltaTime);
+		void					setupAnim();
+		[[nodiscard]] Sprite	&getSprite();
+		void					render();
+		void					choiceStandAnimation(T_paramAnimation &p);
 	private:
 		Sprite	_sprite;
 		int		_posX;

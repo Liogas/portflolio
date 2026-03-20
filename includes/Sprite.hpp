@@ -8,7 +8,9 @@ typedef struct	paramAnimation
 {
 	std::string currName;
 	std::string	prevAnim;
-	int			 currPos;
+	float		speed;
+	int			maxFrame;
+	int			currPos;
 }	T_paramAnimation;
 
 class Sprite
@@ -21,8 +23,8 @@ class Sprite
 		void	setSrcPosition(int x, int y);
 		void	setParamAnimation(T_paramAnimation &p);
 		// GETTERS
-		TextureSDL				&getTexture() const;
-		T_paramAnimation		&getParamAnimation();
+		[[nodiscard]] TextureSDL		&getTexture() const;
+		[[nodiscard]] T_paramAnimation	&getParamAnimation();
 		// METHODS
 		void	render();
 	private:

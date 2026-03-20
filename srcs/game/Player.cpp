@@ -3,10 +3,11 @@
 Player::Player(TextureSDL &t, int w, int h):
 	_sprite(t, w, h)
 {
-	std::cout << "Player created" << std::endl;
+	std::cout << "this = " << this << std::endl;
+	std::cout << "w->" << w << " ; h->" << h << std::endl;
 	this->_posX = 0;
 	this->_posY = 0;
-	this->_speed = 3;
+	this->_speed = 0;
 	this->_sizeH = h;
 	this->_sizeW = w;
 	this->setupAnim();
@@ -15,6 +16,7 @@ Player::Player(TextureSDL &t, int w, int h):
 	p.currPos = 0;
 	p.prevAnim = "xxx";
 	this->_sprite.setParamAnimation(p);
+	std::cout << "Player created" << std::endl;
 }
 
 Player::~Player()
@@ -25,29 +27,28 @@ Player::~Player()
 void	Player::setupAnim()
 {
 	T_animation a;
-	a.nbTiles = 6;
-	a.posX = 0;
-	a.posY = 4;
-	a.sizeH = 64;
-	a.sizeW = 64;
+	a.nbTiles 	= 6;
+	a.posX 		= 0;
+	a.posY 		= 4;
+	a.sizeH 	= 64;
+	a.sizeW 	= 64;
+	a.speed 	= 0.135;
 	this->_sprite.getTexture().addAnimation("walkS", a);
-	a.posY = 5;
+	a.posY 		= 5;
 	this->_sprite.getTexture().addAnimation("walkN", a);
-	a.posY = 6;
+	a.posY 		= 6;
 	this->_sprite.getTexture().addAnimation("walkE", a);
-	a.posY = 7;
+	a.posY 		= 7;
 	this->_sprite.getTexture().addAnimation("walkW", a);
-	a.posY = 0;
-	a.nbTiles = 1;
+	a.posY 		= 0;
+	a.nbTiles 	= 1;
+	a.speed 	= 0;
 	this->_sprite.getTexture().addAnimation("standS", a);
-	a.posY = 1;
-	a.nbTiles = 1;
+	a.posY 		= 1;
 	this->_sprite.getTexture().addAnimation("standN", a);
-	a.posY = 2;
-	a.nbTiles = 1;
+	a.posY 		= 2;
 	this->_sprite.getTexture().addAnimation("standE", a);
-	a.posY = 3;
-	a.nbTiles = 1;
+	a.posY 		= 3;
 	this->_sprite.getTexture().addAnimation("standW", a);
 
 	// this->_sprite.getTexture().printAnimations();
@@ -85,6 +86,7 @@ void	Player::move(EDirection dir, const Scene &scene)
 			this->choiceStandAnimation(anim);
 			return ;
 	}
+	std::cout << "Scene : " << scene.getHeight() << std::endl;
 	if (tmpX >= 0 && tmpX < scene.getWidth() - this->_sizeW
 		&& tmpY >= 0 && tmpY < scene.getHeight() - this->_sizeH)
 	{
@@ -106,8 +108,9 @@ void	Player::choiceStandAnimation(T_paramAnimation &p)
 		p.currName = "standW";
 }
 
-void	Player::update()
+void	Player::update(float deltaTime)
 {
+	(void)deltaTime;
 	T_paramAnimation &anim = this->_sprite.getParamAnimation();
 	if (anim.currName == anim.prevAnim)
 	{

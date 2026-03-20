@@ -14,8 +14,8 @@ class TextureSDL
 		TextureSDL(RendererSDL &, const std::string &);
 		~TextureSDL();
 		// GETTERS
-		SDL_Texture			*getTexture() const;
-		const AnimationSDL	&getAnimations() const;
+		[[nodiscard]] SDL_Texture			*getTexture() const;
+		[[nodiscard]] const AnimationSDL	&getAnimations() const;
 		
 		void				getSize(int *w, int *h);
 		// METHODS

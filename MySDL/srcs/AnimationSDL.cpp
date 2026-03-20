@@ -17,7 +17,7 @@ void	AnimationSDL::addAnimation(std::string name, T_animation anim)
 	{
 		anim.name = name;
 		this->_animations[name] = anim;
-		std::cout << "Animation " << name << " added" << std::endl;		
+		std::cout << "Animation " << name << " added" << std::endl;
 	}
 	else
 		std::cout << "Animation " << name << " already exists" << std::endl;		

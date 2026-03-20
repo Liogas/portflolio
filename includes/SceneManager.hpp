@@ -12,7 +12,7 @@ class SceneManager
 		~SceneManager(void);
 		void	changeScene(std::unique_ptr<Scene> scene);
 		// METHODS
-		void	update(InputSDL &input, const GameState &gameState);
+		void	update(InputSDL &input, const GameState &gameState, float deltaTime);
 		void	render(RendererSDL &renderer, const GameState &gameState);
 		void	handleEvent(EventSDL &event, const GameState &gameState);
 	private:

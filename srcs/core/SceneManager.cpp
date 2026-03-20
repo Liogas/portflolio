@@ -16,9 +16,9 @@ void	SceneManager::render(RendererSDL &renderer, const GameState &gameState)
 	this->_currScene->render(renderer, gameState);
 }
 
-void	SceneManager::update(InputSDL &input, const GameState &gameState)
+void	SceneManager::update(InputSDL &input, const GameState &gameState, float deltaTime)
 {
-	this->_currScene->update(input, gameState);
+	this->_currScene->update(input, gameState, deltaTime);
 }
 
 void	SceneManager::changeScene(std::unique_ptr<Scene> scene)

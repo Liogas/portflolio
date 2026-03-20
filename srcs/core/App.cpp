@@ -23,17 +23,21 @@ void	App::run()
 {
 	try
 	{
-		this->_running = true;
+		this->_running	= true;
+		auto lastTime 	= std::chrono::high_resolution_clock::now();
 		this->_sceneManager.changeScene(std::make_unique<GameScene>());
-
 		while (this->_running)
 		{
+			auto currentTime = std::chrono::high_resolution_clock::now();
+    		float deltaTime = std::chrono::duration<float>(currentTime - lastTime).count();
+    		lastTime = currentTime;
+
 			this->handleEvents();
 			this->_renderer.setDrawColor(0, 0, 0, 255);
 			this->_renderer.clear();
 
 			this->_sceneManager.handleEvent(this->_event, this->_gameState);
-			this->_sceneManager.update(this->_input, this->_gameState);
+			this->_sceneManager.update(this->_input, this->_gameState, deltaTime);
 			this->_sceneManager.render(this->_renderer, this->_gameState);
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(16));

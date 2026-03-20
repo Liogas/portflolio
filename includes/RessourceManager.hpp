@@ -12,7 +12,7 @@ class RessourceManager
 	public:
 		RessourceManager(RendererSDL &);
 		~RessourceManager();
-		TextureSDL	&getTexture(const std::string &);
+		[[nodiscard]] TextureSDL	&getTexture(const std::string &);
 	private:
 		std::unordered_map<std::string, std::unique_ptr<TextureSDL>> _textures;
 		RendererSDL									&_renderer;

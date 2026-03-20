@@ -10,9 +10,9 @@ class GameScene : public Scene
 		~GameScene() override;
 		void	onEnter() 							override;
 		void	onExit() 							override;
-		void	update(InputSDL &inputs, const GameState &gameState) 		override;
+		void	update(InputSDL &inputs, const GameState &gameState, float deltaTime) override;
 		void	handleEvents(EventSDL &event, const GameState &gameState) override;
-		void	render(RendererSDL &, const GameState &gameState)	override;
+		void	render(RendererSDL &, const GameState &gameState) override;
 };
 
 #endif

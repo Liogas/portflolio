@@ -36,7 +36,7 @@ class WindowSDL
 		WindowSDL(const WindowSDL &) = delete;
 		WindowSDL &operator=(const WindowSDL &) = delete;
 		// GETTERS
-		SDL_Window	*getWindow() const;
+		[[nodiscard]] SDL_Window	*getWindow() const;
 
 		void	setFullScreen();
 	private:

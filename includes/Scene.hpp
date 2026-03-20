@@ -14,11 +14,11 @@ class Scene
 	public:
 		virtual 		~Scene() = default;
 		// METHODS
-		virtual void	onEnter() 													= 0;
-		virtual void	onExit() 													= 0;
-		virtual void	update(InputSDL &inputs, const GameState &gameState) 	= 0;
-		virtual void	handleEvents(EventSDL &, const GameState &gameState)	= 0;
-		virtual void	render(RendererSDL &, const GameState &gameState) 			= 0;
+		virtual void	onEnter() 																	= 0;
+		virtual void	onExit() 																	= 0;
+		virtual void	update(InputSDL &inputs, const GameState &gameState, float deltaTime) 		= 0;
+		virtual void	handleEvents(EventSDL &, const GameState &gameState)						= 0;
+		virtual void	render(RendererSDL &, const GameState &gameState) 							= 0;
 		[[nodiscard]] int	getHeight() const { return (this->_height); };
 		[[nodiscard]] int	getWidth() const { return (this->_width); };
 	protected:

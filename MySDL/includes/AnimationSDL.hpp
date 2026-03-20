@@ -11,6 +11,8 @@ typedef struct	Animation
 	int			sizeH;
 	int			sizeW;
 	int			nbTiles;
+	float		speed;
+
 	int			posX;
 	int			posY;
 	std::string name;
@@ -23,7 +25,7 @@ class AnimationSDL
 		~AnimationSDL(void);
 		void	addAnimation(std::string, T_animation);
 		void	print();
-		const T_animation	*getAnimation(std::string) const;
+		[[nodiscard]] const T_animation	*getAnimation(std::string) const;
 	private:
 		std::unordered_map<std::string, T_animation> _animations;
 };
