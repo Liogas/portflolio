@@ -31,16 +31,16 @@ void	GameScene::handleEvents(EventSDL &events, const GameState &gameState)
 void	GameScene::update(InputSDL &inputs, const GameState &gameState, float deltaTime)
 {
 	if (inputs.isKeyPressed(SDL_SCANCODE_D))
-		gameState.player->move(EDirection::RIGHT, *this);
+		gameState.player->move(EDirection::RIGHT);
 	else if (inputs.isKeyPressed(SDL_SCANCODE_A))
-		gameState.player->move(EDirection::LEFT, *this);
+		gameState.player->move(EDirection::LEFT);
 	else if (inputs.isKeyPressed(SDL_SCANCODE_S))
-		gameState.player->move(EDirection::BOTTOM, *this);
+		gameState.player->move(EDirection::BOTTOM);
 	else if (inputs.isKeyPressed(SDL_SCANCODE_W))
-		gameState.player->move(EDirection::TOP, *this);
+		gameState.player->move(EDirection::TOP);
 	else
-		gameState.player->move(EDirection::NONE, *this);
-	gameState.player->update(deltaTime);
+		gameState.player->move(EDirection::NONE);
+	gameState.player->update(deltaTime, *this);
 }
 
 void	GameScene::render(RendererSDL &renderer, const GameState &gameState)

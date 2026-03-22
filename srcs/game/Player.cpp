@@ -3,18 +3,20 @@
 Player::Player(TextureSDL &t, int w, int h):
 	_sprite(t, w, h)
 {
-	std::cout << "this = " << this << std::endl;
-	std::cout << "w->" << w << " ; h->" << h << std::endl;
-	this->_posX = 0;
-	this->_posY = 0;
-	this->_speed = 0;
-	this->_sizeH = h;
-	this->_sizeW = w;
+	this->_posX 		= 0;
+	this->_posY 		= 0;
+	this->_speed 		= 0;
+	this->_sizeH 		= h;
+	this->_sizeW 		= w;
+	this->_direction 	= EDirection::NONE;
+	this->_lastDirection 	= EDirection::NONE;
+	this->_isMoving 	= false;
 	this->setupAnim();
 	T_paramAnimation	p;
-	p.currName = "standS";
-	p.currPos = 0;
-	p.prevAnim = "xxx";
+	p.currName	= "standS";
+	p.prevAnim 	= "xxx";
+	p.currPos	= 0;
+	p.timer 	= 0.0f;
 	this->_sprite.setParamAnimation(p);
 	std::cout << "Player created" << std::endl;
 }
@@ -32,7 +34,7 @@ void	Player::setupAnim()
 	a.posY 		= 4;
 	a.sizeH 	= 64;
 	a.sizeW 	= 64;
-	a.speed 	= 0.135;
+	a.speed 	= 0.135f;
 	this->_sprite.getTexture().addAnimation("walkS", a);
 	a.posY 		= 5;
 	this->_sprite.getTexture().addAnimation("walkN", a);
@@ -42,7 +44,7 @@ void	Player::setupAnim()
 	this->_sprite.getTexture().addAnimation("walkW", a);
 	a.posY 		= 0;
 	a.nbTiles 	= 1;
-	a.speed 	= 0;
+	a.speed 	= 0.0f;
 	this->_sprite.getTexture().addAnimation("standS", a);
 	a.posY 		= 1;
 	this->_sprite.getTexture().addAnimation("standN", a);
@@ -55,44 +57,12 @@ void	Player::setupAnim()
 }
 
 // Plus tard prendre en compte une SCENE plutot que la fenetre
-void	Player::move(EDirection dir, const Scene &scene)
+void	Player::move(EDirection dir)
 {
-	int	tmpX = this->_posX;
-	int tmpY = this->_posY;
-	T_paramAnimation &anim = this->_sprite.getParamAnimation();
-	switch(dir)
-	{
-		case EDirection::LEFT :
-			tmpX -= this->_speed;
-			anim.prevAnim = anim.currName;
-			anim.currName = "walkW";
-			break;
-		case EDirection::RIGHT :
-			tmpX += this->_speed;
-			anim.prevAnim = anim.currName;
-			anim.currName = "walkE";
-			break;
-		case EDirection::BOTTOM :
-			tmpY += this->_speed;
-			anim.prevAnim = anim.currName;
-			anim.currName = "walkS";
-			break;
-		case EDirection::TOP :
-			tmpY -= this->_speed;
-			anim.prevAnim = anim.currName;
-			anim.currName = "walkN";
-			break;
-		case EDirection::NONE :
-			this->choiceStandAnimation(anim);
-			return ;
-	}
-	std::cout << "Scene : " << scene.getHeight() << std::endl;
-	if (tmpX >= 0 && tmpX < scene.getWidth() - this->_sizeW
-		&& tmpY >= 0 && tmpY < scene.getHeight() - this->_sizeH)
-	{
-		this->_posX = tmpX;
-		this->_posY = tmpY;
-	}
+	if (dir == EDirection::NONE && this->_direction != EDirection::NONE)
+		this->_lastDirection = this->_direction;
+	this->_direction = dir;
+	this->_isMoving = (dir != EDirection::NONE);
 }
 
 void	Player::choiceStandAnimation(T_paramAnimation &p)
@@ -108,23 +78,75 @@ void	Player::choiceStandAnimation(T_paramAnimation &p)
 		p.currName = "standW";
 }
 
-void	Player::update(float deltaTime)
+void	Player::update(float deltaTime, const Scene &scene)
 {
-	(void)deltaTime;
-	T_paramAnimation &anim = this->_sprite.getParamAnimation();
-	if (anim.currName == anim.prevAnim)
+	int tmpX = this->_posX;
+	int tmpY = this->_posY;
+
+	if (this->_isMoving)
 	{
-		anim.currPos++;
-		if (anim.currPos >= this->_sprite.getTexture().getAnimations().getAnimation(anim.currName)->nbTiles)
-			anim.currPos = 0;
-	} else
-	{
-		anim.currPos = 0;
+		switch (this->_direction)
+		{
+			case EDirection::LEFT: tmpX -= this->_speed; break ;
+			case EDirection::RIGHT: tmpX += this->_speed; break ;
+			case EDirection::TOP: tmpY -= this->_speed; break ;
+			case EDirection::BOTTOM: tmpY += this->_speed; break ;
+			default: break;
+		}
 	}
-	this->_sprite.setSrcPosition(
-		anim.currPos * 64,
-		this->_sprite.getTexture().getAnimations().getAnimation(anim.currName)->posY * 64
-	);
+	if (tmpX >= 0 && tmpX < scene.getWidth() - this->_sizeW &&
+		tmpY >= 0 && tmpY < scene.getHeight() - this->_sizeH)
+	{
+		this->_posX = tmpX;
+		this->_posY = tmpY;
+	}
+	this->updateAnimation(deltaTime);
+}
+
+void	Player::updateAnimation(float deltaTime)
+{
+	T_paramAnimation &anim = this->_sprite.getParamAnimation();
+	if (this->_isMoving)
+		anim.currName = getWalkAnim();
+	else
+		anim.currName = getStandAnim();
+	std::cout << "deltaTime: " << deltaTime << std::endl;
+	anim.timer += deltaTime;
+	std::cout << "timer: " << anim.timer << std::endl;
+	const T_animation *animation = this->_sprite.getTexture().getAnimations().getAnimation(anim.currName);
+	std::cout << "speed: " << animation->speed << std::endl;
+	if (anim.timer >= animation->speed)
+	{
+		anim.timer = 0;
+		anim.currPos++;
+		int max = animation->nbTiles;
+		anim.currPos %= max;
+		std::cout << "anim.currPos " << anim.currPos << std::endl; 
+	}
+}
+
+std::string	Player::getWalkAnim()
+{
+	switch (this->_direction)
+	{
+		case EDirection::LEFT: return "walkW";
+		case EDirection::RIGHT: return "walkE";
+		case EDirection::TOP: return "walkN";
+		case EDirection::BOTTOM: return "walkS";
+		default: return "standS";
+	}
+}
+
+std::string	Player::getStandAnim()
+{
+	switch (this->_direction)
+	{
+		case EDirection::LEFT: return "standW";
+		case EDirection::RIGHT: return "standE";
+		case EDirection::TOP: return "standN";
+		case EDirection::BOTTOM: return "standS";
+		default: return "standS";
+	}
 }
 
 Sprite	&Player::getSprite()

@@ -39,8 +39,8 @@ void	Sprite::setSrcPosition(int x, int y)
 
 void	Sprite::render()
 {
-	// std::cout << " SRC -> y:" << this->_src.y << " x:" << this->_src.x << " w:" << this->_src.w << " h:" << this->_src.h << std::endl;
-	// std::cout << " dest -> y:" << this->_dest.y << " x:" << this->_dest.x << " w:" << this->_dest.w << " h:" << this->_dest.h << std::endl;
+	this->_src.x = this->_paramAnimation.currPos * this->_src.w;
+	this->_src.y = this->getTexture().getAnimations().getAnimation(this->_paramAnimation.currName)->posY * this->_src.h;
 	this->_texture.render(&this->_src, &this->_dest);
 }
 

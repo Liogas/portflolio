@@ -9,6 +9,7 @@ typedef struct	paramAnimation
 	std::string currName;
 	std::string	prevAnim;
 	float		speed;
+	float		timer;
 	int			maxFrame;
 	int			currPos;
 }	T_paramAnimation;
