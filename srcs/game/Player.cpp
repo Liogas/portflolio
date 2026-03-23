@@ -5,7 +5,7 @@ Player::Player(TextureSDL &t, int w, int h):
 {
 	this->_posX 		= 0;
 	this->_posY 		= 0;
-	this->_speed 		= 0;
+	this->_speed 		= 2;
 	this->_sizeH 		= h;
 	this->_sizeW 		= w;
 	this->_direction 	= EDirection::NONE;
@@ -32,8 +32,8 @@ void	Player::setupAnim()
 	a.nbTiles 	= 6;
 	a.posX 		= 0;
 	a.posY 		= 4;
-	a.sizeH 	= 64;
-	a.sizeW 	= 64;
+	a.sizeH 	= 128;
+	a.sizeW 	= 128;
 	a.speed 	= 0.135f;
 	this->_sprite.getTexture().addAnimation("walkS", a);
 	a.posY 		= 5;
@@ -110,18 +110,14 @@ void	Player::updateAnimation(float deltaTime)
 		anim.currName = getWalkAnim();
 	else
 		anim.currName = getStandAnim();
-	std::cout << "deltaTime: " << deltaTime << std::endl;
 	anim.timer += deltaTime;
-	std::cout << "timer: " << anim.timer << std::endl;
 	const T_animation *animation = this->_sprite.getTexture().getAnimations().getAnimation(anim.currName);
-	std::cout << "speed: " << animation->speed << std::endl;
 	if (anim.timer >= animation->speed)
 	{
 		anim.timer = 0;
 		anim.currPos++;
 		int max = animation->nbTiles;
 		anim.currPos %= max;
-		std::cout << "anim.currPos " << anim.currPos << std::endl; 
 	}
 }
 
@@ -139,7 +135,7 @@ std::string	Player::getWalkAnim()
 
 std::string	Player::getStandAnim()
 {
-	switch (this->_direction)
+	switch (this->_lastDirection)
 	{
 		case EDirection::LEFT: return "standW";
 		case EDirection::RIGHT: return "standE";

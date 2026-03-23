@@ -19,7 +19,8 @@ SRCS_CORE	= \
 	$(SRCS_CORE_DIR)/scene/GameScene.cpp
 SRCS_GAME	= \
 	$(SRCS_GAME_DIR)/GameState.cpp \
-	$(SRCS_GAME_DIR)/Player.cpp
+	$(SRCS_GAME_DIR)/Player.cpp \
+	$(SRCS_GAME_DIR)/TileMap.cpp
 SRCS_GRAPH	= \
 	$(SRCS_GRAPH_DIR)/Sprite.cpp
 
