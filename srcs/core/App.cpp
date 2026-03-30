@@ -25,7 +25,7 @@ void	App::run()
 	{
 		this->_running	= true;
 		auto lastTime 	= std::chrono::high_resolution_clock::now();
-		this->_sceneManager.changeScene(std::make_unique<GameScene>());
+		this->_sceneManager.changeScene(std::make_unique<GameScene>(this->_window.getWidth(), this->_window.getHeight()));
 		while (this->_running)
 		{
 			auto currentTime = std::chrono::high_resolution_clock::now();

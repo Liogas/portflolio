@@ -1,10 +1,11 @@
 #include "GameScene.hpp"
 
-GameScene::GameScene()
+GameScene::GameScene(int width, int height)
 {
 	std::cout << "GameScene created" << std::endl;
-	this->_height = 720;
-	this->_width = 1280;
+	this->_height = height;
+	this->_width = width;
+	this->_map = nullptr;
 }
 
 GameScene::~GameScene()
@@ -15,6 +16,14 @@ GameScene::~GameScene()
 void	GameScene::onEnter()
 {
 	std::cout << "Enter on GameScene" << std::endl;
+	try
+	{
+		MapParseur	parseur("home.tmj");
+		this->_map = parseur.start();
+	} catch (const std::exception &e)
+	{
+		throw std::runtime_error(e.what());
+	}
 }
 
 void	GameScene::onExit()

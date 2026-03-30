@@ -18,6 +18,8 @@ WindowSDL::WindowSDL(
 	if (!this->_window)
 		throw	std::runtime_error(SDL_GetError());
 	this->_fullScreen = false;
+	this->_height = height;
+	this->_width = width;
 	std::cout << "Window " << title << " created" << std::endl;
 }
 
@@ -50,4 +52,14 @@ void	WindowSDL::setFullScreen()
 SDL_Window	*WindowSDL::getWindow() const
 {
 	return (this->_window);
+}
+
+int	WindowSDL::getWidth() const
+{
+	return (this->_width);
+}
+
+int	WindowSDL::getHeight() const
+{
+	return (this->_height);
 }

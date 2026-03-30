@@ -7,15 +7,17 @@ NAME = portfolio
 
 OBJS_DIR = objs
 
-SRCS_CORE_DIR	= srcs/core
-SRCS_GAME_DIR	= srcs/game
-SRCS_GRAPH_DIR	= srcs/graphics
+SRCS_CORE_DIR		= srcs/core
+SRCS_GAME_DIR		= srcs/game
+SRCS_GRAPH_DIR		= srcs/graphics
+SRCS_PARSEUR_DIR	= srcs/parseur
 
 SRCS_CORE	= \
 	$(SRCS_CORE_DIR)/main.cpp \
 	$(SRCS_CORE_DIR)/App.cpp \
 	$(SRCS_CORE_DIR)/RessourceManager.cpp \
 	$(SRCS_CORE_DIR)/SceneManager.cpp \
+	$(SRCS_CORE_DIR)/tinyxml2.cpp \
 	$(SRCS_CORE_DIR)/scene/GameScene.cpp
 SRCS_GAME	= \
 	$(SRCS_GAME_DIR)/GameState.cpp \
@@ -23,10 +25,13 @@ SRCS_GAME	= \
 	$(SRCS_GAME_DIR)/TileMap.cpp
 SRCS_GRAPH	= \
 	$(SRCS_GRAPH_DIR)/Sprite.cpp
+SRCS_PARSEUR = \
+	$(SRCS_PARSEUR_DIR)/MapParseur.cpp
 
-OBJS_CORE 	= $(SRCS_CORE:$(SRCS_CORE_DIR)/%.cpp=$(OBJS_DIR)/core/%.o)
-OBJS_GAME 	= $(SRCS_GAME:$(SRCS_GAME_DIR)/%.cpp=$(OBJS_DIR)/game/%.o)
-OBJS_GRAPH	= $(SRCS_GRAPH:$(SRCS_GRAPH_DIR)/%.cpp=$(OBJS_DIR)/graph/%.o)
+OBJS_CORE 		= $(SRCS_CORE:$(SRCS_CORE_DIR)/%.cpp=$(OBJS_DIR)/core/%.o)
+OBJS_GAME 		= $(SRCS_GAME:$(SRCS_GAME_DIR)/%.cpp=$(OBJS_DIR)/game/%.o)
+OBJS_GRAPH		= $(SRCS_GRAPH:$(SRCS_GRAPH_DIR)/%.cpp=$(OBJS_DIR)/graph/%.o)
+OBJS_PARSEUR	= $(SRCS_PARSEUR:$(SRCS_PARSEUR_DIR)/%.cpp=$(OBJS_DIR)/parseur/%.o)
 
 SRCS_SDL_DIR = MySDL/srcs
 
@@ -41,7 +46,7 @@ SRCS_SDL = \
 
 OBJS_SDL = $(SRCS_SDL:$(SRCS_SDL_DIR)/%.cpp=$(OBJS_DIR)/sdl/%.o)
 
-OBJS = $(OBJS_CORE) $(OBJS_GAME) $(OBJS_GRAPH) $(OBJS_SDL)
+OBJS = $(OBJS_CORE) $(OBJS_GAME) $(OBJS_GRAPH) $(OBJS_PARSEUR) $(OBJS_SDL)
 
 all: $(NAME)
 
@@ -57,6 +62,11 @@ $(OBJS_DIR)/game/%.o: $(SRCS_GAME_DIR)/%.cpp
 
 # GRAPHICS
 $(OBJS_DIR)/graph/%.o: $(SRCS_GRAPH_DIR)/%.cpp
+	mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+
+# PARSEURS
+$(OBJS_DIR)/parseur/%.o: $(SRCS_PARSEUR_DIR)/%.cpp
 	mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
