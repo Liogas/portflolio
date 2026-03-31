@@ -7,13 +7,22 @@
 class TileMap
 {
 	public:
-		TileMap(const std::string &file_path);
+		TileMap(int width, int height);
 		~TileMap();
+		// SETTERS
+		void	setWidth(int w);
+		void	setHeight(int h);
+		void	setTileSize(int s);
+		// GETTERS
+		[[nodiscard]] int	getWidth() const;
+		[[nodiscard]] int	getHeight() const;
+		[[nodiscard]] int	getTileSize() const;
 	private:
-		int					width;
-		int					height;
-		int					tileSize;
-		std::vector<int>	tiles;
+		int					_width;
+		int					_height;
+		int					_tileSize;
+		std::vector<int>	_tiles;
+		std::vector<int>	_passages;
 };
 
 #endif
