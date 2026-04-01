@@ -2,13 +2,14 @@
 # define SCENEMANAGER_HPP
 
 # include "Scene.hpp"
+# include "RessourceManager.hpp"
 
 # include <memory>
 
 class SceneManager
 {
 	public:
-		SceneManager(void);
+		SceneManager(RessourceManager &ressources);
 		~SceneManager(void);
 		void	changeScene(std::unique_ptr<Scene> scene);
 		// METHODS
@@ -17,6 +18,7 @@ class SceneManager
 		void	handleEvent(EventSDL &event, const GameState &gameState);
 	private:
 		std::unique_ptr<Scene>	_currScene;
+		RessourceManager		_ressources;
 };
 
 #endif

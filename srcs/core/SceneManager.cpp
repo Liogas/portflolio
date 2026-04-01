@@ -1,9 +1,10 @@
 #include "SceneManager.hpp"
 
-SceneManager::SceneManager():
+SceneManager::SceneManager(RessourceManager &ressources):
 	_currScene(nullptr)
 {
 	std::cout << "SceneManager created" << std::endl;
+	this->_ressources = ressources;
 };
 
 SceneManager::~SceneManager()
@@ -27,7 +28,7 @@ void	SceneManager::changeScene(std::unique_ptr<Scene> scene)
 		this->_currScene->onExit();
 	this->_currScene = std::move(scene);
 	if (this->_currScene)
-		this->_currScene->onEnter();
+		this->_currScene->onEnter(this->_ressources);
 	else
 		std::cout << "Probleme lors du changement de scene" << std::endl;
 }

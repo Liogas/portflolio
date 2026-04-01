@@ -14,7 +14,7 @@ class Scene
 	public:
 		virtual 		~Scene() = default;
 		// METHODS
-		virtual void	onEnter() 																	= 0;
+		virtual void	onEnter(RessourceManager &ressources) 																	= 0;
 		virtual void	onExit() 																	= 0;
 		virtual void	update(InputSDL &inputs, const GameState &gameState, float deltaTime) 		= 0;
 		virtual void	handleEvents(EventSDL &, const GameState &gameState)						= 0;

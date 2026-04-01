@@ -4,38 +4,26 @@
 # include <iostream>
 # include <filesystem>
 # include <fstream>
-# include "tinyxml2.h"
+
 # include "TileMap.hpp"
+# include "RessourceManager.hpp"
+
+# include "tinyxml2.h"
 # include "json.hpp"
-
-typedef struct s_tileset
-{
-	int			firstgid;
-	std::string pathfile;
-}	t_tileset;
-
-typedef struct	s_layer
-{
-	std::vector<int>	data;
-	bool				visible;
-	std::string			name;
-}	t_layer;
 
 class MapParseur
 {
 	public:
 		MapParseur(const std::string &path);
 		~MapParseur();
-		TileMap	*start();
+		std::unique_ptr<TileMap> start(RessourceManager &ressources);
 	private:
 		// PROPS
-		std::string				_path;
-		std::vector<t_tileset>	_tilesets;
-		std::vector<t_layer>	_layers;
-		
+		std::string					_path;
+		std::unique_ptr<TileMap>	_map;
 		// METHODS
-		void	loadTilesets(nlohmann::json &data);
-		void	loadLayers(nlohmann::json &data);
+		void	parseTilesets(nlohmann::json &data, RessourceManager &ressources);
+		void	parseLayers(nlohmann::json &data);
 };
 
 #endif

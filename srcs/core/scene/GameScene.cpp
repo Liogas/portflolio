@@ -13,13 +13,13 @@ GameScene::~GameScene()
 	std::cout << "GameScene destroyed" << std::endl;
 }
 
-void	GameScene::onEnter()
+void	GameScene::onEnter(RessourceManager &ressources)
 {
 	std::cout << "Enter on GameScene" << std::endl;
 	try
 	{
 		MapParseur	parseur("home.tmj");
-		this->_map = parseur.start();
+		this->_map = parseur.start(ressources);
 	} catch (const std::exception &e)
 	{
 		throw std::runtime_error(e.what());

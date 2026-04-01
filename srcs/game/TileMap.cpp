@@ -1,9 +1,9 @@
 #include "TileMap.hpp"
 
-TileMap::TileMap(int width, int height)
+TileMap::TileMap()
 {
-	this->_height = height;
-	this->_width = width;
+	this->_height = 0;
+	this->_width = 0;
 	std::cout << "TileMap created" << std::endl;
 }
 
@@ -27,6 +27,11 @@ void	TileMap::setTileSize(int s)
 	this->_tileSize = s;
 }
 
+void	TileMap::setCollisionLayer(t_layer l)
+{
+	this->_collisionLayer = l;
+}
+
 
 int	TileMap::getHeight() const
 {
@@ -42,3 +47,21 @@ int	TileMap::getTileSize() const
 {
 	return (this->_tileSize);
 }
+
+void	TileMap::addLayer(t_layer l)
+{
+	this->_layers.push_back(l);
+}
+
+void	TileMap::addTileset(t_tileset t)
+{
+	this->_tilesets.push_back(t);
+}
+
+void	TileMap::printLayers()
+{
+	for (t_layer l : this->_layers)
+		std::cout << "Layer : " << l.name << std::endl;
+}
+
+

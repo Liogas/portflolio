@@ -5,7 +5,7 @@ TextureSDL::TextureSDL(RendererSDL &renderer, const std::string &path):
 {
 	this->_texture = this->_renderer.loadImg(path.c_str());
 	if (!this->_texture)
-		throw std::runtime_error("Error texture sdl");
+		throw std::runtime_error("Error loadImg textureSDL");
 	std::cout << "TextureSDL created" << std::endl;
 }
 

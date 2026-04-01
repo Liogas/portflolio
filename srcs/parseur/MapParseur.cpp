@@ -2,8 +2,7 @@
 
 MapParseur::MapParseur(const std::string &path):
 	_path(path),
-	_tilesets(),
-	_layers()
+	_map(std::make_unique<TileMap>())
 {
 	std::filesystem::path p(path);
 	if (p.extension() != ".json" && p.extension() != ".tmj")
@@ -18,44 +17,58 @@ MapParseur::~MapParseur()
 	std::cout << "MapParseur destroyed" << std::endl;
 }
 
-TileMap	*MapParseur::start()
+std::unique_ptr<TileMap> MapParseur::start(RessourceManager &ressources)
 {
 	std::ifstream file(this->_path);
-	if (!file.is_open())
+	if (!file)
 		throw std::runtime_error("Can't open file");
 
 	nlohmann::json	data;
 	file >> data;
 		
-	std::unique_ptr<TileMap> map = std::make_unique<TileMap>(data["width"], data["height"]);
-	map->setTileSize(data["tileheight"]);
+	this->_map->setWidth(data["width"]);
+	this->_map->setHeight(data["height"]);
+	this->_map->setTileSize(data["tileheight"]);
 
-	this->loadTilesets(data);
-	this->loadLayers(data);
+	this->parseTilesets(data, ressources);
+	this->parseLayers(data);
 	
-	file.close();
 	throw std::runtime_error("WIP");
+	return (std::move(this->_map));
 }
 
-void	MapParseur::loadTilesets(nlohmann::json &data)
+void	MapParseur::parseTilesets(nlohmann::json &data, RessourceManager &ressources)
 {
-	for (auto l : data["tilesets"])
+	for (auto &l : data["tilesets"])
 	{
 		t_tileset t;
 		t.firstgid = l["firstgid"];
-		t.pathfile = l["source"];
-		this->_tilesets.push_back(t);
+		tinyxml2::XMLDocument doc;
+		if (doc.LoadFile(l["source"]) != tinyxml2::XML_SUCCESS)
+			throw std::runtime_error("Can't open XML File");
+		tinyxml2::XMLElement *tileset = doc.FirstChildElement("tileset");
+		t.tileHeight = tileset->IntAttribute("tileheight");
+		t.tileWidth = tileset->IntAttribute("tilewidth");
+		t.columns = tileset->IntAttribute("columns");
+		tinyxml2::XMLElement *image = tileset->FirstChildElement("image");
+		t.pathfile = image->Attribute("source");
+		t.texture = ressources.getTexture(t.pathfile);
+		this->_map->addTileset(t);
 	}
 }
 
-void	MapParseur::loadLayers(nlohmann::json &data)
+void	MapParseur::parseLayers(nlohmann::json &data)
 {
-	for (auto l : data["layers"])
+	for (auto &l : data["layers"])
 	{
 		t_layer	t;
 		t.data = l["data"].get<std::vector<int>>();
 		t.name = l["name"];
 		t.visible = l["visible"];
-		this->_layers.push_back(t);
+		if (t.name == "Passages")
+			this->_map->setCollisionLayer(t)
+		else
+			this->_map->addLayer(t);
 	}
+	this->_map->printLayers();
 }

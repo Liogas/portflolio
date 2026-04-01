@@ -8,7 +8,7 @@ App::App():
 	_input(),
 	_event(),
 	_ressources(this->_renderer),
-	_sceneManager(),
+	_sceneManager(this->_ressources),
 	_gameState(this->_ressources)
 {
 	std::cout << "App created" << std::endl;

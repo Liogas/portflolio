@@ -10,13 +10,13 @@ class GameScene : public Scene
 	public:
 		GameScene(int width, int height);
 		~GameScene() override;
-		void	onEnter() 							override;
+		void	onEnter(RessourceManager &ressources) override;
 		void	onExit() 							override;
 		void	update(InputSDL &inputs, const GameState &gameState, float deltaTime) override;
 		void	handleEvents(EventSDL &event, const GameState &gameState) override;
 		void	render(RendererSDL &, const GameState &gameState) override;
 	private:
-		TileMap	*_map;
+		std::unique_ptr<TileMap>	_map;
 };
 
 #endif
