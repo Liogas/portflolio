@@ -64,4 +64,47 @@ void	TileMap::printLayers()
 		std::cout << "Layer : " << l.name << std::endl;
 }
 
+void	TileMap::render()
+{
+	for (const auto &layer : this->_layers)
+	{
+		if (!layer.visible)
+			continue ;
+		for (int y = 0; y < this->_height; y++)
+		{
+			for (int x = 0; x < this->_width; x++)
+			{
+				int index = layer.data[y * this->_width + x];
+				if (index == 0)
+					continue ;
+				
+				const t_tileset *tileset = this->getTilesetForTile(index);
+
+				int localId = index - tileset->firstgid;
+				int tilesPerRow = tileset->columns;
+				int srcX = (localId % tilesPerRow) * tileset->tileWidth;
+				int srcY = (localId / tilesPerRow) * tileset->tileHeight;
+				int dstX = x * this->_tileSize;
+				int dstY = y * this->_tileSize;
+				tileset->sprite->setSrcPosition(srcX, srcY);
+				tileset->sprite->setDestPosition(dstX, dstY);
+				tileset->sprite->render();
+			}
+		}
+	}
+}
+
+const t_tileset	*TileMap::getTilesetForTile(int gid) const
+{
+	const t_tileset	*ts = nullptr;
+	for (const auto &tileset : this->_tilesets)
+	{
+		if (gid >= tileset.firstgid)
+			ts = &tileset;
+		else
+			break ;
+	}
+	return (ts);
+}
+
 

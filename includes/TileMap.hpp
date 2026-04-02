@@ -3,11 +3,12 @@
 
 # include <iostream>
 # include <vector>
+# include <memory>
 
-# include "TextureSDL.hpp"
+# include "Sprite.hpp"
 
 /*
-	Regle pour les layers
+	Regles pour les layers (pas encore appliquees)
 	PASSAGES -> collisions
 	INTERACTIVE -> case avec interaction
 	other -> texture simple pour le moment
@@ -15,12 +16,12 @@
 
 typedef struct s_tileset
 {
-	int			firstgid;
-	int			tileWidth;
-	int			tileHeight;
-	int			columns;
-	TextureSDL	texture;
-	std::string pathfile;
+	int						firstgid;
+	int						tileWidth;
+	int						tileHeight;
+	int						columns;
+	std::string 			pathfile;
+	std::shared_ptr<Sprite>	sprite;
 }	t_tileset;
 
 typedef struct	s_layer
@@ -39,6 +40,7 @@ class TileMap
 		void	addTileset(t_tileset);
 		void	addLayer(t_layer);
 		void	printLayers();
+		void	render();
 		// SETTERS
 		void	setWidth(int w);
 		void	setHeight(int h);
@@ -49,12 +51,15 @@ class TileMap
 		[[nodiscard]] int	getHeight() const;
 		[[nodiscard]] int	getTileSize() const;
 	private:
+		// PROPS
 		int						_width;
 		int						_height;
 		int						_tileSize;
 		std::vector<t_tileset>	_tilesets;
 		std::vector<t_layer>	_layers;
 		t_layer					_collisionLayer;
+		// METHODS
+		const t_tileset	*getTilesetForTile(int gid) const;
 };
 
 #endif

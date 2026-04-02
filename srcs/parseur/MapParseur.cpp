@@ -33,7 +33,7 @@ std::unique_ptr<TileMap> MapParseur::start(RessourceManager &ressources)
 	this->parseTilesets(data, ressources);
 	this->parseLayers(data);
 	
-	throw std::runtime_error("WIP");
+	// throw std::runtime_error("WIP");
 	return (std::move(this->_map));
 }
 
@@ -43,16 +43,24 @@ void	MapParseur::parseTilesets(nlohmann::json &data, RessourceManager &ressource
 	{
 		t_tileset t;
 		t.firstgid = l["firstgid"];
+		std::cout << "file xml -> " << l["source"].get<std::string>().c_str() << std::endl;
 		tinyxml2::XMLDocument doc;
-		if (doc.LoadFile(l["source"]) != tinyxml2::XML_SUCCESS)
+		if (doc.LoadFile(l["source"].get<std::string>().c_str()) != tinyxml2::XML_SUCCESS)
 			throw std::runtime_error("Can't open XML File");
 		tinyxml2::XMLElement *tileset = doc.FirstChildElement("tileset");
 		t.tileHeight = tileset->IntAttribute("tileheight");
 		t.tileWidth = tileset->IntAttribute("tilewidth");
 		t.columns = tileset->IntAttribute("columns");
+
 		tinyxml2::XMLElement *image = tileset->FirstChildElement("image");
-		t.pathfile = image->Attribute("source");
-		t.texture = ressources.getTexture(t.pathfile);
+
+		std::filesystem::path tsxPath(l["source"].get<std::string>().c_str());
+		std::filesystem::path tsxDir = tsxPath.parent_path();
+		std::filesystem::path fullPath = tsxDir / image->Attribute("source");
+		t.pathfile = fullPath.string();
+
+		std::cout << "Tentative d'ouverture de -> " << t.pathfile << std::endl;
+		t.sprite = std::make_shared<Sprite>(ressources.getTexture(t.pathfile), t.tileWidth, t.tileHeight, false);
 		this->_map->addTileset(t);
 	}
 }
@@ -66,7 +74,7 @@ void	MapParseur::parseLayers(nlohmann::json &data)
 		t.name = l["name"];
 		t.visible = l["visible"];
 		if (t.name == "Passages")
-			this->_map->setCollisionLayer(t)
+			this->_map->setCollisionLayer(t);
 		else
 			this->_map->addLayer(t);
 	}

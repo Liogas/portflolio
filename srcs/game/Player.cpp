@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
-Player::Player(TextureSDL &t, int w, int h):
-	_sprite(t, w, h)
+Player::Player(std::shared_ptr<TextureSDL> t, int w, int h):
+	_sprite(t, w, h, true)
 {
 	this->_posX 		= 0;
 	this->_posY 		= 0;
@@ -32,26 +32,26 @@ void	Player::setupAnim()
 	a.nbTiles 	= 6;
 	a.posX 		= 0;
 	a.posY 		= 4;
-	a.sizeH 	= 128;
-	a.sizeW 	= 128;
+	a.sizeH 	= this->_sizeH;
+	a.sizeW 	= this->_sizeW;
 	a.speed 	= 0.135f;
-	this->_sprite.getTexture().addAnimation("walkS", a);
+	this->_sprite.getTexture()->addAnimation("walkS", a);
 	a.posY 		= 5;
-	this->_sprite.getTexture().addAnimation("walkN", a);
+	this->_sprite.getTexture()->addAnimation("walkN", a);
 	a.posY 		= 6;
-	this->_sprite.getTexture().addAnimation("walkE", a);
+	this->_sprite.getTexture()->addAnimation("walkE", a);
 	a.posY 		= 7;
-	this->_sprite.getTexture().addAnimation("walkW", a);
+	this->_sprite.getTexture()->addAnimation("walkW", a);
 	a.posY 		= 0;
 	a.nbTiles 	= 1;
 	a.speed 	= 0.0f;
-	this->_sprite.getTexture().addAnimation("standS", a);
+	this->_sprite.getTexture()->addAnimation("standS", a);
 	a.posY 		= 1;
-	this->_sprite.getTexture().addAnimation("standN", a);
+	this->_sprite.getTexture()->addAnimation("standN", a);
 	a.posY 		= 2;
-	this->_sprite.getTexture().addAnimation("standE", a);
+	this->_sprite.getTexture()->addAnimation("standE", a);
 	a.posY 		= 3;
-	this->_sprite.getTexture().addAnimation("standW", a);
+	this->_sprite.getTexture()->addAnimation("standW", a);
 
 	// this->_sprite.getTexture().printAnimations();
 }
@@ -111,7 +111,7 @@ void	Player::updateAnimation(float deltaTime)
 	else
 		anim.currName = getStandAnim();
 	anim.timer += deltaTime;
-	const T_animation *animation = this->_sprite.getTexture().getAnimations().getAnimation(anim.currName);
+	const T_animation *animation = this->_sprite.getTexture()->getAnimations().getAnimation(anim.currName);
 	if (anim.timer >= animation->speed)
 	{
 		anim.timer = 0;

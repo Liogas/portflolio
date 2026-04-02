@@ -54,6 +54,7 @@ void	GameScene::update(InputSDL &inputs, const GameState &gameState, float delta
 
 void	GameScene::render(RendererSDL &renderer, const GameState &gameState)
 {
+	this->_map->render();
 	gameState.player->render();
 	renderer.present();
 }

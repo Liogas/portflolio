@@ -1,10 +1,10 @@
 #include "SceneManager.hpp"
 
 SceneManager::SceneManager(RessourceManager &ressources):
-	_currScene(nullptr)
+	_currScene(nullptr),
+	_ressources(ressources)
 {
 	std::cout << "SceneManager created" << std::endl;
-	this->_ressources = ressources;
 };
 
 SceneManager::~SceneManager()

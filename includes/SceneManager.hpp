@@ -18,7 +18,7 @@ class SceneManager
 		void	handleEvent(EventSDL &event, const GameState &gameState);
 	private:
 		std::unique_ptr<Scene>	_currScene;
-		RessourceManager		_ressources;
+		RessourceManager		&_ressources;
 };
 
 #endif

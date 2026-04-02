@@ -1,9 +1,10 @@
 #include "Sprite.hpp"
 
 Sprite::Sprite(
-	TextureSDL &t,
+	std::shared_ptr<TextureSDL> t,
 	int	width,
-	int	height
+	int	height,
+	bool hasAnim
 ):
 	_texture(t),
 	_paramAnimation()
@@ -17,6 +18,8 @@ Sprite::Sprite(
 	this->_src.h = height;
 	this->_src.x = 0;
 	this->_src.y = 0;
+
+	this->_hasAnim = hasAnim;
 	std::cout << "Sprite created" << std::endl;
 }
 
@@ -39,12 +42,15 @@ void	Sprite::setSrcPosition(int x, int y)
 
 void	Sprite::render()
 {
-	this->_src.x = this->_paramAnimation.currPos * this->_src.w;
-	this->_src.y = this->getTexture().getAnimations().getAnimation(this->_paramAnimation.currName)->posY * this->_src.h;
-	this->_texture.render(&this->_src, &this->_dest);
+	if (this->_hasAnim)
+	{
+		this->_src.x = this->_paramAnimation.currPos * this->_src.w;
+		this->_src.y = this->_texture->getAnimations().getAnimation(this->_paramAnimation.currName)->posY * this->_src.h;
+	}
+	this->_texture->render(&this->_src, &this->_dest);
 }
 
-TextureSDL	&Sprite::getTexture() const
+std::shared_ptr<TextureSDL>	Sprite::getTexture() const
 {
 	return (this->_texture);
 }

@@ -6,6 +6,7 @@ TextureSDL::TextureSDL(RendererSDL &renderer, const std::string &path):
 	this->_texture = this->_renderer.loadImg(path.c_str());
 	if (!this->_texture)
 		throw std::runtime_error("Error loadImg textureSDL");
+	SDL_SetTextureBlendMode(this->_texture, SDL_BLENDMODE_BLEND);
 	std::cout << "TextureSDL created" << std::endl;
 }
 

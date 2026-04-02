@@ -18,7 +18,7 @@ class Scene;
 class Player
 {
 	public:
-		Player(TextureSDL &t, int w, int h);
+		Player(std::shared_ptr<TextureSDL> t, int w, int h);
 		~Player();
 		void					move(EDirection);
 		void					update(float deltaTime, const Scene &scene);

@@ -8,6 +8,7 @@
 # include "GameState.hpp"
 
 class GameState;
+class RessourceManager;
 
 class Scene
 {
