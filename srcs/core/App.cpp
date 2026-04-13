@@ -11,6 +11,7 @@ App::App():
 	_sceneManager(this->_ressources),
 	_gameState(this->_ressources)
 {
+	SDL_RenderSetLogicalSize(this->_renderer.getRenderer(), 640, 360);
 	std::cout << "App created" << std::endl;
 }
 
@@ -25,7 +26,7 @@ void	App::run()
 	{
 		this->_running	= true;
 		auto lastTime 	= std::chrono::high_resolution_clock::now();
-		this->_sceneManager.changeScene(std::make_unique<GameScene>(this->_window.getWidth(), this->_window.getHeight()));
+		this->_sceneManager.changeScene(std::make_unique<GameScene>(this->_window.getWidth(), this->_window.getHeight()), this->_gameState);
 		while (this->_running)
 		{
 			auto currentTime = std::chrono::high_resolution_clock::now();

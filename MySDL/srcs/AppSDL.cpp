@@ -6,6 +6,7 @@ AppSDL::AppSDL(ESDLOption option)
 		throw std::runtime_error(SDL_GetError());
 	if (!IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG))
 		throw std::runtime_error(IMG_GetError());
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 	std::cout << "SDL initialized" << std::endl;
 }
 

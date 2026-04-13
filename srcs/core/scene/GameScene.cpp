@@ -13,13 +13,16 @@ GameScene::~GameScene()
 	std::cout << "GameScene destroyed" << std::endl;
 }
 
-void	GameScene::onEnter(RessourceManager &ressources)
+void	GameScene::onEnter(RessourceManager &ressources, const GameState &gameState)
 {
 	std::cout << "Enter on GameScene" << std::endl;
 	try
 	{
 		MapParseur	parseur("home.tmj");
 		this->_map = parseur.start(ressources);
+		gameState.player->setPos(550, 280);
+		this->_camera.setPos(gameState.player->getX()- (this->_width / 2),
+			gameState.player->getY() - (this->_height / 2));
 	} catch (const std::exception &e)
 	{
 		throw std::runtime_error(e.what());
@@ -50,11 +53,29 @@ void	GameScene::update(InputSDL &inputs, const GameState &gameState, float delta
 	else
 		gameState.player->move(EDirection::NONE);
 	gameState.player->update(deltaTime, *this);
+	this->_camera.setPos(gameState.player->getX() - (this->_width / 4),
+		gameState.player->getY() - (this->_height / 4));
+}
+
+bool	GameScene::isWalkable(int posX, int posY) const
+{
+	auto& map = *this->_map;
+
+    int tileSize = map.getTileSize();
+    int tileX = posX / tileSize + 1;
+    int tileY = posY / tileSize + 1;
+
+    if (tileX < 0 || tileY < 0 
+        || tileX >= map.getWidth() 
+        || tileY >= map.getHeight())
+        return (false);
+    int index = tileY * map.getWidth() + tileX;
+    return (map.getCollisionLayer().data[index] == 0);
 }
 
 void	GameScene::render(RendererSDL &renderer, const GameState &gameState)
 {
-	this->_map->render();
-	gameState.player->render();
+	this->_map->render(this->_camera);
+	gameState.player->render(this->_camera);
 	renderer.present();
 }

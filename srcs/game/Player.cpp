@@ -94,8 +94,10 @@ void	Player::update(float deltaTime, const Scene &scene)
 			default: break;
 		}
 	}
-	if (tmpX >= 0 && tmpX < scene.getWidth() - this->_sizeW &&
-		tmpY >= 0 && tmpY < scene.getHeight() - this->_sizeH)
+	
+	if (tmpX >= 0 && tmpX < scene.getWidth() - this->_sizeW 
+		&& tmpY >= 0 && tmpY < scene.getHeight() - this->_sizeH
+		&& scene.isWalkable(tmpX, tmpY))
 	{
 		this->_posX = tmpX;
 		this->_posY = tmpY;
@@ -150,8 +152,24 @@ Sprite	&Player::getSprite()
 	return (this->_sprite);
 }
 
-void	Player::render()
+int	Player::getY() const
 {
-	this->_sprite.setDestPosition(this->_posX, this->_posY);
+	return (this->_posY + this->_sizeH / 2);
+}
+
+int	Player::getX() const
+{
+	return (this->_posX + this->_sizeW / 2);
+}
+
+void	Player::render(Camera &camera)
+{
+	this->_sprite.setDestPosition(this->_posX - camera.getX(), this->_posY - camera.getY());
 	this->_sprite.render();
+}
+
+void	Player::setPos(int posX, int posY)
+{
+	this->_posX = posX;
+	this->_posY = posY;
 }

@@ -22,13 +22,13 @@ void	SceneManager::update(InputSDL &input, const GameState &gameState, float del
 	this->_currScene->update(input, gameState, deltaTime);
 }
 
-void	SceneManager::changeScene(std::unique_ptr<Scene> scene)
+void	SceneManager::changeScene(std::unique_ptr<Scene> scene, const GameState &gameState)
 {
 	if (this->_currScene)
 		this->_currScene->onExit();
 	this->_currScene = std::move(scene);
 	if (this->_currScene)
-		this->_currScene->onEnter(this->_ressources);
+		this->_currScene->onEnter(this->_ressources, gameState);
 	else
 		std::cout << "Probleme lors du changement de scene" << std::endl;
 }

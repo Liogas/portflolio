@@ -6,6 +6,7 @@
 # include <memory>
 
 # include "Sprite.hpp"
+# include "Camera.hpp"
 
 /*
 	Regles pour les layers (pas encore appliquees)
@@ -40,16 +41,17 @@ class TileMap
 		void	addTileset(t_tileset);
 		void	addLayer(t_layer);
 		void	printLayers();
-		void	render();
+		void	render(Camera &camera);
 		// SETTERS
 		void	setWidth(int w);
 		void	setHeight(int h);
 		void	setTileSize(int s);
 		void	setCollisionLayer(t_layer l);
 		// GETTERS
-		[[nodiscard]] int	getWidth() const;
-		[[nodiscard]] int	getHeight() const;
-		[[nodiscard]] int	getTileSize() const;
+		[[nodiscard]] int		getWidth() const;
+		[[nodiscard]] int		getHeight() const;
+		[[nodiscard]] int		getTileSize() const;
+		[[nodiscard]] t_layer	getCollisionLayer() const;
 	private:
 		// PROPS
 		int						_width;

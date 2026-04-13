@@ -11,7 +11,7 @@ class SceneManager
 	public:
 		SceneManager(RessourceManager &ressources);
 		~SceneManager(void);
-		void	changeScene(std::unique_ptr<Scene> scene);
+		void	changeScene(std::unique_ptr<Scene> scene, const GameState &gameState);
 		// METHODS
 		void	update(InputSDL &input, const GameState &gameState, float deltaTime);
 		void	render(RendererSDL &renderer, const GameState &gameState);

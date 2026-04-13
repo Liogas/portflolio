@@ -6,6 +6,7 @@
 # include "InputSDL.hpp"
 # include "RendererSDL.hpp"
 # include "GameState.hpp"
+# include "Camera.hpp"
 
 class GameState;
 class RessourceManager;
@@ -15,16 +16,18 @@ class Scene
 	public:
 		virtual 		~Scene() = default;
 		// METHODS
-		virtual void	onEnter(RessourceManager &ressources) 																	= 0;
+		virtual void	onEnter(RessourceManager &ressources, const GameState &gameState) 			= 0;
 		virtual void	onExit() 																	= 0;
 		virtual void	update(InputSDL &inputs, const GameState &gameState, float deltaTime) 		= 0;
+		virtual bool	isWalkable(int posX, int posY) const										= 0;
 		virtual void	handleEvents(EventSDL &, const GameState &gameState)						= 0;
 		virtual void	render(RendererSDL &, const GameState &gameState) 							= 0;
 		[[nodiscard]] int	getHeight() const { return (this->_height); };
 		[[nodiscard]] int	getWidth() const { return (this->_width); };
 	protected:
-		int _height;
-		int	_width;
+		int 	_height;
+		int		_width;
+		Camera	_camera;
 };
 
 #endif

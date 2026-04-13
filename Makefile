@@ -24,7 +24,8 @@ SRCS_GAME	= \
 	$(SRCS_GAME_DIR)/Player.cpp \
 	$(SRCS_GAME_DIR)/TileMap.cpp
 SRCS_GRAPH	= \
-	$(SRCS_GRAPH_DIR)/Sprite.cpp
+	$(SRCS_GRAPH_DIR)/Sprite.cpp \
+	$(SRCS_GRAPH_DIR)/Camera.cpp
 SRCS_PARSEUR = \
 	$(SRCS_PARSEUR_DIR)/MapParseur.cpp
 

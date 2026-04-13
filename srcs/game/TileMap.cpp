@@ -48,6 +48,11 @@ int	TileMap::getTileSize() const
 	return (this->_tileSize);
 }
 
+t_layer	TileMap::getCollisionLayer() const
+{
+	return (this->_collisionLayer);
+}
+
 void	TileMap::addLayer(t_layer l)
 {
 	this->_layers.push_back(l);
@@ -64,7 +69,7 @@ void	TileMap::printLayers()
 		std::cout << "Layer : " << l.name << std::endl;
 }
 
-void	TileMap::render()
+void	TileMap::render(Camera &camera)
 {
 	for (const auto &layer : this->_layers)
 	{
@@ -77,9 +82,7 @@ void	TileMap::render()
 				int index = layer.data[y * this->_width + x];
 				if (index == 0)
 					continue ;
-				
 				const t_tileset *tileset = this->getTilesetForTile(index);
-
 				int localId = index - tileset->firstgid;
 				int tilesPerRow = tileset->columns;
 				int srcX = (localId % tilesPerRow) * tileset->tileWidth;
@@ -87,7 +90,7 @@ void	TileMap::render()
 				int dstX = x * this->_tileSize;
 				int dstY = y * this->_tileSize;
 				tileset->sprite->setSrcPosition(srcX, srcY);
-				tileset->sprite->setDestPosition(dstX, dstY);
+				tileset->sprite->setDestPosition(dstX - camera.getX(), dstY - camera.getY());
 				tileset->sprite->render();
 			}
 		}
