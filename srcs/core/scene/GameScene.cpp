@@ -19,7 +19,7 @@ void	GameScene::onEnter(RessourceManager &ressources, const GameState &gameState
 	try
 	{
 		MapParseur	parseur("home.tmj");
-		this->_map = parseur.start(ressources);
+		this->_map = parseur.start(ressources, this);
 		gameState.player->setPos(550, 280);
 		this->_camera.setPos(gameState.player->getX()- (this->_width / 2),
 			gameState.player->getY() - (this->_height / 2));
@@ -52,25 +52,33 @@ void	GameScene::update(InputSDL &inputs, const GameState &gameState, float delta
 		gameState.player->move(EDirection::TOP);
 	else
 		gameState.player->move(EDirection::NONE);
-	gameState.player->update(deltaTime, *this);
+	
+
+		// REVOIR CECI POUR DETECTER UNE INTERACTION
+	// if (inputs.isKeyPressed(SDL_SCANCODE_E)) 
+    // {
+    //     for (auto& e : this->_entities)
+    //     {
+    //         Computer* comp = dynamic_cast<Computer*>(e.get());
+    //         if (!comp)
+    //             continue;
+
+    //         // collision interaction box
+    //         if (gameState.player->getInteractionBox().intersects(comp->getInteractionBox()))
+    //         {
+    //             comp->interact(gameState.player);
+    //         }
+    //     }
+    // }
+
+	gameState.player->updateWithCollision(
+		[this](int x, int y){ return this->_map->isWalkable(x, y);},
+		this->_width,
+		this->_height
+	);
+	gameState.player->update(deltaTime);
 	this->_camera.setPos(gameState.player->getX() - (this->_width / 4),
 		gameState.player->getY() - (this->_height / 4));
-}
-
-bool	GameScene::isWalkable(int posX, int posY) const
-{
-	auto& map = *this->_map;
-
-    int tileSize = map.getTileSize();
-    int tileX = posX / tileSize + 1;
-    int tileY = posY / tileSize + 1;
-
-    if (tileX < 0 || tileY < 0 
-        || tileX >= map.getWidth() 
-        || tileY >= map.getHeight())
-        return (false);
-    int index = tileY * map.getWidth() + tileX;
-    return (map.getCollisionLayer().data[index] == 0);
 }
 
 void	GameScene::render(RendererSDL &renderer, const GameState &gameState)

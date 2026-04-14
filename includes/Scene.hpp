@@ -7,9 +7,13 @@
 # include "RendererSDL.hpp"
 # include "GameState.hpp"
 # include "Camera.hpp"
+# include "Entity.hpp"
+
+# include <vector>
 
 class GameState;
 class RessourceManager;
+class Entity;
 
 class Scene
 {
@@ -19,15 +23,19 @@ class Scene
 		virtual void	onEnter(RessourceManager &ressources, const GameState &gameState) 			= 0;
 		virtual void	onExit() 																	= 0;
 		virtual void	update(InputSDL &inputs, const GameState &gameState, float deltaTime) 		= 0;
-		virtual bool	isWalkable(int posX, int posY) const										= 0;
 		virtual void	handleEvents(EventSDL &, const GameState &gameState)						= 0;
 		virtual void	render(RendererSDL &, const GameState &gameState) 							= 0;
-		[[nodiscard]] int	getHeight() const { return (this->_height); };
-		[[nodiscard]] int	getWidth() const { return (this->_width); };
+		void			addEntity(std::unique_ptr<Entity> e) {
+			this->_entities.push_back(std::move(e));
+		}
+		// GETTERS
+		[[nodiscard]] int	getHeight() const { return (this->_height); }
+		[[nodiscard]] int	getWidth() const { return (this->_width); }
 	protected:
 		int 	_height;
 		int		_width;
 		Camera	_camera;
+		std::vector<std::unique_ptr<Entity>> _entities;
 };
 
 #endif

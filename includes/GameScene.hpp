@@ -11,11 +11,10 @@ class GameScene : public Scene
 		GameScene(int width, int height);
 		~GameScene() override;
 		void	onEnter(RessourceManager &ressources, const GameState &gameState) override;
-		void	onExit() 							override;
+		void	onExit() override;
 		void	update(InputSDL &inputs, const GameState &gameState, float deltaTime) override;
 		void	handleEvents(EventSDL &event, const GameState &gameState) override;
 		void	render(RendererSDL &, const GameState &gameState) override;
-		bool	isWalkable(int posX, int posY) const override;
 	private:
 		std::unique_ptr<TileMap>	_map;
 };

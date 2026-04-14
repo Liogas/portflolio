@@ -17,7 +17,10 @@ MapParseur::~MapParseur()
 	std::cout << "MapParseur destroyed" << std::endl;
 }
 
-std::unique_ptr<TileMap> MapParseur::start(RessourceManager &ressources)
+std::unique_ptr<TileMap> MapParseur::start(
+	RessourceManager &ressources,
+	Scene *scene
+)
 {
 	std::ifstream file(this->_path);
 	if (!file)
@@ -31,7 +34,7 @@ std::unique_ptr<TileMap> MapParseur::start(RessourceManager &ressources)
 	this->_map->setTileSize(data["tileheight"]);
 
 	this->parseTilesets(data, ressources);
-	this->parseLayers(data);
+	this->parseLayers(data, scene);
 	
 	// throw std::runtime_error("WIP");
 	return (std::move(this->_map));
@@ -65,10 +68,15 @@ void	MapParseur::parseTilesets(nlohmann::json &data, RessourceManager &ressource
 	}
 }
 
-void	MapParseur::parseLayers(nlohmann::json &data)
+void	MapParseur::parseLayers(nlohmann::json &data, Scene *scene)
 {
 	for (auto &l : data["layers"])
 	{
+		if (l["type"] == "objectgroup")
+		{
+			this->parseObjects(l, scene);
+			continue ;
+		}
 		t_layer	t;
 		t.data = l["data"].get<std::vector<int>>();
 		t.name = l["name"];
@@ -79,4 +87,21 @@ void	MapParseur::parseLayers(nlohmann::json &data)
 			this->_map->addLayer(t);
 	}
 	this->_map->printLayers();
+}
+
+void	MapParseur::parseObjects(nlohmann::json &layer, Scene *scene)
+{
+	for (auto &obj : layer["objects"])
+	{
+		if (obj["type"] == "computer")
+		{
+			auto e = std::make_unique<Computer>(
+				obj["x"],
+				obj["y"],
+				obj["width"],
+				obj["height"]
+			);
+			scene->addEntity(std::move(e));
+		}
+	}
 }

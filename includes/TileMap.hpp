@@ -8,13 +8,6 @@
 # include "Sprite.hpp"
 # include "Camera.hpp"
 
-/*
-	Regles pour les layers (pas encore appliquees)
-	PASSAGES -> collisions
-	INTERACTIVE -> case avec interaction
-	other -> texture simple pour le moment
-*/
-
 typedef struct s_tileset
 {
 	int						firstgid;
@@ -42,6 +35,7 @@ class TileMap
 		void	addLayer(t_layer);
 		void	printLayers();
 		void	render(Camera &camera);
+		bool	isWalkable(int posX, int posY) const;
 		// SETTERS
 		void	setWidth(int w);
 		void	setHeight(int h);

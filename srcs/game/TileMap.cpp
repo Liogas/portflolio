@@ -110,4 +110,17 @@ const t_tileset	*TileMap::getTilesetForTile(int gid) const
 	return (ts);
 }
 
+bool	TileMap::isWalkable(int posX, int posY) const
+{
+    int tileX = posX / this->_tileSize + 1;
+    int tileY = posY / this->_tileSize + 1;
+
+    if (tileX < 0 || tileY < 0 
+        || tileX >= this->_width 
+        || tileY >= this->_height)
+        return (false);
+    int index = tileY * this->_width + tileX;
+    return (this->_collisionLayer.data[index] == 0);
+}
+
 

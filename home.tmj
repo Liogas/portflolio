@@ -269,16 +269,39 @@
          "name":"Passages",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":40,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":14,
+         "name":"objects",
+         "objects":[
+                {
+                 "height":32,
+                 "id":22,
+                 "name":"Computer_project",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"computer",
+                 "visible":true,
+                 "width":32,
+                 "x":704,
+                 "y":224
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":13,
- "nextobjectid":1,
+ "nextlayerid":15,
+ "nextobjectid":24,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.12.0",
+ "tiledversion":"1.12.1",
  "tileheight":32,
  "tilesets":[
         {

@@ -2,8 +2,9 @@
 # define PLAYER_HPP
 
 # include "Sprite.hpp"
-# include "Scene.hpp"
-# include "Camera.hpp"
+# include "Entity.hpp"
+
+# include <functional>
 
 enum class EDirection
 {
@@ -14,33 +15,32 @@ enum class EDirection
 	NONE
 };
 
-class Scene;
+class Entity;
 
-class Player
+class Player : public Entity
 {
 	public:
 		Player(std::shared_ptr<TextureSDL> t, int w, int h);
-		~Player();
+		~Player() override;
 		// METHODS
 		void					move(EDirection);
-		void					update(float deltaTime, const Scene &scene);
+		void					update(float deltaTime) override;
+		void					interact(const Entity &e) override;
 		void					setupAnim();
 		void	 				render(Camera &camera);
 		void					choiceStandAnimation(T_paramAnimation &p);
+		void					updateWithCollision(
+									std::function<bool(int, int)> isWalkable,
+									int sceneWidth,
+									int sceneHeight
+								);
 		// GETTERS
 		[[nodiscard]] Sprite	&getSprite();
-		[[nodiscard]] int		getX() const;
-		[[nodiscard]] int		getY() const;
-		// SETTERS
-		void	setPos(int posX, int posY);
+		[[nodiscard]] t_rect	getInteractionBox() const;
 	private:
 		// PROPS
 		Sprite		_sprite;
-		int			_posX;
-		int			_posY;
 		int			_speed;
-		int			_sizeW;
-		int			_sizeH;
 		EDirection	_direction;
 		EDirection	_lastDirection;
 		bool		_isMoving;

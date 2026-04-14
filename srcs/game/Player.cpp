@@ -3,11 +3,11 @@
 Player::Player(std::shared_ptr<TextureSDL> t, int w, int h):
 	_sprite(t, w, h, true)
 {
-	this->_posX 		= 0;
-	this->_posY 		= 0;
+	this->_x 			= 0;
+	this->_y 			= 0;
 	this->_speed 		= 2;
-	this->_sizeH 		= h;
-	this->_sizeW 		= w;
+	this->_height 		= h;
+	this->_width 		= w;
 	this->_direction 	= EDirection::NONE;
 	this->_lastDirection 	= EDirection::NONE;
 	this->_isMoving 	= false;
@@ -32,8 +32,8 @@ void	Player::setupAnim()
 	a.nbTiles 	= 6;
 	a.posX 		= 0;
 	a.posY 		= 4;
-	a.sizeH 	= this->_sizeH;
-	a.sizeW 	= this->_sizeW;
+	a.sizeH 	= this->_height;
+	a.sizeW 	= this->_width;
 	a.speed 	= 0.135f;
 	this->_sprite.getTexture()->addAnimation("walkS", a);
 	a.posY 		= 5;
@@ -56,7 +56,6 @@ void	Player::setupAnim()
 	// this->_sprite.getTexture().printAnimations();
 }
 
-// Plus tard prendre en compte une SCENE plutot que la fenetre
 void	Player::move(EDirection dir)
 {
 	if (dir == EDirection::NONE && this->_direction != EDirection::NONE)
@@ -78,10 +77,14 @@ void	Player::choiceStandAnimation(T_paramAnimation &p)
 		p.currName = "standW";
 }
 
-void	Player::update(float deltaTime, const Scene &scene)
+void	Player::updateWithCollision(
+	std::function<bool(int, int)> isWalkable,
+	int sceneWidth,
+	int sceneHeight
+)
 {
-	int tmpX = this->_posX;
-	int tmpY = this->_posY;
+	int tmpX = this->_x;
+	int tmpY = this->_y;
 
 	if (this->_isMoving)
 	{
@@ -95,13 +98,17 @@ void	Player::update(float deltaTime, const Scene &scene)
 		}
 	}
 	
-	if (tmpX >= 0 && tmpX < scene.getWidth() - this->_sizeW 
-		&& tmpY >= 0 && tmpY < scene.getHeight() - this->_sizeH
-		&& scene.isWalkable(tmpX, tmpY))
+	if (tmpX >= 0 && tmpX < sceneWidth - this->_width
+		&& tmpY >= 0 && tmpY < sceneHeight - this->_height
+		&& isWalkable(tmpX, tmpY))
 	{
-		this->_posX = tmpX;
-		this->_posY = tmpY;
+		this->_x = tmpX;
+		this->_y = tmpY;
 	}
+}
+
+void	Player::update(float deltaTime)
+{
 	this->updateAnimation(deltaTime);
 }
 
@@ -152,24 +159,23 @@ Sprite	&Player::getSprite()
 	return (this->_sprite);
 }
 
-int	Player::getY() const
-{
-	return (this->_posY + this->_sizeH / 2);
-}
-
-int	Player::getX() const
-{
-	return (this->_posX + this->_sizeW / 2);
-}
-
 void	Player::render(Camera &camera)
 {
-	this->_sprite.setDestPosition(this->_posX - camera.getX(), this->_posY - camera.getY());
+	this->_sprite.setDestPosition(this->_x - camera.getX(), this->_y - camera.getY());
 	this->_sprite.render();
 }
 
-void	Player::setPos(int posX, int posY)
+t_rect	Player::getInteractionBox() const
 {
-	this->_posX = posX;
-	this->_posY = posY;
+	return {
+		this->_x - 10,
+		this->_y - 10,
+		this->_width + 20,
+		this->_height + 20
+	};
+}
+
+void	Player::interact(const Entity &e)
+{
+	(void)e;
 }
