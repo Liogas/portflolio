@@ -1,9 +1,17 @@
 {
-    "activeFile": "",
+    "activeFile": "/home/glions/portflolio/home.tmj",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "/home/glions/portflolio/home.tmj": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 720.1666666666667,
+                "y": 360
+            }
+        },
         "Tilesets/TECH-Hub.tsx": {
             "scaleInDock": 1
         },
@@ -18,8 +26,10 @@
         }
     },
     "openFiles": [
+        "/home/glions/portflolio/home.tmj"
     ],
     "project": "aaa.tiled-project",
     "recentFiles": [
+        "/home/glions/portflolio/home.tmj"
     ]
 }

@@ -29,10 +29,10 @@ class Entity
 		}
 		void	setPos(int x, int y) { this->_x = x; this->_y = y; }
 	protected:
-		int	_x;
-		int	_y;
-		int	_height;
-		int	_width;	
+		int		_x;
+		int		_y;
+		int		_height;
+		int		_width;
 };
 
 #endif

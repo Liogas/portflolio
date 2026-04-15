@@ -54,22 +54,20 @@ void	GameScene::update(InputSDL &inputs, const GameState &gameState, float delta
 		gameState.player->move(EDirection::NONE);
 	
 
-		// REVOIR CECI POUR DETECTER UNE INTERACTION
-	// if (inputs.isKeyPressed(SDL_SCANCODE_E)) 
-    // {
-    //     for (auto& e : this->_entities)
-    //     {
-    //         Computer* comp = dynamic_cast<Computer*>(e.get());
-    //         if (!comp)
-    //             continue;
-
-    //         // collision interaction box
-    //         if (gameState.player->getInteractionBox().intersects(comp->getInteractionBox()))
-    //         {
-    //             comp->interact(gameState.player);
-    //         }
-    //     }
-    // }
+	// REVOIR CECI POUR DETECTER UNE INTERACTION
+	if (inputs.isKeyPressed(SDL_SCANCODE_E)) 
+    {
+       for (auto &e : this->_entities)
+	   {
+			if (auto* c = dynamic_cast<Computer*>(e.get()))
+			{
+				if (c->canInteract(*gameState.player))
+				{
+					c->interact(*gameState.player);
+				}
+			}
+	   }
+    }
 
 	gameState.player->updateWithCollision(
 		[this](int x, int y){ return this->_map->isWalkable(x, y);},

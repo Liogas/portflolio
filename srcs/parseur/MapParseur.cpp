@@ -99,7 +99,8 @@ void	MapParseur::parseObjects(nlohmann::json &layer, Scene *scene)
 				obj["x"],
 				obj["y"],
 				obj["width"],
-				obj["height"]
+				obj["height"],
+				obj["properties"][0]["value"]
 			);
 			scene->addEntity(std::move(e));
 		}

@@ -15,6 +15,8 @@ enum class EDirection
 	NONE
 };
 
+std::ostream& operator<<(std::ostream& os, EDirection dir);
+
 class Entity;
 
 class Player : public Entity
@@ -35,8 +37,10 @@ class Player : public Entity
 									int sceneHeight
 								);
 		// GETTERS
-		[[nodiscard]] Sprite	&getSprite();
-		[[nodiscard]] t_rect	getInteractionBox() const;
+		[[nodiscard]] Sprite		&getSprite();
+		[[nodiscard]] t_rect		getInteractionBox() const;
+		[[nodiscard]] EDirection	getDirection() const;
+		[[nodiscard]] EDirection	getLastDirection() const;
 	private:
 		// PROPS
 		Sprite		_sprite;

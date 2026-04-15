@@ -1,11 +1,12 @@
 #include "Computer.hpp"
 
-Computer::Computer(int x, int y, int width, int height)
+Computer::Computer(int x, int y, int width, int height, std::string direction)
 {
 	this->_x = x;
 	this->_y = y;
 	this->_width = width;
 	this->_height = height;
+	this->_direction = direction;
 	std::cout << "Computer created" << std::endl;
 }
 
@@ -16,6 +17,18 @@ Computer::~Computer()
 
 bool	Computer::canInteract(const Player &player) const
 {
+	if (this->_direction == "bottom"
+		&& player.getLastDirection() != EDirection::TOP)
+		return (false);
+	if (this->_direction == "top"
+		&& player.getLastDirection() != EDirection::BOTTOM)
+		return (false);
+	if (this->_direction == "left"
+		&& player.getLastDirection() != EDirection::RIGHT)
+		return (false);
+	if (this->_direction == "right"
+		&& player.getLastDirection() != EDirection::LEFT)
+		return (false);
 	return (this->intersects(player.getInteractionBox()));
 }
 

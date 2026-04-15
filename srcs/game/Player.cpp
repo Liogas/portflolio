@@ -168,14 +168,37 @@ void	Player::render(Camera &camera)
 t_rect	Player::getInteractionBox() const
 {
 	return {
-		this->_x - 10,
-		this->_y - 10,
-		this->_width + 20,
-		this->_height + 20
+		this->_x,
+		this->_y + this->_height - 35,
+		this->_width,
+		this->_height
 	};
 }
 
 void	Player::interact(const Entity &e)
 {
 	(void)e;
+}
+
+EDirection	Player::getDirection() const
+{
+	return (this->_direction);
+}
+
+EDirection	Player::getLastDirection() const
+{
+	return (this->_lastDirection);
+}
+
+std::ostream& operator<<(std::ostream& os, EDirection dir)
+{
+    switch (dir)
+    {
+        case EDirection::LEFT: return os << "LEFT";
+        case EDirection::RIGHT: return os << "RIGHT";
+        case EDirection::TOP: return os << "TOP";
+        case EDirection::BOTTOM: return os << "BOTTOM";
+        case EDirection::NONE: return os << "NONE";
+    }
+    return os << "UNKNOWN";
 }

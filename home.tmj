@@ -284,6 +284,12 @@
                  "id":22,
                  "name":"Computer_project",
                  "opacity":1,
+                 "properties":[
+                        {
+                         "name":"direction",
+                         "type":"string",
+                         "value":"bottom"
+                        }],
                  "rotation":0,
                  "type":"computer",
                  "visible":true,
