@@ -31,7 +31,8 @@ class RendererSDL
 		RendererSDL(const SDL_Renderer &) = delete;
 		RendererSDL	&operator=(const SDL_Renderer &) = delete;
 		// GETTERS
-		SDL_Renderer	*getRenderer() const;
+		[[nodiscard]] SDL_Renderer	*getRenderer() const;
+		[[nodiscard]] WindowSDL		&getWindow() const;
 		// METHODS
 		void		clear();
 		void		present();
@@ -39,6 +40,7 @@ class RendererSDL
 		SDL_Texture	*loadImg(const char * path);
 	private:
 		SDL_Renderer	*_renderer;
+		WindowSDL		&_window;
 };
 
 #endif

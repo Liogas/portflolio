@@ -11,8 +11,10 @@ class Computer : public Entity
 		void	update(float deltaTime) override;
 		bool	canInteract(const Player &player) const;
 		void	interact(const Entity &e) override;
+		[[nodiscard]] bool	isOn() const;
 	private:
 		std::string	_direction;
+		bool		_on;
 };
 
 #endif

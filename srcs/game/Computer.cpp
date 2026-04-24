@@ -7,6 +7,7 @@ Computer::Computer(int x, int y, int width, int height, std::string direction)
 	this->_width = width;
 	this->_height = height;
 	this->_direction = direction;
+	this->_on = false;
 	std::cout << "Computer created" << std::endl;
 }
 
@@ -35,10 +36,18 @@ bool	Computer::canInteract(const Player &player) const
 void	Computer::interact(const Entity &e)
 {
 	(void)e;
+	if (this->_on)
+		return ;
+	this->_on = true;
 	std::cout << "Interaction with computer" << std::endl;
 }
 
 void	Computer::update(float dt)
 {
 	(void)dt;
+}
+
+bool	Computer::isOn() const
+{
+	return (this->_on);
 }

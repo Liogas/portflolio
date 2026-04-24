@@ -4,6 +4,7 @@
 # include "Scene.hpp"
 # include "TileMap.hpp"
 # include "MapParseur.hpp"
+# include "ComputerRenderer.hpp"
 
 class GameScene : public Scene
 {
@@ -17,6 +18,7 @@ class GameScene : public Scene
 		void	render(RendererSDL &, const GameState &gameState) override;
 	private:
 		std::unique_ptr<TileMap>	_map;
+		ComputerRenderer			_computerRenderer;
 };
 
 #endif

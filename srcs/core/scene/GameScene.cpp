@@ -54,7 +54,6 @@ void	GameScene::update(InputSDL &inputs, const GameState &gameState, float delta
 		gameState.player->move(EDirection::NONE);
 	
 
-	// REVOIR CECI POUR DETECTER UNE INTERACTION
 	if (inputs.isKeyPressed(SDL_SCANCODE_E)) 
     {
        for (auto &e : this->_entities)
@@ -62,9 +61,7 @@ void	GameScene::update(InputSDL &inputs, const GameState &gameState, float delta
 			if (auto* c = dynamic_cast<Computer*>(e.get()))
 			{
 				if (c->canInteract(*gameState.player))
-				{
 					c->interact(*gameState.player);
-				}
 			}
 	   }
     }
@@ -83,5 +80,13 @@ void	GameScene::render(RendererSDL &renderer, const GameState &gameState)
 {
 	this->_map->render(this->_camera);
 	gameState.player->render(this->_camera);
+    for (auto &e : this->_entities)
+	{
+		if (auto* c = dynamic_cast<Computer*>(e.get()))
+		{
+			if (c->isOn())
+				this->_computerRenderer.draw(renderer, *c);
+		}
+    }
 	renderer.present();
 }

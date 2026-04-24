@@ -1,6 +1,6 @@
 CXX 		= g++
-CXXFLAGS 	= -Wall -Wextra -Werror -g3 -std=c++20 $(shell pkg-config --cflags sdl2 SDL2_image)
-LDFLAGS 	= $(shell pkg-config --libs sdl2 SDL2_image)
+CXXFLAGS 	= -Wall -Wextra -Werror -g3 -std=c++20 $(shell pkg-config --cflags sdl2 SDL2_image SDL2_ttf)
+LDFLAGS 	= $(shell pkg-config --libs sdl2 SDL2_image SDL2_ttf)
 INCLUDES 	= -I./includes -I./MySDL/includes
 
 NAME = portfolio
@@ -26,6 +26,7 @@ SRCS_GAME	= \
 	$(SRCS_GAME_DIR)/TileMap.cpp
 SRCS_GRAPH	= \
 	$(SRCS_GRAPH_DIR)/Sprite.cpp \
+	$(SRCS_GRAPH_DIR)/ComputerRenderer.cpp \
 	$(SRCS_GRAPH_DIR)/Camera.cpp
 SRCS_PARSEUR = \
 	$(SRCS_PARSEUR_DIR)/MapParseur.cpp

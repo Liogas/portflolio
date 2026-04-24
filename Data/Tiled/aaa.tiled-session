@@ -5,11 +5,11 @@
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "/home/glions/portflolio/home.tmj": {
-            "scale": 3,
-            "selectedLayer": 0,
+            "scale": 1.5,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 720.1666666666667,
-                "y": 360
+                "x": 657,
+                "y": 410
             }
         },
         "Tilesets/TECH-Hub.tsx": {

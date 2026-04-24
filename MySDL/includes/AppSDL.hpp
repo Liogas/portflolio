@@ -4,6 +4,7 @@
 # include <iostream>
 # include <SDL2/SDL.h>
 # include <SDL_image.h>
+# include <SDL2/SDL_ttf.h>
 # include <stdexcept>
 
 enum class ESDLOption : Uint32

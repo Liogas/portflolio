@@ -1,6 +1,7 @@
 #include "RendererSDL.hpp"
 
-RendererSDL::RendererSDL(WindowSDL &win, ERendererOption opt)
+RendererSDL::RendererSDL(WindowSDL &win, ERendererOption opt):
+	_window(win)
 {
 	this->_renderer = SDL_CreateRenderer(
 		win.getWindow(),
@@ -70,4 +71,9 @@ SDL_Texture	*RendererSDL::loadImg(const char *path)
 	SDL_SetRenderTarget(this->_renderer, NULL);
 	SDL_DestroyTexture(tmp);
 	return (texture);
+}
+
+WindowSDL	&RendererSDL::getWindow() const
+{
+	return (this->_window);
 }
