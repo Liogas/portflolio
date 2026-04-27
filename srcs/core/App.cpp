@@ -12,6 +12,7 @@ App::App():
 	_gameState(this->_ressources)
 {
 	SDL_RenderSetLogicalSize(this->_renderer.getRenderer(), 640, 360);
+	this->_renderer.setSize(640, 360);
 	std::cout << "App created" << std::endl;
 }
 

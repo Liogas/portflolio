@@ -39,7 +39,6 @@ void	Computer::interact(const Entity &e)
 	if (this->_on)
 		return ;
 	this->_on = true;
-	std::cout << "Interaction with computer" << std::endl;
 }
 
 void	Computer::update(float dt)

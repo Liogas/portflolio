@@ -16,6 +16,7 @@ class GameScene : public Scene
 		void	update(InputSDL &inputs, const GameState &gameState, float deltaTime) override;
 		void	handleEvents(EventSDL &event, const GameState &gameState) override;
 		void	render(RendererSDL &, const GameState &gameState) override;
+		void	updatePlayer(InputSDL &inputs, const GameState &gameState, float deltaTime);
 	private:
 		std::unique_ptr<TileMap>	_map;
 		ComputerRenderer			_computerRenderer;

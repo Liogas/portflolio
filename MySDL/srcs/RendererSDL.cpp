@@ -77,3 +77,19 @@ WindowSDL	&RendererSDL::getWindow() const
 {
 	return (this->_window);
 }
+
+void	RendererSDL::setSize(int w, int h)
+{
+	this->_height = h;
+	this->_width = w;
+}
+
+int	RendererSDL::getHeight() const
+{
+	return (this->_height);
+}
+
+int	RendererSDL::getWidth() const
+{
+	return (this->_width);
+}

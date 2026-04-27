@@ -5,7 +5,7 @@ Player::Player(std::shared_ptr<TextureSDL> t, int w, int h):
 {
 	this->_x 			= 0;
 	this->_y 			= 0;
-	this->_speed 		= 2;
+	this->_speed 		= 5;
 	this->_height 		= h;
 	this->_width 		= w;
 	this->_direction 	= EDirection::NONE;

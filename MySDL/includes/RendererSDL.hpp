@@ -33,6 +33,10 @@ class RendererSDL
 		// GETTERS
 		[[nodiscard]] SDL_Renderer	*getRenderer() const;
 		[[nodiscard]] WindowSDL		&getWindow() const;
+		[[nodiscard]] int			getWidth() const;
+		[[nodiscard]] int			getHeight() const;
+		// SETTERS
+		void	setSize(int w, int h);
 		// METHODS
 		void		clear();
 		void		present();
@@ -41,6 +45,8 @@ class RendererSDL
 	private:
 		SDL_Renderer	*_renderer;
 		WindowSDL		&_window;
+		int				_width;
+		int				_height;
 };
 
 #endif
