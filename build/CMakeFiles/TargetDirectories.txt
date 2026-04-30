@@ -1,0 +1,3 @@
+/home/glions/portflolio/build/CMakeFiles/portfolio.dir
+/home/glions/portflolio/build/CMakeFiles/edit_cache.dir
+/home/glions/portflolio/build/CMakeFiles/rebuild_cache.dir
