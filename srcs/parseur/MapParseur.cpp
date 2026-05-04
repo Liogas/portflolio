@@ -57,7 +57,6 @@ void	MapParseur::parseTilesets(nlohmann::json &data, RessourceManager &ressource
 		t.tileWidth = tileset->IntAttribute("tilewidth");
 		t.columns = tileset->IntAttribute("columns");
 		tinyxml2::XMLElement *image = tileset->FirstChildElement("image");
-		// 🔥 IMPORTANT : chemin relatif au TSX
 		std::filesystem::path tsxPath(tsxFullPath);
 		std::filesystem::path tsxDir = tsxPath.parent_path();
 		std::filesystem::path fullPath = tsxDir / image->Attribute("source");
