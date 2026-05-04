@@ -46,24 +46,29 @@ void	MapParseur::parseTilesets(nlohmann::json &data, RessourceManager &ressource
 	{
 		t_tileset t;
 		t.firstgid = l["firstgid"];
-		std::cout << "file xml -> " << l["source"].get<std::string>().c_str() << std::endl;
+		std::string tsxRelative = l["source"].get<std::string>();
+		std::string tsxFullPath = ressources.getAssetsPath() + tsxRelative;
+		std::cout << "file xml -> " << tsxFullPath << std::endl;
 		tinyxml2::XMLDocument doc;
-		if (doc.LoadFile(l["source"].get<std::string>().c_str()) != tinyxml2::XML_SUCCESS)
+		if (doc.LoadFile(tsxFullPath.c_str()) != tinyxml2::XML_SUCCESS)
 			throw std::runtime_error("Can't open XML File");
 		tinyxml2::XMLElement *tileset = doc.FirstChildElement("tileset");
 		t.tileHeight = tileset->IntAttribute("tileheight");
 		t.tileWidth = tileset->IntAttribute("tilewidth");
 		t.columns = tileset->IntAttribute("columns");
-
 		tinyxml2::XMLElement *image = tileset->FirstChildElement("image");
-
-		std::filesystem::path tsxPath(l["source"].get<std::string>().c_str());
+		// 🔥 IMPORTANT : chemin relatif au TSX
+		std::filesystem::path tsxPath(tsxFullPath);
 		std::filesystem::path tsxDir = tsxPath.parent_path();
 		std::filesystem::path fullPath = tsxDir / image->Attribute("source");
 		t.pathfile = fullPath.string();
-
 		std::cout << "Tentative d'ouverture de -> " << t.pathfile << std::endl;
-		t.sprite = std::make_shared<Sprite>(ressources.getTexture(t.pathfile), t.tileWidth, t.tileHeight, false);
+		t.sprite = std::make_shared<Sprite>(
+			ressources.getTexture(t.pathfile),
+			t.tileWidth,
+			t.tileHeight,
+			false
+		);
 		this->_map->addTileset(t);
 	}
 }

@@ -18,7 +18,8 @@ void	GameScene::onEnter(RessourceManager &ressources, const GameState &gameState
 	std::cout << "Enter on GameScene" << std::endl;
 	try
 	{
-		MapParseur	parseur("home.tmj");
+		std::string path = ressources.getAssetsPath() + "maps/";
+		MapParseur	parseur(path + "home.tmj");
 		this->_map = parseur.start(ressources, this);
 		gameState.player->setPos(550, 280);
 		this->_camera.setPos(gameState.player->getX()- (this->_width / 2),

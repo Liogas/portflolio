@@ -4,6 +4,7 @@
 # include <iostream>
 # include <unordered_map>
 # include <memory>
+# include <filesystem>
 
 # include "TextureSDL.hpp"
 
@@ -12,7 +13,10 @@ class RessourceManager
 	public:
 		RessourceManager(RendererSDL &);
 		~RessourceManager();
+		// GETTER
 		[[nodiscard]] std::shared_ptr<TextureSDL>	&getTexture(const std::string &);
+		// METHODS
+		std::string	getAssetsPath();
 	private:
 		std::unordered_map<std::string, std::shared_ptr<TextureSDL>> _textures;
 		RendererSDL									&_renderer;
