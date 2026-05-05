@@ -19,6 +19,8 @@ include_directories(
     ${SDL2_IMAGE_INCLUDE_DIRS}
     ${SDL2_TTF_INCLUDE_DIRS}
     includes
+    srcs/ecs/registry
+    srcs/ecs/systems
     srcs/ecs/components
     MySDL/includes
 )

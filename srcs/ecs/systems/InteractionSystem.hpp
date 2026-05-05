@@ -1,0 +1,4 @@
+#ifndef INTERACTIONSYSTEM_HPP
+# define INTERACTIONSYSTEM_HPP
+
+#endif

@@ -1,19 +1,19 @@
 #ifndef MOVEMENT_HPP
 # define MOVEMENT_HPP
 
-enum class EDirection {
+enum class EDirection2 {
     LEFT,
     RIGHT,
-    TOP,
-    BOTTOM,
+    UP,
+    DOWN,
     NONE
 };
 
 typedef	struct s_movement
 {
 	float		speed;
-	EDirection	direction;
-	EDirection	lastDirection;
+	EDirection2	direction;
+	EDirection2	lastDirection;
 	bool		isMoving;
 }	Movement;
 

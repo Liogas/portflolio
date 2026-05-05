@@ -1,5 +1,5 @@
 #ifndef POSITION_HPP
-# define POSTION_HPP
+# define POSITION_HPP
 
 typedef	struct s_position
 {
