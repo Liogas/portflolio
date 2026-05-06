@@ -2,6 +2,7 @@
 # define WORLD_HPP
 
 # include <entt/entt.hpp>
+# include "MovementSystem.hpp"
 # include <iostream>
 
 class World

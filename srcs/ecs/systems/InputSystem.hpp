@@ -14,5 +14,4 @@ struct Input {
 
 void InputSystem(entt::registry &registry, const Input &input);
 
-
 #endif

@@ -1,6 +1,4 @@
-#include "Position.hpp"
-#include "Movement.hpp"
-# include <entt/entt.hpp>
+#include "MovementSystem.hpp"
 
 void MovementSystem(entt::registry& registry, float dt)
 {

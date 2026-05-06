@@ -10,7 +10,7 @@ entt::registry	&World::getRegistry()
 	return (this->_registry);
 }
 
-// void	World::update(float dt)
-// {
-// 	MovementSystem(registry, dt);
-// }
+void	World::update(float dt)
+{
+	MovementSystem(this->_registry, dt);
+}
