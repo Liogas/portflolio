@@ -18,8 +18,18 @@
 # include "SceneManager.hpp"
 # include "GameState.hpp"
 
+# include "World.hpp"
+
+# include "Persistent.hpp"
+# include "Velocity.hpp"
+# include "Collider.hpp"
+
+// FACTORIES
+# include "PlayerFactories.hpp"
+
 // SCENES
 # include "GameScene.hpp"
+# include "TestScene.hpp"
 
 class App
 {
@@ -27,6 +37,7 @@ class App
 		App();
 		~App();
 		void	run();
+		void	init();
 	private:
 		bool				_running;
 		AppSDL				_sdl;
@@ -37,6 +48,7 @@ class App
 		RessourceManager	_ressources;
 		SceneManager		_sceneManager;
 		GameState			_gameState;
+		World				_world;
 		void	handleEvents();
 };
 

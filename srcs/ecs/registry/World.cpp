@@ -10,7 +10,13 @@ entt::registry	&World::getRegistry()
 	return (this->_registry);
 }
 
-void	World::update(float dt)
+void	World::update(InputSDL input, float dt)
 {
+	InputSystem(this->_registry, input);
 	MovementSystem(this->_registry, dt);
+}
+
+void	World::render()
+{
+	std::cout << "WIP" << std::endl;
 }

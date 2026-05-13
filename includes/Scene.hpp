@@ -1,6 +1,12 @@
 #ifndef SCENE_HPP
 # define SCENE_HPP
 
+# include "Position.hpp"
+# include "Movement.hpp"
+# include "PlayerTag.hpp"
+# include <entt/entt.hpp>
+# include <iostream>
+
 # include "AppSDL.hpp"
 # include "EventSDL.hpp"
 # include "InputSDL.hpp"
@@ -20,6 +26,11 @@ class Scene
 	public:
 		virtual 		~Scene() = default;
 		// METHODS
+		virtual void	load(entt::registry &registry, RessourceManager &ressources) = 0;
+		virtual void	unload(entt::registry &registry) = 0;
+
+
+		
 		virtual void	onEnter(RessourceManager &ressources, const GameState &gameState) 			= 0;
 		virtual void	onExit() 																	= 0;
 		virtual void	update(InputSDL &inputs, const GameState &gameState, float deltaTime) 		= 0;

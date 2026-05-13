@@ -3,6 +3,8 @@
 
 # include <entt/entt.hpp>
 # include "MovementSystem.hpp"
+# include "InputSystem.hpp"
+# include "InputSDL.hpp"
 # include <iostream>
 
 class World
@@ -12,7 +14,8 @@ class World
 		// GETTERS
 		[[nodiscard]] entt::registry	&getRegistry();
 		// METHODS
-		void	update(float dt);
+		void	update(InputSDL input, float dt);
+		void	render();
 	private:
 		entt::registry	_registry;
 };

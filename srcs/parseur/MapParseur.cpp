@@ -19,7 +19,7 @@ MapParseur::~MapParseur()
 
 std::unique_ptr<TileMap> MapParseur::start(
 	RessourceManager &ressources,
-	Scene *scene
+	entt::registry &registry
 )
 {
 	std::ifstream file(this->_path);
@@ -34,7 +34,7 @@ std::unique_ptr<TileMap> MapParseur::start(
 	this->_map->setTileSize(data["tileheight"]);
 
 	this->parseTilesets(data, ressources);
-	this->parseLayers(data, scene);
+	this->parseLayers(data, registry);
 	
 	// throw std::runtime_error("WIP");
 	return (std::move(this->_map));
@@ -72,13 +72,13 @@ void	MapParseur::parseTilesets(nlohmann::json &data, RessourceManager &ressource
 	}
 }
 
-void	MapParseur::parseLayers(nlohmann::json &data, Scene *scene)
+void	MapParseur::parseLayers(nlohmann::json &data, entt::registry &registry)
 {
 	for (auto &l : data["layers"])
 	{
 		if (l["type"] == "objectgroup")
 		{
-			this->parseObjects(l, scene);
+			this->parseObjects(l, registry);
 			continue ;
 		}
 		t_layer	t;
@@ -93,7 +93,7 @@ void	MapParseur::parseLayers(nlohmann::json &data, Scene *scene)
 	this->_map->printLayers();
 }
 
-void	MapParseur::parseObjects(nlohmann::json &layer, Scene *scene)
+void	MapParseur::parseObjects(nlohmann::json &layer, entt::registry &registry)
 {
 	for (auto &obj : layer["objects"])
 	{
@@ -106,7 +106,7 @@ void	MapParseur::parseObjects(nlohmann::json &layer, Scene *scene)
 				obj["height"],
 				obj["properties"][0]["value"]
 			);
-			scene->addEntity(std::move(e));
+			// scene->addEntity(std::move(e));
 		}
 	}
 }

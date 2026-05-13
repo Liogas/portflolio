@@ -23,31 +23,28 @@
 
 int main()
 {
-    World world;
-    TestScene scene;
-
-    auto& registry = world.getRegistry();
-
-    scene.load(registry);
-
-    float dt = 0.016f;
-
-    while (true)
+    try
     {
-        Input input;
-
-        // simulation clavier (remplace SDL ici)
-        input.right = true;
-
-        InputSystem(registry, input);
-        world.update(dt);
-
-        auto view = registry.view<Position, PlayerTag>();
-
-        for (auto e : view)
-        {
-            auto &p = view.get<Position>(e);
-            std::cout << "Player: " << p.x << ", " << p.y << std::endl;
-        }
+        App app;
+        app.run();
+    } catch (const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+        return (1);
     }
+    // scene.load(registry);
+
+    // float dt = 0.016f;
+
+    // while (true)
+    // {
+    //     world.update(dt);
+
+    //     auto view = registry.view<Position, PlayerTag>();
+    //     for (auto e : view)
+    //     {
+    //         auto &p = view.get<Position>(e);
+    //         std::cout << "Player: " << p.x << ", " << p.y << std::endl;
+    //     }
+    // }
 }

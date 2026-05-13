@@ -2,26 +2,23 @@
 
 void MovementSystem(entt::registry& registry, float dt)
 {
-    auto view = registry.view<Position, Movement>();
+    auto view = registry.view<Movement, Velocity>();
 
     for (auto e : view)
     {
-        auto &pos = view.get<Position>(e);
+        auto &vel = view.get<Velocity>(e);
         auto &mov = view.get<Movement>(e);
 
-        float vx = 0;
-        float vy = 0;
+        vel.x = 0;
+        vel.y = 0;
 
         switch (mov.direction)
         {
-            case EDirection2::LEFT:  vx = -mov.speed; break;
-            case EDirection2::RIGHT: vx = mov.speed; break;
-            case EDirection2::UP:    vy = -mov.speed; break;
-            case EDirection2::DOWN:  vy = mov.speed; break;
+            case EDirection2::LEFT:  vel.x = -mov.speed; break;
+            case EDirection2::RIGHT: vel.x = mov.speed; break;
+            case EDirection2::UP:    vel.y = -mov.speed; break;
+            case EDirection2::DOWN:  vel.y = mov.speed; break;
             default: break;
         }
-
-        pos.x += vx * dt;
-        pos.y += vy * dt;
     }
 }
