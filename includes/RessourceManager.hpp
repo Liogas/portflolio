@@ -15,11 +15,13 @@ class RessourceManager
 		~RessourceManager();
 		// GETTER
 		[[nodiscard]] std::shared_ptr<TextureSDL>	&getTexture(const std::string &);
+
 		// METHODS
 		std::string	getAssetsPath();
+		std::string	RessourceManager::getTexturesPath();
 	private:
-		std::unordered_map<std::string, std::shared_ptr<TextureSDL>> _textures;
-		RendererSDL									&_renderer;
+		std::unordered_map<std::string, std::shared_ptr<TextureSDL>>	_textures;
+		RendererSDL														&_renderer;
 };
 
 #endif

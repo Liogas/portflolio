@@ -1,13 +1,12 @@
 #ifndef ANIMATION_HPP
 # define ANIMATION_HPP
 
-# include <iostream>
-
 typedef struct s_animation
 {
-	std::string current;
-	int			frame;
-	float		timer;
+	int		startX;
+	int		startY;
+	int		frameCount;
+	float	speed;
 }	Animation;
 
 #endif

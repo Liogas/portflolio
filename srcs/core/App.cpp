@@ -26,7 +26,7 @@ void	App::init()
 	try
 	{
 		auto registry = this->_world.getRegistry();
-		PlayerFactories::create(registry, 550.f, 280.f);
+		auto player = PlayerFactories::create(registry, 550.f, 280.f, "char1.png");
 		this->_sceneManager.changeScene(std::make_unique<TestScene>(
 			this->_window.getWidth(), this->_window.getHeight()
 		), this->_gameState);

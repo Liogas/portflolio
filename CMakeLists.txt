@@ -22,6 +22,7 @@ include_directories(
     srcs/ecs/registry
     srcs/ecs/systems
     srcs/ecs/components
+    srcs/ecs/factories
     MySDL/includes
 )
 

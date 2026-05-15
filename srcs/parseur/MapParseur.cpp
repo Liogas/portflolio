@@ -98,15 +98,13 @@ void	MapParseur::parseObjects(nlohmann::json &layer, entt::registry &registry)
 	for (auto &obj : layer["objects"])
 	{
 		if (obj["type"] == "computer")
-		{
-			auto e = std::make_unique<Computer>(
+			ComputerFactories::create(
+				registry,
 				obj["x"],
 				obj["y"],
 				obj["width"],
 				obj["height"],
 				obj["properties"][0]["value"]
 			);
-			// scene->addEntity(std::move(e));
-		}
 	}
 }

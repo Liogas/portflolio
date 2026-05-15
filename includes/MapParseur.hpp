@@ -13,6 +13,8 @@
 # include "tinyxml2.h"
 # include "json.hpp"
 
+# include "ComputerFactories.hpp"
+
 class MapParseur
 {
 	public:

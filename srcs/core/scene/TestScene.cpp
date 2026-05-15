@@ -15,8 +15,6 @@ void	TestScene::load(entt::registry &registry, RessourceManager &ressources)
 		std::string path = ressources.getAssetsPath() + "maps/";
 		MapParseur	parseur(path + "home.tmj");
 		this->_map = parseur.start(ressources, registry);
-
-
 	} catch (const std::exception& e)
 	{
 		std::cerr << "ERROR TestScene::load" << std::endl;

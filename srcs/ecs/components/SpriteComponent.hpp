@@ -5,7 +5,10 @@
 
 typedef struct s_spriteComponent
 {
-	Sprite	sprite;
+	std::shared_ptr<TextureSDL>	texture;
+	int							width;
+	int							height;
+	SDL_Rect					src;
 }	SpriteComponent;
 
 #endif

@@ -2,10 +2,15 @@
 # define WORLD_HPP
 
 # include <entt/entt.hpp>
-# include "MovementSystem.hpp"
-# include "InputSystem.hpp"
 # include "InputSDL.hpp"
 # include <iostream>
+
+// SYSTEMS
+# include "MovementSystem.hpp"
+# include "InputSystem.hpp"
+# include "CollisionSystem.hpp"
+# include "AnimationSystem.hpp"
+# include "InteractionSystem.hpp"
 
 class World
 {
