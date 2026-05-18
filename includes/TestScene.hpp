@@ -1,11 +1,11 @@
 #ifndef TESTSCENE_HPP
 # define TESTSCENE_HPP
 
-# include "Position.hpp"
-# include "Movement.hpp"
-# include "PlayerTag.hpp"
 # include "MapParseur.hpp"
 # include "TileMap.hpp"
+
+# include "Scene.hpp"
+
 # include <entt/entt.hpp>
 # include <iostream>
 
@@ -13,10 +13,8 @@ class TestScene : public Scene
 {
 	public:
 		TestScene(int width, int height);
-		void load(entt::registry &registry, RessourceManager &ressources) override;
-		void unload(entt::registry &registry) override;
-	private:
-		std::unique_ptr<TileMap>	_map;
+		void load(World &world) override;
+		void unload(World &world) override;
 };
 
 #endif

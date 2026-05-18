@@ -2,8 +2,13 @@
 # define WORLD_HPP
 
 # include <entt/entt.hpp>
-# include "InputSDL.hpp"
 # include <iostream>
+
+# include "InputSDL.hpp"
+
+# include "RessourceManager.hpp"
+# include "SceneManager.hpp"
+# include "Camera.hpp"
 
 // SYSTEMS
 # include "MovementSystem.hpp"
@@ -15,14 +20,20 @@
 class World
 {
 	public:
-		World();
+		World(RessourceManager &rm, SceneManager &sm);
 		// GETTERS
 		[[nodiscard]] entt::registry	&getRegistry();
+		// SETTERS
+		void	setMap(std::unique_ptr<TileMap> map);
 		// METHODS
+		void	init();
 		void	update(InputSDL input, float dt);
 		void	render();
 	private:
-		entt::registry	_registry;
+		entt::registry				_registry;
+		RessourceManager			&_rm;
+		SceneManager				&_sm;
+		std::unique_ptr<TileMap>	_map;
 };
 
 #endif

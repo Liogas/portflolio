@@ -26,6 +26,7 @@ int main()
     try
     {
         App app;
+        app.init();
         app.run();
     } catch (const std::exception& e)
     {

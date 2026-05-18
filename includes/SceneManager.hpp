@@ -9,16 +9,16 @@
 class SceneManager
 {
 	public:
-		SceneManager(RessourceManager &ressources);
+		SceneManager(RessourceManager &rm);
 		~SceneManager(void);
-		void	changeScene(std::unique_ptr<Scene> scene, const GameState &gameState);
+		void	changeScene(std::unique_ptr<Scene> scene);
 		// METHODS
-		void	update(InputSDL &input, const GameState &gameState, float deltaTime);
-		void	render(RendererSDL &renderer, const GameState &gameState);
-		void	handleEvent(EventSDL &event, const GameState &gameState);
+		void	update(InputSDL &input, float deltaTime);
+		void	render(RendererSDL &renderer);
+		void	handleEvent(EventSDL &event);
 	private:
 		std::unique_ptr<Scene>	_currScene;
-		RessourceManager		&_ressources;
+		RessourceManager		&_rm;
 };
 
 #endif

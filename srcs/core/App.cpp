@@ -7,9 +7,9 @@ App::App():
 	_renderer(this->_window, ERendererOption::ACCELERATED | ERendererOption::PRESENTVSYNC | ERendererOption::TARGETTEXTURE),
 	_input(),
 	_event(),
-	_ressources(this->_renderer),
-	_sceneManager(this->_ressources),
-	_gameState(this->_ressources)
+	_rm(this->_renderer),
+	_sm(this->_rm),
+	_world(this->_rm, this->_sm)
 {
 	SDL_RenderSetLogicalSize(this->_renderer.getRenderer(), 640, 360);
 	this->_renderer.setSize(640, 360);
@@ -25,11 +25,10 @@ void	App::init()
 {
 	try
 	{
-		auto registry = this->_world.getRegistry();
-		auto player = PlayerFactories::create(registry, 550.f, 280.f, "char1.png");
+		this->_world.init();
 		this->_sceneManager.changeScene(std::make_unique<TestScene>(
 			this->_window.getWidth(), this->_window.getHeight()
-		), this->_gameState);
+		));
 	} catch (const std::exception &e)
 	{
 		throw (std::runtime_error(e.what()));
@@ -52,13 +51,10 @@ void	App::run()
 			this->_world.update(this->_input, dt);
 			this->_world.render();
 
-			// GESTION ENTT
-
 			std::this_thread::sleep_for(std::chrono::milliseconds(16));
 		}
 	} catch (const std::exception& e)
 	{
-		std::cerr << "ERROR App::run" << std::endl;
 		throw (std::runtime_error(e.what()));
 	}
 }

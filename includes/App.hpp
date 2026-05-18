@@ -6,26 +6,15 @@
 # include <chrono>
 # include <thread>
 
+// SDL
 # include "AppSDL.hpp"
 # include "WindowSDL.hpp"
 # include "EventSDL.hpp"
 # include "InputSDL.hpp"
 # include "RendererSDL.hpp"
 
-# include "Sprite.hpp"
-# include "RessourceManager.hpp"
-# include "Player.hpp"
 # include "SceneManager.hpp"
-# include "GameState.hpp"
-
 # include "World.hpp"
-
-# include "Persistent.hpp"
-# include "Velocity.hpp"
-# include "Collider.hpp"
-
-// FACTORIES
-# include "PlayerFactories.hpp"
 
 // SCENES
 # include "GameScene.hpp"
@@ -45,9 +34,8 @@ class App
 		RendererSDL			_renderer;
 		InputSDL			_input;
 		EventSDL			_event;
-		RessourceManager	_ressources;
-		SceneManager		_sceneManager;
-		GameState			_gameState;
+		RessourceManager	_rm;
+		SceneManager		_sm;
 		World				_world;
 		void	handleEvents();
 };
