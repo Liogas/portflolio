@@ -17,7 +17,6 @@
 # include "World.hpp"
 
 // SCENES
-# include "GameScene.hpp"
 # include "TestScene.hpp"
 
 class App

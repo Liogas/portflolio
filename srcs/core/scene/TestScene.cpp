@@ -8,13 +8,13 @@ TestScene::TestScene(int width, int height)
     std::cout << "TestScene created" << std::endl;
 }
 
-void	TestScene::load(entt::registry &registry, RessourceManager &ressources)
+void	TestScene::load(World &world)
 {
 	try
 	{
-		std::string path = ressources.getAssetsPath() + "maps/";
+		std::string path = world.getRm().getAssetsPath() + "maps/";
 		MapParseur	parseur(path + "home.tmj");
-		this->_map = parseur.start(ressources, registry);
+		world.setMap(std::move(parseur.start(world)));
 	} catch (const std::exception& e)
 	{
 		std::cerr << "ERROR TestScene::load" << std::endl;

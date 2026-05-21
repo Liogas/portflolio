@@ -11,11 +11,7 @@ class SceneManager
 	public:
 		SceneManager(RessourceManager &rm);
 		~SceneManager(void);
-		void	changeScene(std::unique_ptr<Scene> scene);
-		// METHODS
-		void	update(InputSDL &input, float deltaTime);
-		void	render(RendererSDL &renderer);
-		void	handleEvent(EventSDL &event);
+		void	changeScene(std::unique_ptr<Scene> scene, World &world);
 	private:
 		std::unique_ptr<Scene>	_currScene;
 		RessourceManager		&_rm;

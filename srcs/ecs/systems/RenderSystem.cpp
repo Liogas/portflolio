@@ -8,8 +8,8 @@ void	RenderSystem(entt::registry &registry, RendererSDL &renderer)
 		auto &pos = view.get<Position>(entity);
 		auto &sprite = view.get<SpriteComponent>(entity);
 		SDL_Rect dst = {
-			(int)pos.x,
-			(int)pos.y,
+			static_cast<int>pos.x,
+			static_cast<int>pos.y,
 			sprite.width,
 			sprite.height
 		};

@@ -11,7 +11,6 @@
 class ComputerFactories
 {
 	public:
-		ComputerFactories() = 0;
 		static entt::entity	create(
 			entt::registry	&registry,
 			int				x,

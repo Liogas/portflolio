@@ -35,7 +35,7 @@ class TileMap
 		void	addLayer(t_layer);
 		void	printLayers();
 		void	render(Camera &camera);
-		bool	isWalkable(int posX, int posY) const;
+		bool	isWalkable(int x, int y, int w, int h) const;
 		// SETTERS
 		void	setWidth(int w);
 		void	setHeight(int h);
@@ -56,6 +56,7 @@ class TileMap
 		t_layer					_collisionLayer;
 		// METHODS
 		const t_tileset	*getTilesetForTile(int gid) const;
+		bool			isTileWalkable(int tileX, int tileY) const;
 };
 
 #endif

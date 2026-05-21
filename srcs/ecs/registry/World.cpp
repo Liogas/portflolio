@@ -13,13 +13,14 @@ entt::registry	&World::getRegistry()
 	return (this->_registry);
 }
 
-void	World::update(InputSDL input, float dt)
+void	World::update(InputSDL &input, float dt)
 {
 	InputSystem(this->_registry, input);
 	MovementSystem(this->_registry, dt);
 	CollisionSystem(this->_registry);
-	AnimationSystem(this->_registry);
-	InteractionSystem(this->_registry);
+	AnimationStateSystem(this->_registry);
+	AnimationSystem(this->_registry, dt);
+	// InteractionSystem(this->_registry);
 }
 
 void	World::render()
@@ -32,9 +33,14 @@ void	World::init()
 {
 	try
 	{
-		auto player = PlayerFactories::create(registry, 550.f, 280.f, "char1.png");
+		PlayerFactories::create(registry, 550.f, 280.f, "char1.png");
 	} catch (const std::exception &e)
 	{
 		throw (std::runtime_error("ERROR World::init() -> " + e.what()));
 	}
+}
+
+void	World::setMap(std::unique_ptr<TileMap> map)
+{
+	this->_map = std::move(map);
 }

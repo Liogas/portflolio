@@ -14,10 +14,12 @@ RessourceManager::~RessourceManager()
 
 std::shared_ptr<TextureSDL>	&RessourceManager::getTexture(const std::string &path)
 {
-	const std::string folder = this->getTexturesPath();
-	if (!this->_textures.contains(folder / path))
-		this->_textures[folder / path] = std::make_shared<TextureSDL>(this->_renderer, folder / path);
-	return (this->_textures[folder / path]);
+	std::filesystem::path folder = this->getTexturesPath();
+	std::filesystem::path fullPath = folder / path;
+	std::string key = fullPath.string();
+	if (!this->_textures.contains(key))
+		this->_textures[key] = std::make_shared<TextureSDL>(this->_renderer, key);
+	return (this->_textures[key]);
 }
 
 std::string	RessourceManager::getAssetsPath()

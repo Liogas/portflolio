@@ -18,7 +18,7 @@ class RessourceManager
 
 		// METHODS
 		std::string	getAssetsPath();
-		std::string	RessourceManager::getTexturesPath();
+		std::string	getTexturesPath();
 	private:
 		std::unordered_map<std::string, std::shared_ptr<TextureSDL>>	_textures;
 		RendererSDL														&_renderer;

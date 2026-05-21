@@ -26,9 +26,9 @@ void	App::init()
 	try
 	{
 		this->_world.init();
-		this->_sceneManager.changeScene(std::make_unique<TestScene>(
+		this->_sm.changeScene(std::make_unique<TestScene>(
 			this->_window.getWidth(), this->_window.getHeight()
-		));
+		), this->_world);
 	} catch (const std::exception &e)
 	{
 		throw (std::runtime_error(e.what()));
@@ -48,7 +48,7 @@ void	App::run()
     		lastTime = currentTime;
 
 			this->handleEvents();
-			this->_world.update(this->_input, dt);
+			this->_world.update(this->_input, deltaTime);
 			this->_world.render();
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(16));

@@ -6,7 +6,7 @@
 # include <stdexcept>
 # include <unordered_map>
 
-typedef struct	Animation
+typedef struct	s_SDLanimation
 {
 	int			sizeH;
 	int			sizeW;

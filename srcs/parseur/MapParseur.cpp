@@ -1,46 +1,38 @@
 #include "MapParseur.hpp"
 
-MapParseur::MapParseur(const std::string &path):
-	_path(path),
-	_map(std::make_unique<TileMap>())
-{
-	std::filesystem::path p(path);
-	if (p.extension() != ".json" && p.extension() != ".tmj")
-		throw std::runtime_error("Bad extension");
-	if (!std::filesystem::exists(p))
-		throw std::runtime_error("File not find");
-	std::cout << "MapParseur created" << std::endl;
-}
-
-MapParseur::~MapParseur()
-{
-	std::cout << "MapParseur destroyed" << std::endl;
-}
-
 std::unique_ptr<TileMap> MapParseur::start(
-	RessourceManager &ressources,
-	entt::registry &registry
+	const std::string &path,
+	World &world
 )
 {
-	std::ifstream file(this->_path);
-	if (!file)
-		throw std::runtime_error("Can't open file");
+	std::unique_ptr<TileMap> map = std::make_unique<TileMap>();
+	try 
+	{
+		std::filesystem::path p(path);
+		if (p.extension() != ".json" && p.extension() != ".tmj")
+			throw std::runtime_error("ERROR MapParseur::start -> Bad extension for " + path);
+		if (!std::filesystem::exists(p))
+			throw std::runtime_error("ERROR MapParseur::start -> File not found : " + path);
+		std::ifstream file(path);
+		if (!file)
+			throw std::runtime_error("ERROR MapParseur::start -> failed opening : " + path);
+		nlohmann::json	data;
+		file >> data;
 
-	nlohmann::json	data;
-	file >> data;
-		
-	this->_map->setWidth(data["width"]);
-	this->_map->setHeight(data["height"]);
-	this->_map->setTileSize(data["tileheight"]);
+		map->setWidth(data["width"]);
+		map->setHeight(data["height"]);
+		map->setTileSize(data["tileheight"]);
 
-	this->parseTilesets(data, ressources);
-	this->parseLayers(data, registry);
-	
-	// throw std::runtime_error("WIP");
-	return (std::move(this->_map));
+		parseTilesets(*map, data, world.getRm());
+		parseLayers(*map, data, world.getRegistry());
+	} catch (const std::exception &e)
+	{
+		throw (std::runtime_error(e.what()));
+	}
+	return (std::move(map));
 }
 
-void	MapParseur::parseTilesets(nlohmann::json &data, RessourceManager &ressources)
+void	parseTilesets(TileMap &map, nlohmann::json &data, RessourceManager &ressources)
 {
 	for (auto &l : data["tilesets"])
 	{
@@ -51,7 +43,7 @@ void	MapParseur::parseTilesets(nlohmann::json &data, RessourceManager &ressource
 		std::cout << "file xml -> " << tsxFullPath << std::endl;
 		tinyxml2::XMLDocument doc;
 		if (doc.LoadFile(tsxFullPath.c_str()) != tinyxml2::XML_SUCCESS)
-			throw std::runtime_error("Can't open XML File");
+			throw std::runtime_error("ERROR TileMap::parseTilesets -> Opening of XML File filed");
 		tinyxml2::XMLElement *tileset = doc.FirstChildElement("tileset");
 		t.tileHeight = tileset->IntAttribute("tileheight");
 		t.tileWidth = tileset->IntAttribute("tilewidth");
@@ -61,24 +53,23 @@ void	MapParseur::parseTilesets(nlohmann::json &data, RessourceManager &ressource
 		std::filesystem::path tsxDir = tsxPath.parent_path();
 		std::filesystem::path fullPath = tsxDir / image->Attribute("source");
 		t.pathfile = fullPath.string();
-		std::cout << "Tentative d'ouverture de -> " << t.pathfile << std::endl;
 		t.sprite = std::make_shared<Sprite>(
 			ressources.getTexture(t.pathfile),
 			t.tileWidth,
 			t.tileHeight,
 			false
 		);
-		this->_map->addTileset(t);
+		map.addTileset(t);
 	}
 }
 
-void	MapParseur::parseLayers(nlohmann::json &data, entt::registry &registry)
+void	parseLayers(TileMap &map, nlohmann::json &data, entt::registry &registry)
 {
 	for (auto &l : data["layers"])
 	{
 		if (l["type"] == "objectgroup")
 		{
-			this->parseObjects(l, registry);
+			parseObjects(l, registry);
 			continue ;
 		}
 		t_layer	t;
@@ -86,14 +77,14 @@ void	MapParseur::parseLayers(nlohmann::json &data, entt::registry &registry)
 		t.name = l["name"];
 		t.visible = l["visible"];
 		if (t.name == "Passages")
-			this->_map->setCollisionLayer(t);
+			map.setCollisionLayer(t);
 		else
-			this->_map->addLayer(t);
+			map.addLayer(t);
 	}
-	this->_map->printLayers();
+	map.printLayers();
 }
 
-void	MapParseur::parseObjects(nlohmann::json &layer, entt::registry &registry)
+void	parseObjects(nlohmann::json &layer, entt::registry &registry)
 {
 	for (auto &obj : layer["objects"])
 	{
