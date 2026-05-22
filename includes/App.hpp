@@ -13,7 +13,6 @@
 # include "InputSDL.hpp"
 # include "RendererSDL.hpp"
 
-# include "SceneManager.hpp"
 # include "World.hpp"
 
 // SCENES
@@ -34,7 +33,6 @@ class App
 		InputSDL			_input;
 		EventSDL			_event;
 		RessourceManager	_rm;
-		SceneManager		_sm;
 		World				_world;
 		void	handleEvents();
 };

@@ -6,11 +6,14 @@
 
 # include "InputSDL.hpp"
 
-# include "SceneManager.hpp"
 # include "RessourceManager.hpp"
 # include "Camera.hpp"
 
 # include "PlayerFactories.hpp"
+
+# include "Scene.hpp"
+
+# include "Position.hpp"
 
 // SYSTEMS
 # include "MovementSystem.hpp"
@@ -21,26 +24,29 @@
 # include "InteractionSystem.hpp"
 # include "RenderSystem.hpp"
 
-class SceneManager;
+class Scene;
 
 class World
 {
 	public:
-		World(RessourceManager &rm, SceneManager &sm);
+		World(RessourceManager &rm);
 		// GETTERS
 		[[nodiscard]] entt::registry	&getRegistry();
 		[[nodiscard]] RessourceManager	&getRm();
 		// SETTERS
 		void	setMap(std::unique_ptr<TileMap> map);
 		// METHODS
-		void	init();
 		void	update(InputSDL &input, float dt);
 		void	render();
+		void	changeScene(std::unique_ptr<Scene> scene);
+		void	updateCamera();
 	private:
 		entt::registry				_registry;
 		RessourceManager			&_rm;
-		SceneManager				&_sm;
 		std::unique_ptr<TileMap>	_map;
+		std::unique_ptr<Scene> 		_scene;
+		Camera						_camera;
+		entt::entity					_player;
 };
 
 #endif

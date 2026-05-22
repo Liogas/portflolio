@@ -112,27 +112,26 @@ const t_tileset	*TileMap::getTilesetForTile(int gid) const
 
 bool	TileMap::isWalkable(int x, int y, int w, int h) const
 {
-	int left = x / this->_tileSize;
-	int right = (x + w - 1) / this->_tileSize;
+	(void)w;
+	(void)h;
+	int tileX = x / this->_tileSize + 1;
+    int tileY = y / this->_tileSize + 1;
 
-	int top = y / this->_tileSize;
-	int bottom = (y + h - 1) / this->_tileSize; 
-
-	return (
-		this->isTileWalkable(left, top)
-		&& this->isTileWalkable(right, top)
-		&& this->isTileWalkable(left, bottom)
-		&& this->isTileWalkable(right, bottom)
-	);
+    if (tileX < 0 || tileY < 0 
+        || tileX >= this->_width 
+        || tileY >= this->_height)
+        return (false);
+    int index = tileY * this->_width + tileX;
+    return (this->_collisionLayer.data[index] == 0);
 }
 
-bool	TileMap::isTileWalkable(int tileX, int tileY) const
-{
-	if (tileX < 0 || tileX >= this->_width
-		|| tileY >= this->_height || tileY < 0)
-		return (false);
-	int index = tileY * this->_width + tileX;
-	return (this->_collisionLayer.data[index] == 0);
-}
+// bool	TileMap::isTileWalkable(int tileX, int tileY) const
+// {
+// 	if (tileX < 0 || tileX >= this->_width
+// 		|| tileY >= this->_height || tileY < 0)
+// 		return (false);
+// 	int index = tileY * this->_width + tileX;
+// 	return (this->_collisionLayer.data[index] == 0);
+// }
 
 

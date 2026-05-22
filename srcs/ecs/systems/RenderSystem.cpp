@@ -1,6 +1,6 @@
 #include "RenderSystem.hpp"
 
-void	RenderSystem(entt::registry &registry)
+void	RenderSystem(entt::registry &registry, Camera &camera)
 {
 	auto view = registry.view<Position, SpriteComponent>();
 	for (auto entity : view)
@@ -8,8 +8,8 @@ void	RenderSystem(entt::registry &registry)
 		auto &pos = view.get<Position>(entity);
 		auto &sprite = view.get<SpriteComponent>(entity);
 		SDL_Rect dst = {
-			static_cast<int>(pos.x),
-			static_cast<int>(pos.y),
+			static_cast<int>(pos.x) - camera.getX(),
+			static_cast<int>(pos.y) - camera.getY(),
 			sprite.width,
 			sprite.height
 		};

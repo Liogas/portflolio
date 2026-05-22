@@ -1,10 +1,12 @@
 #include "World.hpp"
 
-World::World(RessourceManager &rm, SceneManager &sm):
+World::World(RessourceManager &rm):
 	_rm(rm),
-	_sm(sm),
 	_map(nullptr)
 {
+	this->_player = PlayerFactories::create(
+		this->_registry, this->_rm, 550.f, 280.f, "char1.png"
+	);
 	std::cout << "World created" << std::endl;
 }
 
@@ -22,30 +24,38 @@ void	World::update(InputSDL &input, float dt)
 {
 	InputSystem(this->_registry, input);
 	MovementSystem(this->_registry);
-	if (this->_map)
-		CollisionSystem(this->_registry, *this->_map, dt);
+	CollisionSystem(this->_registry, *this->_map, dt);
 	AnimationStateSystem(this->_registry);
 	AnimationSystem(this->_registry, dt);
 	// InteractionSystem(this->_registry);
+	this->updateCamera();
+}
+
+void	World::updateCamera()
+{
+	auto &pos = this->_registry.get<Position>(this->_player);
+	this->_camera.setPos(
+		pos.x - this->_scene->getWidth() / 4,
+		pos.y - this->_scene->getHeight() / 4
+	);
 }
 
 void	World::render()
 {
-	RenderSystem(this->_registry);
-}
-
-void	World::init()
-{
-	try
-	{
-		PlayerFactories::create(this->_registry, this->_rm, 550.f, 280.f, "char1.png");
-	} catch (const std::exception &e)
-	{
-		throw (std::runtime_error(std::string("ERROR World::init() -> ") + e.what()));
-	}
+	if (this->_map)
+		this->_map->render(this->_camera);
+	RenderSystem(this->_registry, this->_camera);
 }
 
 void	World::setMap(std::unique_ptr<TileMap> map)
 {
 	this->_map = std::move(map);
+}
+
+void	World::changeScene(std::unique_ptr<Scene> scene)
+{
+	if (this->_scene)
+		this->_scene->unload(*this);
+	this->_scene = std::move(scene);
+	this->_scene->load(*this);
 }

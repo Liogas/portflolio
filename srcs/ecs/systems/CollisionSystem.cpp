@@ -14,20 +14,24 @@ void	CollisionSystem(
 		auto &col = view.get<Collider>(e);
 
 		float futurX = pos.x + vel.x * dt;
+		if (map.isWalkable(futurX, pos.y, col.width, col.height))
+    		pos.x = futurX;
 		float futurY = pos.y + vel.y * dt;
+		if (map.isWalkable(pos.x, futurY, col.width, col.height))
+    		pos.y = futurY;
 
-		bool canMove = map.isWalkable(
-			futurX,
-			futurY,
-			col.width,
-			col.height
-		);
+		// bool canMove = map.isWalkable(
+		// 	futurX,
+		// 	futurY,
+		// 	col.width,
+		// 	col.height
+		// );
 
-		if (canMove)
-		{
-			pos.x = futurX;
-			pos.y = futurY;
-		}
+		// if (canMove)
+		// {
+		// 	pos.x = futurX;
+		// 	pos.y = futurY;
+		// }
 
 		vel.x = 0.f;
 		vel.y = 0.f;

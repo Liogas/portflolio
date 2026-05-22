@@ -8,8 +8,7 @@ App::App():
 	_input(),
 	_event(),
 	_rm(this->_renderer),
-	_sm(this->_rm),
-	_world(this->_rm, this->_sm)
+	_world(this->_rm)
 {
 	SDL_RenderSetLogicalSize(this->_renderer.getRenderer(), 640, 360);
 	this->_renderer.setSize(640, 360);
@@ -25,10 +24,9 @@ void	App::init()
 {
 	try
 	{
-		this->_world.init();
-		this->_sm.changeScene(std::make_unique<TestScene>(
+		this->_world.changeScene(std::make_unique<TestScene>(
 			this->_window.getWidth(), this->_window.getHeight()
-		), this->_world);
+		));
 	} catch (const std::exception &e)
 	{
 		throw (std::runtime_error(e.what()));

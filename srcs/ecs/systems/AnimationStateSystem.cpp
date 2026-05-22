@@ -8,6 +8,11 @@ void	AnimationStateSystem(entt::registry &registry)
 		auto &mov = view.get<Movement>(e);
 		auto &state = view.get<AnimationState>(e);
 
+		if (mov.direction != mov.lastDirection)
+		{
+			state.frame = 0;
+			state.timer = 0.f;
+		}
 		if (mov.isMoving)
 		{
 			switch (mov.direction)
