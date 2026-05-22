@@ -1,8 +1,8 @@
 #include "AnimationSystem.hpp"
 
-void	AnimationSystem(ent::registry &registry, float dt)
+void	AnimationSystem(entt::registry &registry, float dt)
 {
-	auto view = registry.get<
+	auto view = registry.view<
 		SpriteComponent,
 		AnimationSet,
 		AnimationState 

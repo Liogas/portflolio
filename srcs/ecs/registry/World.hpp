@@ -10,6 +10,8 @@
 # include "RessourceManager.hpp"
 # include "Camera.hpp"
 
+# include "PlayerFactories.hpp"
+
 // SYSTEMS
 # include "MovementSystem.hpp"
 # include "InputSystem.hpp"
@@ -17,6 +19,7 @@
 # include "AnimationStateSystem.hpp"
 # include "AnimationSystem.hpp"
 # include "InteractionSystem.hpp"
+# include "RenderSystem.hpp"
 
 class SceneManager;
 

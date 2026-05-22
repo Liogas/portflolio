@@ -1,6 +1,6 @@
 #include "MovementSystem.hpp"
 
-void MovementSystem(entt::registry& registry, float dt)
+void MovementSystem(entt::registry& registry)
 {
     auto view = registry.view<Movement, Velocity>();
 

@@ -13,7 +13,7 @@ class InputSDL
 		InputSDL(const InputSDL &) = delete;
 		InputSDL &operator=(const InputSDL &) = delete;
 		void	update();
-		bool	isKeyPressed(SDL_Scancode);
+		bool	isKeyPressed(SDL_Scancode) const;
 	private:
 		const Uint8	*_keyboard;
 };

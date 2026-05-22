@@ -7,17 +7,19 @@
 # include "Position.hpp"
 # include "Collider.hpp"
 # include "Interactable.hpp"
+# include "ComputerTag.hpp"
 
 class ComputerFactories
 {
 	public:
+		ComputerFactories() = delete;
 		static entt::entity	create(
-			entt::registry	&registry,
-			int				x,
-			int				y,
-			int				w,
-			int				h,
-			std::string		&direction
+			entt::registry		&registry,
+			float				x,
+			float				y,
+			int					w,
+			int					h,
+			const std::string	&direction
 		);
 };
 

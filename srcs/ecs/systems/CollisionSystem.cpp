@@ -6,7 +6,7 @@ void	CollisionSystem(
 	float			dt
 )
 {
-	auto view = registry.get<Position, Velocity, Collider>();
+	auto view = registry.view<Position, Velocity, Collider>();
 	for (auto e : view)
 	{
 		auto &pos = view.get<Position>(e);

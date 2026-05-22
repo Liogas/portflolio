@@ -1,27 +1,27 @@
 #include "ComputerFactories.hpp"
 
 
-EDirection	getDir(std::string &dir)
+static EDirection2	getDir(const std::string &dir)
 {
 	if (dir == "bottom")
-		return (EDirection2::DOWN)
+		return (EDirection2::DOWN);
 	else if (dir == "top")
-		return (EDirection2::UP)
+		return (EDirection2::UP);
 	else if (dir == "left")
-		return (EDirection::LEFT)
+		return (EDirection2::LEFT);
 	else if (dir == "right")
-		return (EDirection::RIGHT)
+		return (EDirection2::RIGHT);
 	else
-		return (EDirection::NONE);
+		return (EDirection2::NONE);
 }
 
-static entt::entity	create(
-	entt::registry	&registry,
-	int				x,
-	int				y,
-	int				w,
-	int				h,
-	std::string		&direction
+entt::entity	ComputerFactories::create(
+	entt::registry		&registry,
+	float				x,
+	float				y,
+	int					w,
+	int					h,
+	const std::string	&direction
 )
 {
 	auto computer = registry.create();
@@ -29,7 +29,7 @@ static entt::entity	create(
 	registry.emplace<Collider>(computer, w, h);
 	registry.emplace<ComputerTag>(computer);
 	EDirection2	dir = getDir(direction);
-	if (dir == EDirection::NONE)
+	if (dir == EDirection2::NONE)
 		throw (std::runtime_error("ERROR ComputerFactories::create : Direction unknown"));
 	registry.emplace<Interactable>(computer, dir);
 	return (computer);

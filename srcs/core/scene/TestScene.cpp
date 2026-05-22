@@ -4,7 +4,6 @@ TestScene::TestScene(int width, int height)
 {
 	this->_width =  width;
 	this->_height = height;
-	this->_map = nullptr;
     std::cout << "TestScene created" << std::endl;
 }
 
@@ -13,8 +12,7 @@ void	TestScene::load(World &world)
 	try
 	{
 		std::string path = world.getRm().getAssetsPath() + "maps/";
-		MapParseur	parseur(path + "home.tmj");
-		world.setMap(std::move(parseur.start(world)));
+		world.setMap(MapParseur::start(path + "home.tmj", world));
 	} catch (const std::exception& e)
 	{
 		std::cerr << "ERROR TestScene::load" << std::endl;
@@ -22,7 +20,8 @@ void	TestScene::load(World &world)
 	}
 }
 
-void	TestScene::unload(entt::registry &registry)
+void	TestScene::unload(World &world)
 {
-
+	(void) world;
+	std::cout << "TestScene::unload WIP" << std::endl;
 }

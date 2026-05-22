@@ -18,7 +18,8 @@
 class MapParseur
 {
 	public:
-		std::unique_ptr<TileMap> start(
+		MapParseur() = delete;
+		static std::unique_ptr<TileMap> start(
 			const std::string &path,
 			World	&world
 		);

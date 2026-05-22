@@ -6,6 +6,9 @@
 
 # include <memory>
 
+class Scene;
+class World;
+
 class SceneManager
 {
 	public:

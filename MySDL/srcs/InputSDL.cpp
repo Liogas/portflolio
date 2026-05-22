@@ -17,7 +17,7 @@ void	InputSDL::update()
 	this->_keyboard = SDL_GetKeyboardState(NULL);
 }
 
-bool	InputSDL::isKeyPressed(SDL_Scancode code)
+bool	InputSDL::isKeyPressed(SDL_Scancode code) const
 {
 	if (this->_keyboard[code])
 		return (true);

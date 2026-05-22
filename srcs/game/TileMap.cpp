@@ -113,10 +113,10 @@ const t_tileset	*TileMap::getTilesetForTile(int gid) const
 bool	TileMap::isWalkable(int x, int y, int w, int h) const
 {
 	int left = x / this->_tileSize;
-	int right = (x + width - 1) / this->_tileSize;
+	int right = (x + w - 1) / this->_tileSize;
 
 	int top = y / this->_tileSize;
-	int bottom = (y + height - 1) / this->_tileSize; 
+	int bottom = (y + h - 1) / this->_tileSize; 
 
 	return (
 		this->isTileWalkable(left, top)

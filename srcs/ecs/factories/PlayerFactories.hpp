@@ -19,13 +19,13 @@
 class PlayerFactories
 {
 	public:
-		PlayerFactories() = 0;
+		PlayerFactories() = delete;
 		static entt::entity	create(
 			entt::registry		&registry,
 			RessourceManager	&rm,
 			float				x,
 			float				y,
-			std::string			imgPath
+			const std::string	&imgPath
 		);
 };
 

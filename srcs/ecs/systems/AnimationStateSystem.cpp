@@ -1,8 +1,8 @@
 #include "AnimationStateSystem.hpp"
 
-void	AnimationStateSystem(ent::registry &registry)
+void	AnimationStateSystem(entt::registry &registry)
 {
-	auto view = registry.get<Movement, AnimationState>();
+	auto view = registry.view<Movement, AnimationState>();
 	for (auto e : view)
 	{
 		auto &mov = view.get<Movement>(e);
@@ -13,27 +13,28 @@ void	AnimationStateSystem(ent::registry &registry)
 			switch (mov.direction)
 			{
 				case EDirection2::DOWN :
-					state.current = "walk_down"; break;
+					state.current = "walk_down"; break ;
 				case EDirection2::UP :
-					state.current = "walk_up"; break;
+					state.current = "walk_up"; break ;
 				case EDirection2::LEFT :
-					state.current = "walk_left"; break;
+					state.current = "walk_left"; break ;
 				case EDirection2::RIGHT :
-					state.current = "walk_right"; break;
+					state.current = "walk_right"; break ;
+				default: break ;
 			}
 		} else
 		{
 			switch (mov.lastDirection)
 			{
 				case EDirection2::DOWN :
-					state.current = "idle_down"; break;
+					state.current = "idle_down"; break ;
 				case EDirection2::UP :
-					state.current = "idle_up"; break;
+					state.current = "idle_up"; break ;
 				case EDirection2::LEFT :
-					state.current = "idle_left"; break;
+					state.current = "idle_left"; break ;
 				case EDirection2::RIGHT :
-					state.current = "idle_right"; break;
-				default : break;
+					state.current = "idle_right"; break ;
+				default : break ;
 			}
 		}
 	}

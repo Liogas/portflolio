@@ -3,6 +3,9 @@
 
 # include <entt/entt.hpp>
 
+# include "Movement.hpp"
+# include "AnimationState.hpp"
+
 void	AnimationStateSystem(entt::registry &registry);
 
 #endif

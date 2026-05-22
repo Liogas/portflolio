@@ -1,11 +1,11 @@
 #include "PlayerFactories.hpp"
 
-static	entt::entity	PlayerFactories::create(
+entt::entity	PlayerFactories::create(
 	entt::registry		&registry,
 	RessourceManager	&rm,
 	float				x,
 	float				y,
-	std::string			imgPath
+	const std::string	&imgPath
 )
 {
 	auto player = registry.create();

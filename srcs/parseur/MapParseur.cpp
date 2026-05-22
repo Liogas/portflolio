@@ -1,38 +1,6 @@
 #include "MapParseur.hpp"
 
-std::unique_ptr<TileMap> MapParseur::start(
-	const std::string &path,
-	World &world
-)
-{
-	std::unique_ptr<TileMap> map = std::make_unique<TileMap>();
-	try 
-	{
-		std::filesystem::path p(path);
-		if (p.extension() != ".json" && p.extension() != ".tmj")
-			throw std::runtime_error("ERROR MapParseur::start -> Bad extension for " + path);
-		if (!std::filesystem::exists(p))
-			throw std::runtime_error("ERROR MapParseur::start -> File not found : " + path);
-		std::ifstream file(path);
-		if (!file)
-			throw std::runtime_error("ERROR MapParseur::start -> failed opening : " + path);
-		nlohmann::json	data;
-		file >> data;
-
-		map->setWidth(data["width"]);
-		map->setHeight(data["height"]);
-		map->setTileSize(data["tileheight"]);
-
-		parseTilesets(*map, data, world.getRm());
-		parseLayers(*map, data, world.getRegistry());
-	} catch (const std::exception &e)
-	{
-		throw (std::runtime_error(e.what()));
-	}
-	return (std::move(map));
-}
-
-void	parseTilesets(TileMap &map, nlohmann::json &data, RessourceManager &ressources)
+static void	parseTilesets(TileMap &map, nlohmann::json &data, RessourceManager &ressources)
 {
 	for (auto &l : data["tilesets"])
 	{
@@ -63,7 +31,23 @@ void	parseTilesets(TileMap &map, nlohmann::json &data, RessourceManager &ressour
 	}
 }
 
-void	parseLayers(TileMap &map, nlohmann::json &data, entt::registry &registry)
+static void	parseObjects(nlohmann::json &layer, entt::registry &registry)
+{
+	for (auto &obj : layer["objects"])
+	{
+		if (obj["type"] == "computer")
+			ComputerFactories::create(
+				registry,
+				obj["x"],
+				obj["y"],
+				obj["width"],
+				obj["height"],
+				obj["properties"][0]["value"]
+			);
+	}
+}
+
+static void	parseLayers(TileMap &map, nlohmann::json &data, entt::registry &registry)
 {
 	for (auto &l : data["layers"])
 	{
@@ -84,18 +68,35 @@ void	parseLayers(TileMap &map, nlohmann::json &data, entt::registry &registry)
 	map.printLayers();
 }
 
-void	parseObjects(nlohmann::json &layer, entt::registry &registry)
+std::unique_ptr<TileMap> MapParseur::start(
+	const std::string &path,
+	World &world
+)
 {
-	for (auto &obj : layer["objects"])
+	std::unique_ptr<TileMap> map = std::make_unique<TileMap>();
+	try 
 	{
-		if (obj["type"] == "computer")
-			ComputerFactories::create(
-				registry,
-				obj["x"],
-				obj["y"],
-				obj["width"],
-				obj["height"],
-				obj["properties"][0]["value"]
-			);
+		std::filesystem::path p(path);
+		if (p.extension() != ".json" && p.extension() != ".tmj")
+			throw std::runtime_error("ERROR MapParseur::start -> Bad extension for " + path);
+		if (!std::filesystem::exists(p))
+			throw std::runtime_error("ERROR MapParseur::start -> File not found : " + path);
+		std::ifstream file(path);
+		if (!file)
+			throw std::runtime_error("ERROR MapParseur::start -> failed opening : " + path);
+		nlohmann::json	data;
+		file >> data;
+
+		map->setWidth(data["width"]);
+		map->setHeight(data["height"]);
+		map->setTileSize(data["tileheight"]);
+
+		parseTilesets(*map, data, world.getRm());
+		parseLayers(*map, data, world.getRegistry());
+	} catch (const std::exception &e)
+	{
+		throw (std::runtime_error(e.what()));
 	}
+	return (map);
 }
+

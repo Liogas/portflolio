@@ -13,11 +13,17 @@ entt::registry	&World::getRegistry()
 	return (this->_registry);
 }
 
+RessourceManager	&World::getRm()
+{
+	return (this->_rm);
+}
+
 void	World::update(InputSDL &input, float dt)
 {
 	InputSystem(this->_registry, input);
-	MovementSystem(this->_registry, dt);
-	CollisionSystem(this->_registry);
+	MovementSystem(this->_registry);
+	if (this->_map)
+		CollisionSystem(this->_registry, *this->_map, dt);
 	AnimationStateSystem(this->_registry);
 	AnimationSystem(this->_registry, dt);
 	// InteractionSystem(this->_registry);
@@ -25,7 +31,6 @@ void	World::update(InputSDL &input, float dt)
 
 void	World::render()
 {
-	std::cout << "WIP" << std::endl;
 	RenderSystem(this->_registry);
 }
 
@@ -33,10 +38,10 @@ void	World::init()
 {
 	try
 	{
-		PlayerFactories::create(registry, 550.f, 280.f, "char1.png");
+		PlayerFactories::create(this->_registry, this->_rm, 550.f, 280.f, "char1.png");
 	} catch (const std::exception &e)
 	{
-		throw (std::runtime_error("ERROR World::init() -> " + e.what()));
+		throw (std::runtime_error(std::string("ERROR World::init() -> ") + e.what()));
 	}
 }
 

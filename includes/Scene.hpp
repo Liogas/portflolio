@@ -21,6 +21,7 @@
 # include "RendererSDL.hpp"
 
 class RessourceManager;
+class World;
 
 class Scene
 {
