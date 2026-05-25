@@ -5,7 +5,7 @@
 
 typedef struct s_interactable
 {
-	EDirection2	direction;	
+	EDirection2	direction;
 }	Interactable;
 
 #endif

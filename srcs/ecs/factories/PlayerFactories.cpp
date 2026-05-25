@@ -8,18 +8,19 @@ entt::entity	PlayerFactories::create(
 	const std::string	&imgPath
 )
 {
+	int	size = 64;
 	auto player = registry.create();
 	registry.emplace<Position>(player, x, y);
 	registry.emplace<Movement>(player, 200.f, EDirection2::NONE, EDirection2::NONE, false);
 	registry.emplace<Velocity>(player, 0.f, 0.f);
-	registry.emplace<Collider>(player, 64, 64);
+	registry.emplace<Collider>(player, size, size);
 	registry.emplace<PlayerTag>(player);
 	registry.emplace<Persistent>(player);
 	SpriteComponent sprite;
 	sprite.texture = rm.getTexture(imgPath);
-	sprite.width = 64;
-	sprite.height = 64;
-	sprite.src = { 0, 0, 64, 64 };
+	sprite.width = size;
+	sprite.height = size;
+	sprite.src = { 0, 0, size, size };
 	registry.emplace<SpriteComponent>(player, sprite);
 	AnimationSet set;
 	set.animations["walk_down"] = { 4, 0, 6, 0.135f };

@@ -7,6 +7,7 @@ World::World(RessourceManager &rm):
 	this->_player = PlayerFactories::create(
 		this->_registry, this->_rm, 550.f, 280.f, "char1.png"
 	);
+	this->debug = true;
 	std::cout << "World created" << std::endl;
 }
 
@@ -27,8 +28,13 @@ void	World::update(InputSDL &input, float dt)
 	CollisionSystem(this->_registry, *this->_map, dt);
 	AnimationStateSystem(this->_registry);
 	AnimationSystem(this->_registry, dt);
-	// InteractionSystem(this->_registry);
+	InteractionSystem(*this, this->_registry, input);
 	this->updateCamera();
+}
+
+void	World::toggleDebug()
+{
+	this->debug = !this->debug;
 }
 
 void	World::updateCamera()
@@ -40,11 +46,13 @@ void	World::updateCamera()
 	);
 }
 
-void	World::render()
+void	World::render(RendererSDL &renderer)
 {
 	if (this->_map)
 		this->_map->render(this->_camera);
 	RenderSystem(this->_registry, this->_camera);
+	if (this->debug)
+		DebugRenderSystem(this->_registry, renderer, this->_camera);
 }
 
 void	World::setMap(std::unique_ptr<TileMap> map)

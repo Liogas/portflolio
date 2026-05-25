@@ -5,6 +5,7 @@
 # include <iostream>
 
 # include "InputSDL.hpp"
+# include "RendererSDL.hpp"
 
 # include "RessourceManager.hpp"
 # include "Camera.hpp"
@@ -23,6 +24,7 @@
 # include "AnimationSystem.hpp"
 # include "InteractionSystem.hpp"
 # include "RenderSystem.hpp"
+# include "DebugRenderSystem.hpp"
 
 class Scene;
 
@@ -37,16 +39,19 @@ class World
 		void	setMap(std::unique_ptr<TileMap> map);
 		// METHODS
 		void	update(InputSDL &input, float dt);
-		void	render();
+		void	render(RendererSDL &renderer);
 		void	changeScene(std::unique_ptr<Scene> scene);
 		void	updateCamera();
+		void	toggleDebug();
+		// PROPS
+		bool	debug;
 	private:
 		entt::registry				_registry;
 		RessourceManager			&_rm;
 		std::unique_ptr<TileMap>	_map;
 		std::unique_ptr<Scene> 		_scene;
 		Camera						_camera;
-		entt::entity					_player;
+		entt::entity				_player;
 };
 
 #endif

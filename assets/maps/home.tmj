@@ -288,7 +288,7 @@
                         {
                          "name":"direction",
                          "type":"string",
-                         "value":"bottom"
+                         "value":"top"
                         }],
                  "rotation":0,
                  "type":"computer",
