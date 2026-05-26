@@ -19,20 +19,6 @@ void	CollisionSystem(
 		float futurY = pos.y + vel.y * dt;
 		if (map.isWalkable(pos.x, futurY, col.width, col.height))
     		pos.y = futurY;
-
-		// bool canMove = map.isWalkable(
-		// 	futurX,
-		// 	futurY,
-		// 	col.width,
-		// 	col.height
-		// );
-
-		// if (canMove)
-		// {
-		// 	pos.x = futurX;
-		// 	pos.y = futurY;
-		// }
-
 		vel.x = 0.f;
 		vel.y = 0.f;
 	}

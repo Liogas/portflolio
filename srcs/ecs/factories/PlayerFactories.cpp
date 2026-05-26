@@ -11,7 +11,7 @@ entt::entity	PlayerFactories::create(
 	int	size = 64;
 	auto player = registry.create();
 	registry.emplace<Position>(player, x, y);
-	registry.emplace<Movement>(player, 200.f, EDirection2::NONE, EDirection2::NONE, false);
+	registry.emplace<Movement>(player, 200.f, EDirection2::DOWN, EDirection2::DOWN, false);
 	registry.emplace<Velocity>(player, 0.f, 0.f);
 	registry.emplace<Collider>(player, size, size);
 	registry.emplace<PlayerTag>(player);

@@ -4,7 +4,11 @@
 # include <entt/entt.hpp>
 
 # include "RendererSDL.hpp"
+
 # include "DebugBox.hpp"
+# include "Collider.hpp"
+# include "Position.hpp"
+
 # include "Camera.hpp"
 
 void	DebugRenderSystem(entt::registry &registry, RendererSDL &renderer, Camera &camera);

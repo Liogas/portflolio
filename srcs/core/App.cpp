@@ -44,6 +44,7 @@ void	App::run()
 			auto currentTime = std::chrono::high_resolution_clock::now();
     		float deltaTime = std::chrono::duration<float>(currentTime - lastTime).count();
     		lastTime = currentTime;
+			this->_input.update();
 			this->handleEvents();
 			this->_renderer.setDrawColor(0, 0, 0, 255);
 			this->_renderer.clear();
@@ -66,5 +67,4 @@ void	App::handleEvents()
 		if (e.type == SDL_QUIT)
 			this->_running = false;
 	}
-	this->_input.update();
 }

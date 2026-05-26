@@ -24,7 +24,7 @@ void	InteractionSystem(World &world, entt::registry &registry, const InputSDL &i
 		auto &mov = PlayerView.get<Movement>(player);
 		auto &col = PlayerView.get<Collider>(player);
 
-		const int offset = 64;
+		const int offset = 16;
 		SDL_Rect interactBox = {
 			static_cast<int>(pos.x),
 			static_cast<int>(pos.y),
@@ -38,20 +38,20 @@ void	InteractionSystem(World &world, entt::registry &registry, const InputSDL &i
 		switch (mov.lastDirection)
 		{
 			case EDirection2::LEFT :
-				interactBox.x = static_cast<int>(pos.x) - offset;
+				interactBox.x = static_cast<int>(pos.x) + col.width / 9;
 				interactBox.y = centerY - offset / 2;
 				break ;
 			case EDirection2::RIGHT :
-				interactBox.x = static_cast<int>(pos.x) + col.width;
+				interactBox.x = static_cast<int>(pos.x) + col.width / 1.5;
 				interactBox.y = centerY - offset / 2;
 				break ;
 			case EDirection2::UP :
 				interactBox.x =  centerX - offset / 2;
-				interactBox.y = static_cast<int>(pos.y) - offset;
+				interactBox.y = static_cast<int>(pos.y) + col.height / 9;
 				break ;
 			case EDirection2::DOWN :
 				interactBox.x = centerX - offset / 2;
-				interactBox.y = static_cast<int>(pos.y) + col.height;
+				interactBox.y = static_cast<int>(pos.y) + col.height / 1.5;
 				break ;
 			default : break ;
 		}

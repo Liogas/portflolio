@@ -23,7 +23,7 @@ RessourceManager	&World::getRm()
 
 void	World::update(InputSDL &input, float dt)
 {
-	InputSystem(this->_registry, input);
+	InputSystem(*this, this->_registry, input);
 	MovementSystem(this->_registry);
 	CollisionSystem(this->_registry, *this->_map, dt);
 	AnimationStateSystem(this->_registry);
