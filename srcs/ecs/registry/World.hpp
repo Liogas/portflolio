@@ -9,10 +9,9 @@
 
 # include "RessourceManager.hpp"
 # include "Camera.hpp"
-
 # include "PlayerFactories.hpp"
-
 # include "Scene.hpp"
+# include "EventBus.hpp"
 
 # include "Position.hpp"
 
@@ -25,8 +24,17 @@
 # include "InteractionSystem.hpp"
 # include "RenderSystem.hpp"
 # include "DebugRenderSystem.hpp"
+# include "GameplayEventSystem.hpp"
 
 class Scene;
+
+enum class GameState
+{
+	Playing,
+	ComputerInteraction,
+	Dialogue,
+	Paused
+};
 
 class World
 {
@@ -43,8 +51,10 @@ class World
 		void	changeScene(std::unique_ptr<Scene> scene);
 		void	updateCamera();
 		void	toggleDebug();
+		bool	isGameplayBlocked() const;
 		// PROPS
-		bool	debug;
+		bool		debug;
+		GameState	gameState;
 	private:
 		entt::registry				_registry;
 		RessourceManager			&_rm;
@@ -52,6 +62,7 @@ class World
 		std::unique_ptr<Scene> 		_scene;
 		Camera						_camera;
 		entt::entity				_player;
+		EventBus					_eventBus;
 };
 
 #endif

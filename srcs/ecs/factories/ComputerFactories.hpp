@@ -7,7 +7,7 @@
 # include "Position.hpp"
 # include "Collider.hpp"
 # include "Interactable.hpp"
-# include "ComputerTag.hpp"
+# include "Computer.hpp"
 
 class ComputerFactories
 {

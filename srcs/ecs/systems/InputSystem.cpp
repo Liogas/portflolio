@@ -4,11 +4,11 @@ void InputSystem(World &world, entt::registry &registry, const InputSDL &input)
 {
 	auto view = registry.view<Movement, PlayerTag>();
 
-	if (input.isKeyPressed(SDL_SCANCODE_P))
-		std::cout << "PRESS\n";
-
 	if (input.isKeyPressed(SDL_SCANCODE_F3))
 		world.toggleDebug();
+
+	if (world.gameState != GameState::Playing)
+		return ;
 
 	for (auto e : view)
 	{

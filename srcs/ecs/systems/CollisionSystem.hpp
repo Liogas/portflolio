@@ -11,7 +11,6 @@
 # include "Collider.hpp"
 # include "Velocity.hpp"
 
-
 void	CollisionSystem(entt::registry &registry, TileMap &map, float dt);
 
 #endif

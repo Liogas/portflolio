@@ -1,7 +1,10 @@
 #include "MovementSystem.hpp"
 
-void MovementSystem(entt::registry& registry)
+void MovementSystem(World &world, entt::registry& registry)
 {
+    if (world.gameState != GameState::Playing)
+		return ;
+
     auto view = registry.view<Movement, Velocity>();
 
     for (auto e : view)

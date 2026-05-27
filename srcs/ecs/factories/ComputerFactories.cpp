@@ -27,7 +27,7 @@ entt::entity	ComputerFactories::create(
 	auto computer = registry.create();
 	registry.emplace<Position>(computer, x, y);
 	registry.emplace<Collider>(computer, w, h);
-	registry.emplace<ComputerTag>(computer);
+	registry.emplace<Computer>(computer, Computer{{"I'm a computer", "test 123"}, false});
 	EDirection2	dir = getDir(direction);
 	if (dir == EDirection2::NONE)
 		throw (std::runtime_error("ERROR ComputerFactories::create : Direction unknown"));

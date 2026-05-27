@@ -16,6 +16,11 @@
 
 class World;
 
-void	InteractionSystem(World &world, entt::registry &registry, const InputSDL &input);
+void	InteractionSystem(
+    World			&world,
+    entt::registry	&registry,
+    const InputSDL	&input,
+    EventBus		&bus
+);
 
 #endif

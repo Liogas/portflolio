@@ -8,6 +8,7 @@ World::World(RessourceManager &rm):
 		this->_registry, this->_rm, 550.f, 280.f, "char1.png"
 	);
 	this->debug = true;
+	this->gameState = GameState::Playing;
 	std::cout << "World created" << std::endl;
 }
 
@@ -24,11 +25,12 @@ RessourceManager	&World::getRm()
 void	World::update(InputSDL &input, float dt)
 {
 	InputSystem(*this, this->_registry, input);
-	MovementSystem(this->_registry);
+	MovementSystem(*this, this->_registry);
 	CollisionSystem(this->_registry, *this->_map, dt);
+	InteractionSystem(*this, this->_registry, input, this->_eventBus);
+	GameplayEventSystem(*this, this->_registry, this->_eventBus);
 	AnimationStateSystem(this->_registry);
 	AnimationSystem(this->_registry, dt);
-	InteractionSystem(*this, this->_registry, input);
 	this->updateCamera();
 }
 
@@ -66,4 +68,9 @@ void	World::changeScene(std::unique_ptr<Scene> scene)
 		this->_scene->unload(*this);
 	this->_scene = std::move(scene);
 	this->_scene->load(*this);
+}
+
+bool	World::isGameplayBlocked() const
+{
+	return (this->gameState != GameState::Playing);
 }

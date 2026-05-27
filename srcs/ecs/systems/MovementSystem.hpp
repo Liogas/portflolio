@@ -5,7 +5,10 @@
 # include "Movement.hpp"
 # include "Velocity.hpp"
 # include <entt/entt.hpp>
+# include "World.hpp"
 
-void	MovementSystem(entt::registry& registry);
+class World;
+
+void	MovementSystem(World &world, entt::registry& registry);
 
 #endif
