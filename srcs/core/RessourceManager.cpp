@@ -33,7 +33,9 @@ std::string	RessourceManager::getAssetsPath()
 		{
 			exePath = exePath.parent_path();
 			if (exePath == exePath.root_path())
-				throw std::runtime_error("assets folder not found");
+				throw std::runtime_error(
+					"ERROR RessourceManager::getAssetsPath : assets folder not found"
+				);
 		}
 		path = (exePath / "assets").string() + "/";
 	}
@@ -51,7 +53,9 @@ std::string	RessourceManager::getTexturesPath()
 		{
 			exePath = exePath.parent_path();
 			if (exePath == exePath.root_path())
-				throw std::runtime_error("textures folder not found");
+				throw std::runtime_error(
+					"ERROR RessourceManager::getTexturesPath : textures folder not found"
+				);
 		}
 		path = (exePath / "assets/textures").string() + "/";
 	}

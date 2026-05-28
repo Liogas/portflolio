@@ -1,0 +1,10 @@
+{
+    "id": "webserv_42",
+    "title": "Webserv",
+    "description": "A high-performance HTTP/1.1 web server built from scratch in C++98, inspired by Nginx, handling multiple clients with non-blocking I/O.",
+    "tags": [
+        "C++"
+    ],
+    "imagePath": "",
+    "githubUrl": "https://github.com/Liogas/Webserv_42"
+}

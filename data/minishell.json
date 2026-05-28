@@ -1,0 +1,10 @@
+{
+    "id": "minishell_42",
+    "title": "Minishell",
+    "description": "A Unix-like shell built from scratch in C, reproducing core Bash behavior including parsing, execution, and process management.",
+    "tags": [
+        "C"
+    ],
+    "imagePath": "",
+    "githubUrl": "https://github.com/Liogas/Minishell_42"
+}

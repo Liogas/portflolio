@@ -15,7 +15,6 @@ class RessourceManager
 		~RessourceManager();
 		// GETTER
 		[[nodiscard]] std::shared_ptr<TextureSDL>	&getTexture(const std::string &);
-
 		// METHODS
 		std::string	getAssetsPath();
 		std::string	getTexturesPath();
