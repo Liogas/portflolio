@@ -8,11 +8,21 @@ App::App():
 	_input(),
 	_event(),
 	_rm(this->_renderer),
-	_world(this->_rm)
+	_pm(),
+	_cm(),
+	_world(this->_rm, this->_cm, this->_pm)
 {
-	SDL_RenderSetLogicalSize(this->_renderer.getRenderer(), 640, 360);
-	this->_renderer.setSize(640, 360);
-	std::cout << "App created" << std::endl;
+	try
+	{
+		SDL_RenderSetLogicalSize(this->_renderer.getRenderer(), 640, 360);
+		this->_renderer.setSize(640, 360);
+		this->_pm.loadAll();
+		this->_cm.loadAll();
+		std::cout << "App created" << std::endl;
+	} catch (const std::exception &e)
+	{
+		throw (std::runtime_error(e.what()));
+	}
 }
 
 App::~App()

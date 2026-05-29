@@ -4,16 +4,22 @@
 # include <entt/entt.hpp>
 # include <iostream>
 
+// MYSDL
 # include "InputSDL.hpp"
 # include "RendererSDL.hpp"
 
+// MANAGERS
 # include "RessourceManager.hpp"
+# include "ProjectManager.hpp"
+# include "ComputerManager.hpp"
+
 # include "Camera.hpp"
-# include "PlayerFactories.hpp"
 # include "Scene.hpp"
+# include "Position.hpp"
 # include "EventBus.hpp"
 
-# include "Position.hpp"
+// FACTORIES
+# include "PlayerFactories.hpp"
 
 // SYSTEMS
 # include "MovementSystem.hpp"
@@ -25,6 +31,7 @@
 # include "RenderSystem.hpp"
 # include "DebugRenderSystem.hpp"
 # include "GameplayEventSystem.hpp"
+# include "UISystem.hpp"
 
 class Scene;
 
@@ -39,12 +46,16 @@ enum class GameState
 class World
 {
 	public:
-		World(RessourceManager &rm);
+		World(RessourceManager &rm, ComputerManager &cm, ProjectManager &pm);
 		// GETTERS
 		[[nodiscard]] entt::registry	&getRegistry();
 		[[nodiscard]] RessourceManager	&getRm();
+		[[nodiscard]] ComputerManager	&getCm();
+		[[nodiscard]] ProjectManager	&getPm();
+		[[nodiscard]] entt::entity		&getActiveComputer();
 		// SETTERS
 		void	setMap(std::unique_ptr<TileMap> map);
+		void	setActiveComputer(entt::entity e);
 		// METHODS
 		void	update(InputSDL &input, float dt);
 		void	render(RendererSDL &renderer);
@@ -58,11 +69,14 @@ class World
 	private:
 		entt::registry				_registry;
 		RessourceManager			&_rm;
+		ProjectManager				&_pm;
+		ComputerManager				&_cm;
 		std::unique_ptr<TileMap>	_map;
 		std::unique_ptr<Scene> 		_scene;
 		Camera						_camera;
 		entt::entity				_player;
 		EventBus					_eventBus;
+		entt::entity				_activeComputer;
 };
 
 #endif

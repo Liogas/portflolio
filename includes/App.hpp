@@ -33,6 +33,8 @@ class App
 		InputSDL			_input;
 		EventSDL			_event;
 		RessourceManager	_rm;
+		ProjectManager		_pm;
+		ComputerManager		_cm;
 		World				_world;
 		void	handleEvents();
 };

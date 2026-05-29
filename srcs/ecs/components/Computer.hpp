@@ -4,6 +4,8 @@
 # include <iostream>
 # include <vector>
 
+# include "json.hpp"
+
 typedef struct	s_project
 {
 	std::string					id;
@@ -22,7 +24,7 @@ inline void from_json(
     j.at("title").get_to(p.title);
     j.at("description").get_to(p.description);
     j.at("tags").get_to(p.tags);
-    j.at("imagePath").get_to(p.imagePath);
+    j.at("imagePath").get_to(p.imgPath);
     j.at("githubUrl").get_to(p.githubUrl);
 }
 
@@ -30,6 +32,13 @@ typedef struct s_computerData
 {
 	std::vector<std::string>	projectIds;
 }	ComputerData;
+
+inline void from_json(
+    const nlohmann::json& j,
+    ComputerData& c)
+{
+    j.at("projectIds").get_to(c.projectIds);
+}
 
 typedef struct s_computer
 {

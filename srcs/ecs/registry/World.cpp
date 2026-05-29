@@ -1,7 +1,9 @@
 #include "World.hpp"
 
-World::World(RessourceManager &rm):
+World::World(RessourceManager &rm, ComputerManager &cm, ProjectManager &pm):
 	_rm(rm),
+	_pm(pm),
+	_cm(cm),
 	_map(nullptr)
 {
 	this->_player = PlayerFactories::create(
@@ -9,6 +11,7 @@ World::World(RessourceManager &rm):
 	);
 	this->debug = true;
 	this->gameState = GameState::Playing;
+	this->_activeComputer = entt::null;
 	std::cout << "World created" << std::endl;
 }
 
@@ -20,6 +23,16 @@ entt::registry	&World::getRegistry()
 RessourceManager	&World::getRm()
 {
 	return (this->_rm);
+}
+
+ComputerManager	&World::getCm()
+{
+	return (this->_cm);
+}
+
+ProjectManager	&World::getPm()
+{
+	return (this->_pm);
 }
 
 void	World::update(InputSDL &input, float dt)
@@ -55,6 +68,8 @@ void	World::render(RendererSDL &renderer)
 	RenderSystem(this->_registry, this->_camera);
 	if (this->debug)
 		DebugRenderSystem(this->_registry, renderer, this->_camera);
+	if (this->_activeComputer != entt::null)
+		UISystem(*this, renderer);
 }
 
 void	World::setMap(std::unique_ptr<TileMap> map)
@@ -73,4 +88,14 @@ void	World::changeScene(std::unique_ptr<Scene> scene)
 bool	World::isGameplayBlocked() const
 {
 	return (this->gameState != GameState::Playing);
+}
+
+void	World::setActiveComputer(entt::entity e)
+{
+	this->_activeComputer = e;
+}
+
+entt::entity	&World::getActiveComputer()
+{
+	return (this->_activeComputer);
 }

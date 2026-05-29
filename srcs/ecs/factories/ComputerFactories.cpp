@@ -30,7 +30,7 @@ entt::entity	ComputerFactories::create(
 	registry.emplace<Computer>(
 		computer, Computer
 		{
-			{"I'm a computer", "test 123"},
+			"pc_portfolio",
 		 	false
 		}
 	);

@@ -10,14 +10,22 @@ ProjectManager::~ProjectManager()
 	std::cout << "ProjectManager destroyed" << std::endl;
 }
 
-const Project	&ProjectManager::get(const std::string &id)
+const Project	&ProjectManager::get(const std::string &id) const
 {
-	if (!this->_projects.contains(id))
-		this->_projects.emplace(id, loadProject(id));
-	return (this->_projects.at(id));
+	try
+	{
+		auto it = this->_projects.find(id);
+		if (it == this->_projects.end())
+        	throw std::runtime_error("Unknown project id: " + id);
+		return it->second;
+	} catch (const std::exception &e)
+	{
+		std::cerr << "PROJETMANAGER::GET" << std::endl;
+		throw (std::runtime_error(e.what()));
+	}
 }
 
-std::string	ProjectManager::getProjectPath()
+std::string	ProjectManager::getProjectsPath()
 {
 	static std::string	path;
 
@@ -28,15 +36,36 @@ std::string	ProjectManager::getProjectPath()
 		{
 			exePath = exePath.parent_path();
 			if (exePath == exePath.root_path())
-				throw std::runtime_error("ERROR ProjectManager::getProjectPath : data folder not found");
+				throw std::runtime_error("ERROR ProjectManager::getProjectsPath : data folder not found");
 		}
-		path = (exePath / "data/").string() + "/";
+		path = (exePath / "data/projects").string() + "/";
 	}
 	return (path);
 }
 
-Project	ProjectManager::loadProject(const std::string &id)
+void	ProjectManager::loadAll()
 {
-	auto path = getProjectPath() / (id + ".json");
-	
+	try
+	{
+		std::filesystem::path folder = getProjectsPath();
+		for (const auto &entry : std::filesystem::directory_iterator(folder))
+		{
+			if (!entry.is_regular_file())
+				continue ;
+			if (entry.path().extension() != ".json")
+				continue ;
+			std::ifstream file (entry.path());
+			if (!file.is_open())
+				throw (std::runtime_error(
+					"ERROR ProjectManager::loadAll : Cannot open computer file -> " +  entry.path().string()
+				));
+			nlohmann::json data;
+			file >> data;
+			Project	project = data.get<Project>();
+			this->_projects.emplace(project.id, project);
+		}
+	} catch (const std::exception &e)
+	{
+		throw (std::runtime_error(e.what()));
+	}	
 }

@@ -4,9 +4,9 @@
 # include <unordered_map>
 # include <iostream>
 # include <filesystem>
+# include <fstream>
 
-
-# include "Project.hpp"
+# include "Computer.hpp"
 
 class	ProjectManager
 {
@@ -14,8 +14,8 @@ class	ProjectManager
 		ProjectManager();
 		~ProjectManager();
 		const Project	&get(const std::string &id) const;
-		Project			loadProject(const std::string &id);
-		std::string		getProjectPath();
+		void			loadAll();
+		std::string		getProjectsPath();
 	private:
 		std::unordered_map<std::string, Project>	_projects;
 };
