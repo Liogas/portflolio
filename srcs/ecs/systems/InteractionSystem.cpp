@@ -91,7 +91,6 @@ void	InteractionSystem(
 					player,
 					entity
 				});
-				std::cout << "Interaction detected !" << std::endl;
 			}
 		}
 	}

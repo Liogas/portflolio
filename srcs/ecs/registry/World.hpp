@@ -6,7 +6,6 @@
 
 // MYSDL
 # include "InputSDL.hpp"
-# include "RendererSDL.hpp"
 
 // MANAGERS
 # include "RessourceManager.hpp"
@@ -17,6 +16,9 @@
 # include "Scene.hpp"
 # include "Position.hpp"
 # include "EventBus.hpp"
+
+// UI
+# include "ComputerUI"
 
 // FACTORIES
 # include "PlayerFactories.hpp"
@@ -48,14 +50,14 @@ class World
 	public:
 		World(RessourceManager &rm, ComputerManager &cm, ProjectManager &pm);
 		// GETTERS
-		[[nodiscard]] entt::registry	&getRegistry();
-		[[nodiscard]] RessourceManager	&getRm();
-		[[nodiscard]] ComputerManager	&getCm();
-		[[nodiscard]] ProjectManager	&getPm();
-		[[nodiscard]] entt::entity		&getActiveComputer();
+		[[nodiscard]] entt::registry			&getRegistry();
+		[[nodiscard]] RessourceManager			&getRm();
+		[[nodiscard]] ComputerManager			&getCm();
+		[[nodiscard]] ProjectManager			&getPm();
+		[[nodiscard]] std::optional<ComputerUI>	&getComputerUI();
 		// SETTERS
 		void	setMap(std::unique_ptr<TileMap> map);
-		void	setActiveComputer(entt::entity e);
+		void	setComputerUI(ComputerUI c);
 		// METHODS
 		void	update(InputSDL &input, float dt);
 		void	render(RendererSDL &renderer);
@@ -76,7 +78,7 @@ class World
 		Camera						_camera;
 		entt::entity				_player;
 		EventBus					_eventBus;
-		entt::entity				_activeComputer;
+		std::optional<ComputerUI>	_computerUI;
 };
 
 #endif

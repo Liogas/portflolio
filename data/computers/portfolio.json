@@ -1,5 +1,6 @@
 {
 	"id": "pc_portfolio",
+	"title": "Portfolio",
 	"projectIds": [
 		"minishell_42",
 		"webserv_42",

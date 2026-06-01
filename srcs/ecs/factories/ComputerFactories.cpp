@@ -17,6 +17,7 @@ static EDirection2	getDir(const std::string &dir)
 
 entt::entity	ComputerFactories::create(
 	entt::registry		&registry,
+	const std::string	&title,
 	float				x,
 	float				y,
 	int					w,
