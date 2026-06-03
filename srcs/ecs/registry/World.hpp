@@ -18,7 +18,7 @@
 # include "EventBus.hpp"
 
 // UI
-# include "ComputerUI"
+# include "ComputerUI.hpp"
 
 // FACTORIES
 # include "PlayerFactories.hpp"
@@ -65,6 +65,8 @@ class World
 		void	updateCamera();
 		void	toggleDebug();
 		bool	isGameplayBlocked() const;
+		void	openComputer(const std::string &id);
+		void	closeComputer();
 		// PROPS
 		bool		debug;
 		GameState	gameState;

@@ -15,6 +15,7 @@ class ComputerFactories
 		ComputerFactories() = delete;
 		static entt::entity	create(
 			entt::registry		&registry,
+			const std::string	&id,
 			float				x,
 			float				y,
 			int					w,

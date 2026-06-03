@@ -2,14 +2,13 @@
 # define PROJECTCARD_HPP
 
 # include "RendererSDL.hpp"
-
-struct Project;
+# include "Project.hpp"
 
 typedef struct s_projectCard
 {
 	const Project	*project;
 	SDL_Rect		rect;
-	bool			selected = false;
+	bool			selected;
 }	ProjectCard;
 
 void	drawProjectCard(RendererSDL &renderer, const ProjectCard &card);

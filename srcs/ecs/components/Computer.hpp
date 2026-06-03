@@ -8,6 +8,7 @@
 
 typedef struct s_computerData
 {
+    std::string                 title;
 	std::vector<std::string>	projectIds;
 }	ComputerData;
 
@@ -16,11 +17,11 @@ inline void from_json(
     ComputerData& c)
 {
     j.at("projectIds").get_to(c.projectIds);
+    j.at("title").get_to(c.title);
 }
 
 typedef struct s_computer
 {
-    std::string                 title;
 	std::string					id;
 	bool						poweredOn;
 }	Computer;

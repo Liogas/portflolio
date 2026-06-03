@@ -38,6 +38,21 @@ static void	parseTilesets(TileMap &map, nlohmann::json &data, RessourceManager &
 	}
 }
 
+static std::string	getProperty(
+	const nlohmann::json	&obj,
+	const std::string		&name
+)
+{
+	if (!obj.contains("properties"))
+		return ("");
+	for (const auto &prop : obj["properties"])
+	{
+		if (prop["name"] == name)
+			return (prop["value"]);
+	}
+	return ("");
+}
+
 static void	parseObjects(nlohmann::json &layer, entt::registry &registry)
 {
 	try
@@ -47,11 +62,12 @@ static void	parseObjects(nlohmann::json &layer, entt::registry &registry)
 			if (obj["type"] == "computer")
 				ComputerFactories::create(
 					registry,
+					getProperty(obj, "id"),
 					obj["x"],
 					obj["y"],
 					obj["width"],
 					obj["height"],
-					obj["properties"][0]["value"]
+					getProperty(obj, "direction")
 				);
 		}
 	} catch (const std::exception &e)

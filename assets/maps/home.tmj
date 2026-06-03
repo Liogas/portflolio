@@ -291,9 +291,9 @@
                          "value":"top"
                         },
                         {
-                           "name":"title",
+                           "name":"id",
                            "type":"string",
-                           "value":"portfolio"
+                           "value":"pc_portfolio"
                         }],
                  "rotation":0,
                  "type":"computer",

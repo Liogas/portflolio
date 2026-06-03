@@ -35,7 +35,7 @@ ProjectManager	&World::getPm()
 	return (this->_pm);
 }
 
-std::optional<ComputerUI>	World::getComputerUI()
+std::optional<ComputerUI>	&World::getComputerUI()
 {
 	return (this->_computerUI);
 }
@@ -97,6 +97,25 @@ bool	World::isGameplayBlocked() const
 
 void	World::setComputerUI(ComputerUI c)
 {
-	this->_computerUI = c;
+	this->_computerUI = std::move(c);
+}
+
+void	World::openComputer(const std::string &id)
+{
+	ComputerUI	ui;
+
+	auto &computerData = this->_cm.get(id);
+	ui.title = computerData.title;
+	for (auto &projectId : computerData.projectIds)
+		ui.cards.push_back({&this->_pm.get(projectId),{}, false});
+	ui.selectedCard = 0;
+	this->_computerUI = std::move(ui);
+	this->gameState = GameState::ComputerInteraction;
+}
+
+void	World::closeComputer()
+{
+	this->_computerUI.reset();
+	this->gameState = GameState::Playing;
 }
 

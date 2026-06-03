@@ -7,6 +7,7 @@
 # include <fstream>
 
 # include "Computer.hpp"
+# include "Project.hpp"
 
 class	ProjectManager
 {

@@ -15,9 +15,10 @@ static EDirection2	getDir(const std::string &dir)
 		return (EDirection2::NONE);
 }
 
+
 entt::entity	ComputerFactories::create(
 	entt::registry		&registry,
-	const std::string	&title,
+	const std::string	&id,
 	float				x,
 	float				y,
 	int					w,
@@ -31,7 +32,7 @@ entt::entity	ComputerFactories::create(
 	registry.emplace<Computer>(
 		computer, Computer
 		{
-			"pc_portfolio",
+			id,
 		 	false
 		}
 	);
