@@ -58,7 +58,7 @@ void	App::run()
 			this->handleEvents();
 			this->_renderer.setDrawColor(0, 0, 0, 255);
 			this->_renderer.clear();
-			this->_world.update(this->_input, deltaTime);
+			this->_world.update(this->_input, deltaTime, this->_renderer);
 			this->_world.render(this->_renderer);
 			this->_renderer.present();
 			std::this_thread::sleep_for(std::chrono::milliseconds(16));

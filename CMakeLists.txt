@@ -19,6 +19,14 @@ include_directories(
     ${SDL2_IMAGE_INCLUDE_DIRS}
     ${SDL2_TTF_INCLUDE_DIRS}
     includes
+    includes/ui
+    includes/ui/widgets
+    includes/ui/factories
+    includes/ui/style
+    includes/ecs/components
+    includes/ecs/factories
+    includes/ecs/world
+    includes/ecs/systems
     srcs/ecs/registry
     srcs/ecs/systems
     srcs/ecs/components

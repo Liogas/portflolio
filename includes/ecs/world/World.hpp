@@ -18,7 +18,7 @@
 # include "EventBus.hpp"
 
 // UI
-# include "ComputerUI.hpp"
+# include "ComputerUIFactory.hpp"
 
 // FACTORIES
 # include "PlayerFactories.hpp"
@@ -48,7 +48,11 @@ enum class GameState
 class World
 {
 	public:
-		World(RessourceManager &rm, ComputerManager &cm, ProjectManager &pm);
+		World(
+			RessourceManager	&rm,
+			ComputerManager 	&cm,
+			ProjectManager 		&pm
+		);
 		// GETTERS
 		[[nodiscard]] entt::registry			&getRegistry();
 		[[nodiscard]] RessourceManager			&getRm();
@@ -59,13 +63,13 @@ class World
 		void	setMap(std::unique_ptr<TileMap> map);
 		void	setComputerUI(ComputerUI c);
 		// METHODS
-		void	update(InputSDL &input, float dt);
+		void	update(InputSDL &input, float dt, RendererSDL &renderer);
 		void	render(RendererSDL &renderer);
 		void	changeScene(std::unique_ptr<Scene> scene);
 		void	updateCamera();
 		void	toggleDebug();
 		bool	isGameplayBlocked() const;
-		void	openComputer(const std::string &id);
+		void	openComputer(const std::string &id, RendererSDL &renderer);
 		void	closeComputer();
 		// PROPS
 		bool		debug;

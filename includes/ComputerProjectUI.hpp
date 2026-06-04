@@ -4,12 +4,12 @@
 # include "ProjectCard.hpp"
 # include <vector>
 
-typedef struct	s_computerProject
+typedef struct	s_computerProjectUi
 {
 	std::string					title;
 	SDL_Rect					windowRect;
 	std::vector<ProjectCard>	cards;
 	ProjectCard					selectedCard;
-}	ComputerProject;
+}	ComputerProjectUI;	
 
 #endif

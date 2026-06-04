@@ -1,6 +1,10 @@
 #include "World.hpp"
 
-World::World(RessourceManager &rm, ComputerManager &cm, ProjectManager &pm):
+World::World(
+	RessourceManager 	&rm, 
+	ComputerManager 	&cm,
+	ProjectManager 		&pm
+):
 	_rm(rm),
 	_pm(pm),
 	_cm(cm),
@@ -40,13 +44,13 @@ std::optional<ComputerUI>	&World::getComputerUI()
 	return (this->_computerUI);
 }
 
-void	World::update(InputSDL &input, float dt)
+void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 {
 	InputSystem(*this, this->_registry, input);
 	MovementSystem(*this, this->_registry);
 	CollisionSystem(this->_registry, *this->_map, dt);
 	InteractionSystem(*this, this->_registry, input, this->_eventBus);
-	GameplayEventSystem(*this, this->_registry, this->_eventBus);
+	GameplayEventSystem(*this, this->_registry, this->_eventBus, renderer);
 	AnimationStateSystem(this->_registry);
 	AnimationSystem(this->_registry, dt);
 	this->updateCamera();
@@ -100,15 +104,15 @@ void	World::setComputerUI(ComputerUI c)
 	this->_computerUI = std::move(c);
 }
 
-void	World::openComputer(const std::string &id)
+void	World::openComputer(const std::string &id, RendererSDL &renderer)
 {
-	ComputerUI	ui;
-
-	auto &computerData = this->_cm.get(id);
-	ui.title = computerData.title;
-	for (auto &projectId : computerData.projectIds)
-		ui.cards.push_back({&this->_pm.get(projectId),{}, false});
-	ui.selectedCard = 0;
+	auto &data = this->_cm.get(id);
+	ComputerUI	ui = ComputerUIFactory::create(
+		data,
+		this->_pm,
+		this->_rm,
+		renderer
+	);
 	this->_computerUI = std::move(ui);
 	this->gameState = GameState::ComputerInteraction;
 }

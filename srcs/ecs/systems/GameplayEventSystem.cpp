@@ -1,6 +1,11 @@
 #include "GameplayEventSystem.hpp"
 
-void	GameplayEventSystem(World &world, entt::registry &registry, EventBus &bus)
+void	GameplayEventSystem(
+	World 			&world,
+	entt::registry 	&registry,
+	EventBus 		&bus,
+	RendererSDL		&renderer
+)
 {
 	for (const auto &e : bus.events)
 	{
@@ -14,7 +19,7 @@ void	GameplayEventSystem(World &world, entt::registry &registry, EventBus &bus)
 					if (!c.poweredOn)
 					{
 						c.poweredOn = true;
-						world.openComputer(c.id);
+						world.openComputer(c.id, renderer);
 					} else
 					{
 						c.poweredOn = false;

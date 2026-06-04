@@ -8,6 +8,11 @@
 
 class World;
 
-void	GameplayEventSystem(World &world, entt::registry &registry, EventBus &bus);
+void	GameplayEventSystem(
+    World           &world,
+    entt::registry  &registry,
+    EventBus        &bus,
+    RendererSDL     &renderer
+);
 
 #endif
