@@ -2,6 +2,5 @@
 
 void	drawProjectCard(RendererSDL &renderer, const ProjectCard &card)
 {
-	(void)renderer;
-    (void)card;
+	SDL_RenderCopy(renderer.getRenderer(), card.titleText, nullptr, &card.titleRect);
 }

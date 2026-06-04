@@ -3,13 +3,19 @@
 
 # include "Caroussel.hpp"
 # include "UIStyle.hpp"
+# include "RessourceManager.hpp"
+# include "ProjectCardFactory.hpp"
 
 class CarousselFactory
 {
     public:
         CarousselFactory() = delete;
         static Caroussel    create(
-            SDL_Rect    &container
+            std::vector<std::string>	projectIds,
+            const SDL_Rect				&container,
+			RessourceManager			&rm,
+			ProjectManager				&pm,
+			RendererSDL					&renderer     
         );
 };
 
