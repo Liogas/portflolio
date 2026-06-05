@@ -3,11 +3,6 @@
 
 # include "RendererSDL.hpp"
 
-/*
-SDL_DestroyTexture(textTexture);
-A PLACER QUELQUE PART
-*/
-
 struct	TitleBar
 {
 	SDL_Texture	*texture;
@@ -15,10 +10,11 @@ struct	TitleBar
 	SDL_Rect	container;
 };
 
-// VOIR COMMENT AVOIR ACCES A FONTSMANAGER
 void	drawTitleBar(
 	RendererSDL		&renderer,
 	const TitleBar	&titleBar
 );
+
+void	destroyTitleBar(TitleBar &t);
 
 # endif

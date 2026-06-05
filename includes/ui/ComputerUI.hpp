@@ -14,6 +14,7 @@ struct	ComputerUI
 	SDL_Rect	rect;			
 };
 
-void	drawComputerUI(const ComputerUI &computer, RendererSDL &renderer);
+void	drawComputerUI(ComputerUI &computer, RendererSDL &renderer);
+void	destroyComputerUI(ComputerUI &computer);
 	
 #endif

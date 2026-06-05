@@ -12,3 +12,8 @@ void	drawTitleBar(
 		&titleBar.rect
 	);
 }
+
+void	destroyTitleBar(TitleBar &t)
+{
+	SDL_DestroyTexture(t.texture);
+}

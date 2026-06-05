@@ -4,15 +4,15 @@ ComputerUI	ComputerUIFactory::create(
 	const ComputerData		&data,
 	const ProjectManager	&pm,
 	RessourceManager		&rm,
-	const RendererSDL		&renderer
+	RendererSDL		&renderer
 )
 {
 	(void)pm;
 	ComputerUI ui;
 	ui.rect = { 
-		renderer.getWidth() / 4,
+		10,
     	10,
-   	 	renderer.getWidth() / 2,
+   	 	renderer.getWidth() - 20,
     	renderer.getHeight() - 20
 	};
 	ui.titleBar = TitleBarFactory::create(data.title, ui.rect, rm, renderer);

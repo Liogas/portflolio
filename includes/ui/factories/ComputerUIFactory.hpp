@@ -15,7 +15,7 @@ class	ComputerUIFactory
             const ComputerData		&data,
 			const ProjectManager	&pm,
 			RessourceManager		&rm,
-			const RendererSDL		&renderer
+			RendererSDL		&renderer
 		);
 };
 

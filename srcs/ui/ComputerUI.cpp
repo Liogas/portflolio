@@ -1,6 +1,6 @@
 #include "ComputerUI.hpp"
 
-void	drawComputerUI(const ComputerUI &computer, RendererSDL &renderer)
+void	drawComputerUI(ComputerUI &computer, RendererSDL &renderer)
 {
 	auto r = renderer.getRenderer();
 	SDL_SetRenderDrawBlendMode(r, SDL_BLENDMODE_BLEND);
@@ -15,4 +15,11 @@ void	drawComputerUI(const ComputerUI &computer, RendererSDL &renderer)
         &computer.rect
     );
 	drawTitleBar(renderer, computer.titleBar);
+    drawCaroussel(renderer, computer.caroussel);
+}
+
+void    destroyComputerUI(ComputerUI &c)
+{
+    destroyCaroussel(c.caroussel);
+    destroyTitleBar(c.titleBar);
 }

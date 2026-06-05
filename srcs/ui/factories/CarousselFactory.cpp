@@ -4,28 +4,37 @@ Caroussel	CarousselFactory::create(
 	std::vector<std::string>	projectIds,
 	const SDL_Rect				&container,
 	RessourceManager			&rm,
-	ProjectManager				&pm,
+	const ProjectManager				&pm,
 	RendererSDL					&renderer
 )
 {
 	Caroussel c;
-	c.rect = {
-		container.x,
-		container.y + static_cast<int>(container.h * 0.2f),
-		container.w,
-		static_cast<int>(container.h * 0.8f)
-	};
-	c.visibleCards = 3;
-	c.spacing = 20;
-	for (size_t i = 0; i < projectIds.size(); ++i)
+	try
 	{
-		bool s = (i == 0);
-		c.cards.push_back(ProjectCardFactory::create(
-			pm,
-			rm,
-			projectIds[i],
-			renderer
-		));
-	}
+		c.rect = {
+			container.x,
+			container.y + static_cast<int>(container.h * 0.2f),
+			container.w,
+			static_cast<int>(container.h * 0.8f)
+		};
+		c.visibleCards = 3;
+		c.spacing = 20;
+		c.selectedCard = 1;
+		for (size_t i = 0; i < projectIds.size(); ++i)
+		{
+			c.cards.push_back(ProjectCardFactory::create(
+				pm,
+				rm,
+				projectIds[i],
+				renderer
+			));
+		}
+		layoutCaroussel(c);
+	} catch(std::exception &e)
+    {
+        std::cerr << "BLABBLABLABLALBALBLABLALB" << std::endl;
+        std::cerr << e.what() << std::endl;
+        throw (std::runtime_error("deidjeidj"));
+    }
 	return (c);
 }

@@ -10,7 +10,7 @@ namespace UIStyle
 		30,
 		30,
 		30,
-		255
+		200
 	};
 
 	constexpr SDL_Color BorderColor{
@@ -26,7 +26,7 @@ namespace UIStyle
 	};
 	inline constexpr Font Title{
 		"WorkforceCombine.otf",
-		36
+		55
 	};
 	inline constexpr Font Body{
 		"KGSecondChancesSketch.ttf",

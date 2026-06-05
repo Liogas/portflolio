@@ -14,7 +14,7 @@ class CarousselFactory
             std::vector<std::string>	projectIds,
             const SDL_Rect				&container,
 			RessourceManager			&rm,
-			ProjectManager				&pm,
+			const ProjectManager				&pm,
 			RendererSDL					&renderer     
         );
 };

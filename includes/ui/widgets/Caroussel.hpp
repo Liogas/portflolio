@@ -2,6 +2,7 @@
 # define CAROUSSEL_HPP
 
 # include "ProjectCard.hpp"
+# include "UIStyle.hpp"
 # include <vector>
 
 struct	Caroussel
@@ -14,5 +15,7 @@ struct	Caroussel
 };
 
 void	layoutCaroussel(Caroussel &c);
+void	drawCaroussel(RendererSDL &renderer, Caroussel &c);
+void	destroyCaroussel(Caroussel &c);
 
 # endif
