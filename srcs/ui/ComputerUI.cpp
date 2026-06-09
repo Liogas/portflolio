@@ -14,12 +14,6 @@ void	drawComputerUI(ComputerUI &computer, RendererSDL &renderer)
         r,
         &computer.rect
     );
-	drawTitleBar(renderer, computer.titleBar);
+	computer.title.draw(renderer);
     drawCaroussel(renderer, computer.caroussel);
-}
-
-void    destroyComputerUI(ComputerUI &c)
-{
-    destroyCaroussel(c.caroussel);
-    destroyTitleBar(c.titleBar);
 }

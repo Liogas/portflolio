@@ -23,6 +23,7 @@ include_directories(
     includes/ui/widgets
     includes/ui/factories
     includes/ui/style
+    includes/ui/components
     includes/ecs/components
     includes/ecs/factories
     includes/ecs/world

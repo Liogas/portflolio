@@ -3,7 +3,7 @@
 App::App():
 	_running(false),
 	_sdl(ESDLOption::VIDEO | ESDLOption::EVENTS),
-	_window("test", 1280, 720, EWindowOption::SHOWN),
+	_window("coucou", 1280, 720, EWindowOption::SHOWN),
 	_renderer(this->_window, ERendererOption::ACCELERATED | ERendererOption::PRESENTVSYNC | ERendererOption::TARGETTEXTURE),
 	_input(),
 	_event(),

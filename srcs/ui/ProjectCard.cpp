@@ -1,17 +1,20 @@
 #include "ProjectCard.hpp"
 
-void	drawProjectCard(RendererSDL &renderer, const ProjectCard &card)
+void	ProjectCard::draw(RendererSDL &renderer)
 {
 	auto *r = renderer.getRenderer();
-	UIStyle::applyColor(r, UIStyle::BorderColor);
-	SDL_RenderDrawRect(r, &card.rect);
-	SDL_RenderCopy(r, card.titleTex, nullptr, &card.titleRect);
-	// SDL_RenderCopy(r, card.descTex, nullptr, &card.descRect);
-	// for (size_t i = 0; i < card.tagTex.size(); i++)
-    //     SDL_RenderCopy(r, card.tagTex[i], nullptr, &card.tagRects[i]);
+	UIStyle::applyColor(r, UIStyle::Card::bkgColor);
+	SDL_RenderFillRect(r, &this->rect);
+	UIStyle::applyColor(r, UIStyle::Card::borderColor);
+	SDL_RenderDrawRect(r, &this->rect);
+	UIContainer::draw(renderer);
 }
 
-void	destroyProjectCard(ProjectCard &c)
+void	ProjectCard::init()
 {
-	SDL_DestroyTexture(c.titleTex);
+	this->setLayout(LayoutType::Vertical);
+	this->setPadding(UIStyle::Card::Padding);
+	this->setSpacing(UIStyle::Card::Spacing);
+	this->add(&this->title);
+	this->add(&this->description);
 }

@@ -9,22 +9,18 @@ ProjectCard	ProjectCardFactory::create(
 {
 	ProjectCard c;
 	auto &p = pm.get(id);
-	// TITLE
-	TTF_Font *titleFont = rm.getFont(std::string(UIStyle::Body.path), UIStyle::Body.size);
-	SDL_Color white{255,255,255,255};
-	SDL_Surface *s = TTF_RenderUTF8_Blended(
-		titleFont,
-		p.title.c_str(),
-		white
+	c.description.setWrapWidth(150); // VALEUR BRUT A CHANGER
+	c.title.setText(
+		p.title,
+		renderer,
+		rm.getFont(std::string(UIStyle::KGSketch18.path), UIStyle::KGSketch18.size),
+		UIStyle::Card::titleColor
 	);
-	c.titleTex = SDL_CreateTextureFromSurface(renderer.getRenderer(), s);
-	c.titleRect = { 
-		0, 
-		0, 
-		s->w,
-		s->h 
-	};
-	c.titleSize = { s->w, s->h };
-	SDL_FreeSurface(s);
+	c.description.setText(
+		p.description,
+		renderer,
+		rm.getFont(std::string(UIStyle::KGSolid8.path), UIStyle::KGSolid8.size),
+		UIStyle::Card::titleColor
+	);
 	return (c);
 }

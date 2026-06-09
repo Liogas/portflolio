@@ -1,0 +1,50 @@
+==433544== Invalid read of size 8
+==433544==    at 0x490A65: UIContainer::draw(RendererSDL&) (UIContainer.cpp:11)
+==433544==    by 0x4906AD: ProjectCard::draw(RendererSDL&) (ProjectCard.cpp:10)
+==433544==    by 0x490403: drawCaroussel(RendererSDL&, Caroussel&) (Caroussel.cpp:37)
+==433544==    by 0x4905BB: drawComputerUI(ComputerUI&, RendererSDL&) (ComputerUI.cpp:18)
+==433544==    by 0x486040: UISystem(World&, RendererSDL&) (UISystem.cpp:11)
+==433544==    by 0x47A801: World::render(RendererSDL&) (World.cpp:81)
+==433544==    by 0x4053B9: App::run() (App.cpp:62)
+==433544==    by 0x43BE38: main (main.cpp:15)
+==433544==  Address 0x1ffefffa30 is on thread 1's stack
+==433544==  368 bytes below stack pointer
+==433544== 
+==433544== Jump to the invalid address stated on the next line
+==433544==    at 0x30: ???
+==433544==    by 0x4906AD: ProjectCard::draw(RendererSDL&) (ProjectCard.cpp:10)
+==433544==    by 0x490403: drawCaroussel(RendererSDL&, Caroussel&) (Caroussel.cpp:37)
+==433544==    by 0x4905BB: drawComputerUI(ComputerUI&, RendererSDL&) (ComputerUI.cpp:18)
+==433544==    by 0x486040: UISystem(World&, RendererSDL&) (UISystem.cpp:11)
+==433544==    by 0x47A801: World::render(RendererSDL&) (World.cpp:81)
+==433544==    by 0x4053B9: App::run() (App.cpp:62)
+==433544==    by 0x43BE38: main (main.cpp:15)
+==433544==  Address 0x30 is not stack'd, malloc'd or (recently) free'd
+==433544== 
+==433544== 
+==433544== Process terminating with default action of signal 11 (SIGSEGV): dumping core
+==433544==  Bad permissions for mapped region at address 0x30
+==433544==    at 0x30: ???
+==433544==    by 0x4906AD: ProjectCard::draw(RendererSDL&) (ProjectCard.cpp:10)
+==433544==    by 0x490403: drawCaroussel(RendererSDL&, Caroussel&) (Caroussel.cpp:37)
+==433544==    by 0x4905BB: drawComputerUI(ComputerUI&, RendererSDL&) (ComputerUI.cpp:18)
+==433544==    by 0x486040: UISystem(World&, RendererSDL&) (UISystem.cpp:11)
+==433544==    by 0x47A801: World::render(RendererSDL&) (World.cpp:81)
+==433544==    by 0x4053B9: App::run() (App.cpp:62)
+==433544==    by 0x43BE38: main (main.cpp:15)
+==433544== 
+==433544== HEAP SUMMARY:
+==433544==     in use at exit: 20,155,637 bytes in 126,198 blocks
+==433544==   total heap usage: 570,588 allocs, 444,390 frees, 109,593,545 bytes allocated
+==433544== 
+==433544== LEAK SUMMARY:
+==433544==    definitely lost: 142,592 bytes in 551 blocks
+==433544==    indirectly lost: 167,717 bytes in 6,664 blocks
+==433544==      possibly lost: 12,813,302 bytes in 58,582 blocks
+==433544==    still reachable: 6,910,258 bytes in 59,354 blocks
+==433544==         suppressed: 224 bytes in 1 blocks
+==433544== Rerun with --leak-check=full to see details of leaked memory
+==433544== 
+==433544== For lists of detected and suppressed errors, rerun with: -s
+==433544== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+Segmentation fault (core dumped)

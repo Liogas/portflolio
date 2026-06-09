@@ -5,7 +5,6 @@
 # include "Computer.hpp"
 # include "ProjectManager.hpp"
 # include "CarousselFactory.hpp"
-# include "TitleBarFactory.hpp"
 
 class	ComputerUIFactory
 {

@@ -20,12 +20,7 @@ void layoutCaroussel(Caroussel &c)
             cardW,
             cardH
         };
-        card.titleRect = {
-            card.rect.x + (card.rect.w - card.titleRect.w) / 2,
-            card.rect.y + 10,
-            card.titleSize.x,
-            card.titleSize.y,
-        };
+        card.updateLayout();
         start++;
         if (start == (int)c.cards.size())
             start = 0;
@@ -39,15 +34,9 @@ void    drawCaroussel(RendererSDL &renderer, Caroussel &c)
             start = c.cards.size() - 1;
     for (int i = 0; i < c.visibleCards; ++i)
     {
-        drawProjectCard(renderer, c.cards[start]);
+        c.cards[start].draw(renderer);
         start++;
         if (start >= (int)c.cards.size())
             start = 0;
     }
-}
-
-void    destroyCaroussel(Caroussel &c)
-{
-    for (auto &card : c.cards)
-        destroyProjectCard(card);
 }
