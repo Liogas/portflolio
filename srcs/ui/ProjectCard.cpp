@@ -8,6 +8,8 @@ void	ProjectCard::draw(RendererSDL &renderer)
 	UIStyle::applyColor(r, UIStyle::Card::borderColor);
 	SDL_RenderDrawRect(r, &this->rect);
 	UIContainer::draw(renderer);
+	// this->title.draw(renderer);
+	// this->description.draw(renderer);
 }
 
 void	ProjectCard::init()

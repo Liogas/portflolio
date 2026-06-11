@@ -5,17 +5,30 @@
 # include "UIStyle.hpp"
 # include <vector>
 
-struct	Caroussel
+class Caroussel
 {
-	std::vector<ProjectCard>	cards;
-	int							selectedCard;
-	SDL_Rect					rect;
-	int							visibleCards;
-	int							spacing;
+	public :
+		void	init(
+			std::vector<std::string>	projectIds,
+			const SDL_Rect				&container,
+			RessourceManager			&rm,
+			const ProjectManager		&pm,
+			RendererSDL					&renderer
+		)
+		void	nextCard();
+		void	previousCard()
+		void	draw();
+		void	layout();
+	private :
+		std::vector<ProjectCard>	_cards;
+		int							_selectedCard;
+		int							_visibleCard;
+		SDL_Rect					_rect;
 };
 
 void	layoutCaroussel(Caroussel &c);
 void	drawCaroussel(RendererSDL &renderer, Caroussel &c);
-void	destroyCaroussel(Caroussel &c);
+void	nextProject(Caroussel &c);
+void	previousProject(Caroussel &c);
 
 # endif
