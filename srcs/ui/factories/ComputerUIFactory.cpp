@@ -22,6 +22,6 @@ ComputerUI	ComputerUIFactory::create(
 	);
 	ui.title.rect.x = ui.rect.x + (ui.rect.w - ui.title.rect.w) / 2;
 	ui.title.rect.y = ui.rect.y + 20;
-	ui.caroussel = CarousselFactory::create(data.projectIds, ui.rect, rm, pm, renderer);
+	ui.caroussel.init(data.projectIds, ui.rect, rm, pm, renderer);
 	return (ui);
 }

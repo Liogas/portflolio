@@ -20,9 +20,9 @@ void	UISystem(World &world, RendererSDL &renderer)
 	int prev_x = -1;
 	int prev_y = -1;
 
-	for (t = 0; t <= 2 * M_PI; t += step)
+	for (t = 0; t <= M_PI / 2; t += step)
 	{
-    	int x = 400 + cos(t) * 100;
+    	int x = 200 + cos(t) * 100;
     	int y = 300 + sin(t) * 50;
 
     	if (prev_x != -1)

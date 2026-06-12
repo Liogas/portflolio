@@ -15,5 +15,5 @@ void	drawComputerUI(ComputerUI &computer, RendererSDL &renderer)
         &computer.rect
     );
 	computer.title.draw(renderer);
-    drawCaroussel(renderer, computer.caroussel);
+    computer.caroussel.draw(renderer);
 }

@@ -22,10 +22,10 @@ static void	inputComputer(ComputerUI &computer, const InputSDL &input)
 	auto &carou = computer.caroussel;
 	if (input.isKeyPressed(SDL_SCANCODE_RIGHT))
 	{
-		nextProject(carou);
+		carou.nextCard();
 	} else if (input.isKeyPressed(SDL_SCANCODE_LEFT))
 	{
-		previousProject(carou);
+		carou.previousCard();
 	}
 }
 

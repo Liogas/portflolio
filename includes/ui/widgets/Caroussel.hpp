@@ -5,6 +5,18 @@
 # include "UIStyle.hpp"
 # include <vector>
 
+# include "RessourceManager.hpp"
+# include "ProjectManager.hpp"
+# include "ProjectCardFactory.hpp"
+
+struct CarousselAnimation
+{
+	bool	on;
+	float	progress;
+	float	duration;
+	int		direction;
+};
+
 class Caroussel
 {
 	public :
@@ -14,21 +26,20 @@ class Caroussel
 			RessourceManager			&rm,
 			const ProjectManager		&pm,
 			RendererSDL					&renderer
-		)
+		);
 		void	nextCard();
-		void	previousCard()
-		void	draw();
+		void	previousCard();
+		void	draw(RendererSDL &renderer);
+		void	drawAnimation(RendererSDL &renderer);
 		void	layout();
+		void	update(float deltaTime);
 	private :
 		std::vector<ProjectCard>	_cards;
 		int							_selectedCard;
 		int							_visibleCard;
 		SDL_Rect					_rect;
+		int							_spacing;
+		CarousselAnimation			_animation;
 };
-
-void	layoutCaroussel(Caroussel &c);
-void	drawCaroussel(RendererSDL &renderer, Caroussel &c);
-void	nextProject(Caroussel &c);
-void	previousProject(Caroussel &c);
 
 # endif

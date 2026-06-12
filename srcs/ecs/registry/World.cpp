@@ -53,6 +53,8 @@ void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 	GameplayEventSystem(*this, this->_registry, this->_eventBus, renderer);
 	AnimationStateSystem(this->_registry);
 	AnimationSystem(this->_registry, dt);
+	if (this->_computerUI.has_value())
+		this->_computerUI->caroussel.update(dt);
 	this->updateCamera();
 }
 
