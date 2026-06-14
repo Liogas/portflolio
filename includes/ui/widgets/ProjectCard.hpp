@@ -2,18 +2,19 @@
 # define PROJECTCARD_HPP
 
 # include "Project.hpp"
-# include "UIStyle.hpp"
 
-# include "UIContainer.hpp"
+# include "UIStyle.hpp"
 # include "UIText.hpp"
 
-class ProjectCard : public UIContainer
+class ProjectCard
 {
 	public:
-		UIText	title;
-		UIText	description;
-		void	draw(RendererSDL &renderer) override;
-		void	init();
+		Project		*project;
+		SDL_Texture	*texture;
+		bool		dirty;
+		void	update();
+		void	rebuild();
+		void	draw(RendererSDL &renderer);
 };
 
 # endif

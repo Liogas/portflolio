@@ -77,16 +77,6 @@ void    Caroussel::draw(RendererSDL &renderer)
         this->drawAnimation(renderer);
     else
         this->_cards[this->_selectedCard].draw(renderer);
-    // int start = this->_selectedCard - 1;
-    // if (start < 0)
-    //     start = this->_cards.size() - 1;
-    // for (int i = 0; i < this->_visibleCard; ++i)
-    // {
-    //     this->_cards[start].draw(renderer);
-    //     start++;
-    //     if (start >= (int)this->_cards.size())
-    //         start = 0;
-    // }
 }
 
 void Caroussel::drawAnimation(RendererSDL& renderer)
@@ -148,94 +138,4 @@ void    Caroussel::layout()
     };
 
     card.updateLayout();
-    
-    // int start = this->_selectedCard - 1;
-    // if (start < 0)
-    //     start = this->_cards.size() - 1;
-
-    // for (int i = 0; i < this->_visibleCard; i++)
-    // {
-    //     ProjectCard &card = this->_cards[start];
-    //     int w = centralCardW, h = cardH;
-    //     if (i != 1)
-    //     {
-    //         w = cardW2;
-    //         h = cardH2;
-    //     }
-    //     card.rect = {
-    //         this->_rect.x + this->_spacing + i * (cardW + this->_spacing),
-    //         this->_rect.y + this->_spacing,
-    //         w,
-    //         h
-    //     };
-    //     card.updateLayout();
-    //     start++;
-    //     if (start == (int)this->_cards.size())
-    //         start = 0;
-    // }
 }
-
-// void layoutCaroussel(Caroussel &c)
-// {
-//     int spacing = c.spacing;
-//     int visible = c.visibleCards;
-//     int cardW = (c.rect.w - spacing * (visible + 1)) / visible;
-//     int cardH = c.rect.h - spacing * 2;
-//     int cardW2 = cardW * 0.8f;
-//     int cardH2 = cardH * 0.8f;
-
-//     int start = c.selectedCard - 1;
-//     if (start < 0)
-//         start = c.cards.size() - 1;
-
-//     for (int i = 0; i < c.visibleCards; i++)
-//     {
-//         ProjectCard &card = c.cards[start];
-//         int w = cardW, h = cardH;
-//         if (i != 1)
-//         {
-//             w = cardW2;
-//             h = cardH2;
-//         }
-//         card.rect = {
-//             c.rect.x + spacing + i * (cardW + spacing),
-//             c.rect.y + spacing,
-//             w,
-//             h
-//         };
-//         card.updateLayout();
-//         start++;
-//         if (start == (int)c.cards.size())
-//             start = 0;
-//     }
-// }
-
-// void    drawCaroussel(RendererSDL &renderer, Caroussel &c)
-// {
-//     int start = c.selectedCard - 1;
-//         if (start < 0)
-//             start = c.cards.size() - 1;
-//     for (int i = 0; i < c.visibleCards; ++i)
-//     {
-//         c.cards[start].draw(renderer);
-//         start++;
-//         if (start >= (int)c.cards.size())
-//             start = 0;
-//     }
-// }
-
-// void    nextProject(Caroussel &c)
-// {
-//     c.selectedCard += 1;
-// 	if (c.selectedCard >= (int)c.cards.size())
-// 		c.selectedCard = 0;
-//     layoutCaroussel(c);
-// }
-
-// void    previousProject(Caroussel &c)
-// {
-//     c.selectedCard -= 1;
-//     if (c.selectedCard < 0)
-//         c.selectedCard = c.cards.size();
-//     layoutCaroussel(c);
-// }

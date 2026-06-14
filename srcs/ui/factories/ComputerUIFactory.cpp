@@ -9,10 +9,10 @@ ComputerUI	ComputerUIFactory::create(
 {
 	ComputerUI ui;
 	ui.rect = {
-		10,
-    	10,
-   	 	renderer.getWidth() - 20,
-    	renderer.getHeight() - 20
+		UIStyle::applyPercentage(UIStyle::Computer::Spacing, renderer.getWidth()),
+    	UIStyle::applyPercentage(UIStyle::Computer::Spacing, renderer.getHeight()),
+   	 	renderer.getWidth() - UIStyle::applyPercentage(UIStyle::Computer::Spacing, renderer.getWidth()),
+    	renderer.getHeight() - UIStyle::applyPercentage(UIStyle::Computer::Spacing, renderer.getHeight())
 	};
 	ui.title.setText(
 		data.title,
@@ -21,7 +21,6 @@ ComputerUI	ComputerUIFactory::create(
 		UIStyle::Card::titleColor
 	);
 	ui.title.rect.x = ui.rect.x + (ui.rect.w - ui.title.rect.w) / 2;
-	ui.title.rect.y = ui.rect.y + 20;
 	ui.caroussel.init(data.projectIds, ui.rect, rm, pm, renderer);
 	return (ui);
 }
