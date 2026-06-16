@@ -10,23 +10,19 @@ void    Caroussel::init(
 {
     this->_rect = {
         container.x,
-        container.y + static_cast<int>(container.h * 0.2f),
+        container.y + UIStyle::applyPercentage(UIStyle::Computer::TitleHeight, container.h) + UIStyle::applyPercentage(UIStyle::Computer::Spacing, container.h),
         container.w,
-        static_cast<int>(container.h * 0.8f)
+        UIStyle::applyPercentage(UIStyle::Computer::CarousselHeight, container.h)
     };
     this->_visibleCard = 3;
-    this->_spacing = 20;
+    this->_spacing = UIStyle::Caroussel::Spacing;
     this->_selectedCard = 1;
     this->_cards.reserve(projectIds.size());
-    for (auto &p : projectIds)
+    for (auto &id : projectIds)
     {
-        this->_cards.push_back(ProjectCardFactory::create(
-            pm,
-            rm,
-            p,
-            renderer
-        ));
-        this->_cards.back().init();
+	    auto &p = pm.get(id);
+        ProjectCard card(&p, renderer, rm, this->_rect);
+        this->_cards.push_back(std::move(card));
     }
     this->_animation.on = false;
     this->_animation.duration = 0.3f;
@@ -73,69 +69,111 @@ void    Caroussel::update(float deltaTime)
 
 void    Caroussel::draw(RendererSDL &renderer)
 {
+    SDL_SetRenderDrawColor(renderer.getRenderer(), 255, 0, 0, 255);
+    SDL_RenderDrawRect(renderer.getRenderer(), &this->_rect);
     if (this->_animation.on)
         this->drawAnimation(renderer);
     else
+    {
+        this->_cards[(this->_selectedCard - 1 + this->_cards.size()) % this->_cards.size()].draw(renderer);
+        this->_cards[(this->_selectedCard + 1) % this->_cards.size()].draw(renderer);
         this->_cards[this->_selectedCard].draw(renderer);
+    }
 }
 
 void Caroussel::drawAnimation(RendererSDL& renderer)
 {
-    float t = _animation.progress / _animation.duration;
+    float t = this->_animation.progress / this->_animation.duration;
 
-    int centralW = _rect.w / 4;
-    int centralH = _rect.h - _spacing * 2;
+    int w = UIStyle::applyPercentage(UIStyle::Caroussel::MainWidth, this->_rect.w);
+    int h = UIStyle::applyPercentage(UIStyle::Caroussel::MainHeight, this->_rect.h);
+    int spacing = UIStyle::applyPercentage(UIStyle::Caroussel::Spacing, this->_rect.w);
+    int cx = this->_rect.x + this->_rect.w / 2;
+    int cy = this->_rect.y + this->_rect.h / 2;
 
-    int centerX = (_rect.w / 2) - centralW / 2;
-    int centerY = _rect.y + (_rect.h / 2) - centralH / 2;
+    SDL_Rect leftRect   = { cx - w / 2 - spacing - w, cy - h / 2, w, h };
+    SDL_Rect centerRect = { cx - w / 2,               cy - h / 2, w, h };
+    SDL_Rect rightRect  = { cx - w / 2 + w + spacing, cy - h / 2, w, h };
 
-    int nextIndex =
-        (this->_selectedCard + this->_animation.direction + this->_cards.size())
-        % this->_cards.size();
+    int size = this->_cards.size();
+    ProjectCard &prev   = this->_cards[(this->_selectedCard - 1 + size) % size];
+    ProjectCard &center = this->_cards[this->_selectedCard];
+    ProjectCard &next   = this->_cards[(this->_selectedCard + 1) % size];
 
-    ProjectCard &current = this->_cards[this->_selectedCard];
-    ProjectCard &next = this->_cards[nextIndex];
-
-    int offset = static_cast<int>(t * centralW);
-
-    current.rect =
+    auto lerp = [](int a, int b, float t) { return (a + static_cast<int>((b - a) * t)); };
+    auto animateRect = [&](SDL_Rect from, SDL_Rect to, float t)
     {
-        centerX - offset * this->_animation.direction,
-        centerY,
-        centralW,
-        centralH
+        return (SDL_Rect{ lerp(from.x, to.x, t), lerp(from.y, to.y, t), lerp(from.w, to.w, t), lerp(from.h, to.h, t) });
     };
 
-    next.rect =
+    if (this->_animation.direction > 0)
     {
-        centerX + centralW * this->_animation.direction
-            - offset * this->_animation.direction,
-        centerY,
-        centralW,
-        centralH
-    };
+        prev.rect = animateRect(leftRect, centerRect, t);
+        prev.depthT = 1.f - t;
+        prev.side = -1;
 
-    current.updateLayout();
-    next.updateLayout();
+        center.rect = animateRect(centerRect, rightRect, t);
+        center.depthT = t;
+        center.side = +1;
 
-    current.draw(renderer);
-    next.draw(renderer);
+        next.rect = animateRect(rightRect, rightRect, t);
+        next.depthT = 1.f;
+        next.side = +1;
+    }
+    else
+    {
+        prev.rect = animateRect(leftRect, leftRect, t);
+        prev.depthT = 1.f;
+        prev.side = -1;
+
+        center.rect = animateRect(centerRect, leftRect, t);
+        center.depthT = t;
+        center.side = -1;
+
+        next.rect = animateRect(rightRect, centerRect, t);
+        next.depthT = 1.f - t;
+        next.side = +1;
+    }
+
+    ProjectCard *order[3] = { &prev, &center, &next };
+    std::sort(order, order + 3, [](const ProjectCard *a, const ProjectCard *b) { return (a->depthT > b->depthT); });
+    for (auto *c : order)
+        c->draw(renderer);
 }
 
 void    Caroussel::layout()
 {
-    int centralCardW = this->_rect.w / 4;
-    int centralCardH = this->_rect.h - this->_spacing * 2;
-    int centralCardX = (this->_rect.w / 2) - (centralCardW / 2);
-    int centralCardY = this->_rect.y + (this->_rect.h / 2) - (centralCardH / 2);
-
+    int spacing = UIStyle::applyPercentage(UIStyle::Caroussel::Spacing, this->_rect.w);
+    int w = UIStyle::applyPercentage(UIStyle::Caroussel::MainWidth, this->_rect.w);
+    int h = UIStyle::applyPercentage(UIStyle::Caroussel::MainHeight, this->_rect.h);
+    int cx = this->_rect.x + this->_rect.w / 2;
+    int cy = this->_rect.y + this->_rect.h / 2;
+    
     ProjectCard &card = this->_cards[this->_selectedCard];
+    ProjectCard &left = this->_cards[(this->_selectedCard - 1 + this->_cards.size()) % this->_cards.size()];
+    ProjectCard &right = this->_cards[(this->_selectedCard + 1) % this->_cards.size()];
     card.rect = {
-        centralCardX,
-        centralCardY,
-        centralCardW,
-        centralCardH
+        cx - w / 2,
+        cy - h / 2,
+        w,
+        h
     };
-
-    card.updateLayout();
+    card.depthT = 0.0;
+    card.side = 0;
+    left.rect = {
+        card.rect.x - spacing - w,
+        card.rect.y,
+        w,
+        h
+    };
+    left.depthT = 1.f;
+    left.side = -1;
+    right.rect = {
+        card.rect.x + w + spacing,
+        card.rect.y,
+        w,
+        h
+    };
+    right.depthT = 1.f;
+    right.side = +1;
 }

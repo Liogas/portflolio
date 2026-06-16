@@ -2,19 +2,64 @@
 # define PROJECTCARD_HPP
 
 # include "Project.hpp"
+# include "RessourceManager.hpp"
 
 # include "UIStyle.hpp"
 # include "UIText.hpp"
 
+struct CardQuad
+{
+	SDL_FPoint	tl, tr, bl, br;
+};
+
 class ProjectCard
 {
 	public:
-		Project		*project;
-		SDL_Texture	*texture;
-		bool		dirty;
-		void	update();
-		void	rebuild();
+		ProjectCard(
+			const Project 		*p,
+			RendererSDL			&renderer,
+			RessourceManager	&rm,
+			SDL_Rect			&container
+		);
+		~ProjectCard();
+		ProjectCard(ProjectCard&&) noexcept;
+		ProjectCard& operator=(ProjectCard&&) noexcept;
+		ProjectCard(const ProjectCard&) = delete;
+		ProjectCard& operator=(const ProjectCard&) = delete;
+		void	update(
+			RendererSDL 		&renderer,
+			RessourceManager 	&rm,
+			SDL_Rect			&container
+		);
+		void	rebuild(
+			RendererSDL 		&renderer,
+			RessourceManager	&rm,
+			SDL_Rect			&container
+		);
+		void	buildContainer(RendererSDL &renderer);
+		void	buildTitle(
+			RendererSDL 		&r,
+			RessourceManager	&rm,
+			int					containerW,
+			int					containerH
+		);
+		void	buildDescription(
+			RendererSDL 		&r,
+			RessourceManager 	&rm,
+			int					containerW,
+			int					containerH
+		);
+		// void	buildTags(RendererSDL &r);
 		void	draw(RendererSDL &renderer);
+		// PROPS
+		const Project		*project;
+		SDL_Texture			*texture;
+		SDL_Rect			rect;
+		int					side;
+		float				depthT;
+		bool				dirty;
+	private :
+		CardQuad	computeQuad(int centerX, int centerY, int mainW, int mainH) const;
 };
 
 # endif

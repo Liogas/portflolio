@@ -7,7 +7,7 @@
 
 # include "RessourceManager.hpp"
 # include "ProjectManager.hpp"
-# include "ProjectCardFactory.hpp"
+# include <algorithm>
 
 struct CarousselAnimation
 {

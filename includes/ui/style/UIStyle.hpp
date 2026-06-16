@@ -9,40 +9,44 @@ namespace UIStyle
 
 	namespace	Computer
 	{
-		constexpr float	TitleHeight{20};
-		constexpr float	CarousselHeight{60};
-		constexpr float	Spacing{10};
+		constexpr float	TitleHeight{20.f};
+		constexpr float	CarousselHeight{60.f};
+		constexpr float	Spacing{2.5f};
 	}
 
 	namespace	Caroussel
 	{
-		constexpr float	MainWidth{50};
-		constexpr float MainHeight{90};
-		constexpr float SideWidth{15};
-		constexpr float	Spacing{5};
+		constexpr float	MainWidth{30.f};
+		constexpr float MainHeight{90.f};
+		constexpr float SideWidth{15.f};
+		constexpr float	Spacing{5.f};
+		constexpr float SideWidthRatio      = 0.6f;  // largeur carte latérale / largeur carte principale
+		constexpr float SideNearHeightRatio = 0.85f; // hauteur du bord proche / hauteur carte principale
+		constexpr float SideFarHeightRatio  = 0.7f;  // hauteur du bord loin / hauteur du bord proche
+		constexpr float SideBrightness      = 0.55f; // luminosité des cartes latérales (1.0 = normal)
 	}
 
 	namespace	Card
 	{
-		constexpr float	TitleHeight{15};
-		constexpr float TitleSize{12};
-		constexpr float	TagsHeight{15};
-		constexpr float DescHeight{60};
-		constexpr float DescSize{8};
-		constexpr float	Spacing{2.5};
-		constexpr SDL_Color	bkgColor{
+		constexpr float	TitleHeight{15.f};
+		constexpr float TitleSize{12.f};
+		constexpr float	TagsHeight{15.f};
+		constexpr float DescHeight{60.f};
+		constexpr float DescSize{8.f};
+		constexpr float	Spacing{2.5f};
+		constexpr SDL_Color	BkgColor{
 			70,
 			70,
 			70,
 			255
 		};
-		constexpr SDL_Color	borderColor{
+		constexpr SDL_Color	BorderColor{
 			255,
 			255,
 			255,
 			255
 		};
-		constexpr SDL_Color	titleColor{
+		constexpr SDL_Color	TitleColor{
 			255,
 			255,
 			255,
@@ -62,8 +66,6 @@ namespace UIStyle
 		255,
 		255
 	};
-
-	
 
 	namespace	Font
 	{
@@ -100,7 +102,7 @@ namespace UIStyle
 
 	inline int	applyPercentage(float percentage, int value)
 	{
-		return (value * percentage);
+		return (static_cast<int>(value * percentage / 100.f));
 	}
 	
 }
