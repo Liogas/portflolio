@@ -1,6 +1,13 @@
 #ifndef PROJECTCARD_HPP
 # define PROJECTCARD_HPP
 
+#ifdef _WIN32
+	#include <windows.h>
+	#include <shellapi.h>
+#else
+	#include <unistd.h>
+#endif
+
 # include "Project.hpp"
 # include "RessourceManager.hpp"
 
@@ -49,6 +56,7 @@ class ProjectCard
 			int					containerW,
 			int					containerH
 		);
+		void	open();
 		// void	buildTags(RendererSDL &r);
 		void	draw(RendererSDL &renderer);
 		// PROPS

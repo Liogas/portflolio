@@ -231,3 +231,30 @@ void    ProjectCard::draw(RendererSDL &renderer)
         std::cerr << "SDL_RenderGeometry: " << SDL_GetError() << std::endl;
 }
 
+void	ProjectCard::open()
+{
+	std::string url = this->project->githubUrl;
+	#if defined(_WIN32)
+		ShellExecuteA(
+			nullptr,
+			"open",
+			url.c_str(),
+			nullptr,
+			nullptr,
+			SW_SHOWNORMAL
+		);
+	#elif defined(__APPLE__) || defined(__linux__)
+		pid_t pid = fork();
+		if (pid == 0)
+		{
+			#if defined(__APPLE__)
+				execlp("open", "open", url.c_str(), nullptr);
+			#else
+				execlp("xdg-open", "xdg-open", url.c_str(), nullptr);
+			#endif
+			_exit(1);
+		}
+	#else
+		throw (std::runtime_error("Error ProjectCard::open -> Unsupported platform"));
+	#endif
+}

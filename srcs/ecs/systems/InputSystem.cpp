@@ -21,12 +21,11 @@ static void	inputComputer(ComputerUI &computer, const InputSDL &input)
 {
 	auto &carou = computer.caroussel;
 	if (input.isKeyPressed(SDL_SCANCODE_RIGHT))
-	{
 		carou.nextCard();
-	} else if (input.isKeyPressed(SDL_SCANCODE_LEFT))
-	{
+	else if (input.isKeyPressed(SDL_SCANCODE_LEFT))
 		carou.previousCard();
-	}
+	else if (input.isKeyPressed(SDL_SCANCODE_RETURN))
+		carou.web();
 }
 
 void InputSystem(World &world, entt::registry &registry, const InputSDL &input)

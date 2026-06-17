@@ -31,6 +31,7 @@ class Caroussel
 		void	previousCard();
 		void	draw(RendererSDL &renderer);
 		void	drawAnimation(RendererSDL &renderer);
+		void	web();
 		void	layout();
 		void	update(float deltaTime);
 	private :

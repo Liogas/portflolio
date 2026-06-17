@@ -75,9 +75,11 @@ void    Caroussel::draw(RendererSDL &renderer)
         this->drawAnimation(renderer);
     else
     {
+        SDL_RenderSetClipRect(renderer.getRenderer(), &this->_rect);
         this->_cards[(this->_selectedCard - 1 + this->_cards.size()) % this->_cards.size()].draw(renderer);
         this->_cards[(this->_selectedCard + 1) % this->_cards.size()].draw(renderer);
         this->_cards[this->_selectedCard].draw(renderer);
+        SDL_RenderSetClipRect(renderer.getRenderer(), nullptr);
     }
 }
 
@@ -164,7 +166,11 @@ void Caroussel::drawAnimation(RendererSDL& renderer)
 
     std::sort(drawOrder.begin(), drawOrder.end(), [&](int a, int b) { return (this->_cards[a].depthT > this->_cards[b].depthT); });
     for (int idx : drawOrder)
+    {
+        SDL_RenderSetClipRect(renderer.getRenderer(), &this->_rect);
         this->_cards[idx].draw(renderer);
+        SDL_RenderSetClipRect(renderer.getRenderer(), nullptr);
+    }
 }
 
 void    Caroussel::layout()
@@ -202,4 +208,16 @@ void    Caroussel::layout()
     };
     right.depthT = 1.f;
     right.side = +1;
+}
+
+void    Caroussel::web()
+{
+    try
+    {
+        this->_cards[this->_selectedCard].open();
+    } catch (const std::exception &e)
+    {
+        std::cerr << "ERROR Caroussel::web" << std::endl;
+        throw (std::runtime_error(e.what()));
+    }
 }
