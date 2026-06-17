@@ -104,9 +104,8 @@ void	ProjectCard::rebuild(
 		};
 		this->buildContainer(renderer);
 		this->buildTitle(renderer, rm, w, h);
-		// this->buildTags(r);
 		this->buildDescription(renderer, rm, w, h);
-
+		// this->buildTags(r);
 		SDL_SetRenderTarget(r, nullptr);
 	} catch (const std::exception &e)
 	{

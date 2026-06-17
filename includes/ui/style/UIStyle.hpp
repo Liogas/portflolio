@@ -10,16 +10,16 @@ namespace UIStyle
 	namespace	Computer
 	{
 		constexpr float	TitleHeight{20.f};
-		constexpr float	CarousselHeight{60.f};
+		constexpr float	CarousselHeight{75.f};
 		constexpr float	Spacing{2.5f};
 	}
 
 	namespace	Caroussel
 	{
 		constexpr float	MainWidth{30.f};
-		constexpr float MainHeight{90.f};
+		constexpr float MainHeight{70.f};
 		constexpr float SideWidth{15.f};
-		constexpr float	Spacing{5.f};
+		constexpr float	Spacing{2.5f};
 		constexpr float SideWidthRatio      = 0.6f;  // largeur carte latérale / largeur carte principale
 		constexpr float SideNearHeightRatio = 0.85f; // hauteur du bord proche / hauteur carte principale
 		constexpr float SideFarHeightRatio  = 0.7f;  // hauteur du bord loin / hauteur du bord proche

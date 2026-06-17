@@ -31,12 +31,16 @@ class Caroussel
 		void	previousCard();
 		void	draw(RendererSDL &renderer);
 		void	drawAnimation(RendererSDL &renderer);
+		void	drawPagination(RendererSDL &renderer);
 		void	web();
 		void	layout();
-		void	update(float deltaTime);
+		void	update(float deltaTime, RendererSDL &renderer, RessourceManager &rm);
+		void	updatePagination(RendererSDL &renderer, RessourceManager &rm);
 	private :
 		std::vector<ProjectCard>	_cards;
 		int							_selectedCard;
+		int							_lastSelectedCard;
+		UIText						_pagination;
 		int							_visibleCard;
 		SDL_Rect					_rect;
 		int							_spacing;

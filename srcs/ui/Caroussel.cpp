@@ -17,6 +17,7 @@ void    Caroussel::init(
     this->_visibleCard = 3;
     this->_spacing = UIStyle::Caroussel::Spacing;
     this->_selectedCard = 1;
+    this->_lastSelectedCard = -1;
     this->_cards.reserve(projectIds.size());
     for (auto &id : projectIds)
     {
@@ -49,8 +50,9 @@ void    Caroussel::previousCard()
     this->_animation.progress = 0.f;
 }
 
-void    Caroussel::update(float deltaTime)
+void    Caroussel::update(float deltaTime, RendererSDL &renderer, RessourceManager &rm)
 {
+    this->updatePagination(renderer, rm);
     if (!this->_animation.on)
         return ;
     this->_animation.progress += deltaTime;
@@ -69,8 +71,6 @@ void    Caroussel::update(float deltaTime)
 
 void    Caroussel::draw(RendererSDL &renderer)
 {
-    SDL_SetRenderDrawColor(renderer.getRenderer(), 255, 0, 0, 255);
-    SDL_RenderDrawRect(renderer.getRenderer(), &this->_rect);
     if (this->_animation.on)
         this->drawAnimation(renderer);
     else
@@ -81,6 +81,39 @@ void    Caroussel::draw(RendererSDL &renderer)
         this->_cards[this->_selectedCard].draw(renderer);
         SDL_RenderSetClipRect(renderer.getRenderer(), nullptr);
     }
+    this->drawPagination(renderer);
+}
+
+void    Caroussel::updatePagination(RendererSDL &renderer, RessourceManager &rm)
+{
+    if (this->_selectedCard == this->_lastSelectedCard)
+        return ;
+    std::stringstream   ss;
+    ss  << std::setw(2)
+        << std::setfill('0')
+        << (this->_selectedCard + 1)
+        << " / "
+        << std::setw(2)
+        << std::setfill('0')
+        << this->_cards.size();
+    std::string text = ss.str();
+    this->_pagination.setText(
+        text,
+        renderer,
+        rm.getFont(
+			std::string(UIStyle::Font::KGSolid12.path),
+			UIStyle::Font::KGSolid12.size
+		),
+        {255,255,255,255}
+    );
+    this->_lastSelectedCard = this->_selectedCard;
+}
+
+void    Caroussel::drawPagination(RendererSDL &renderer)
+{
+    this->_pagination.rect.x = this->_rect.x + this->_rect.w / 2 - this->_pagination.rect.w / 2;
+    this->_pagination.rect.y = this->_rect.y + this->_rect.h - this->_pagination.rect.h * 2;
+    this->_pagination.draw(renderer);
 }
 
 void Caroussel::drawAnimation(RendererSDL& renderer)

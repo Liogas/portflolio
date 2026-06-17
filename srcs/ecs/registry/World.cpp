@@ -54,7 +54,7 @@ void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 	AnimationStateSystem(this->_registry);
 	AnimationSystem(this->_registry, dt);
 	if (this->_computerUI.has_value())
-		this->_computerUI->caroussel.update(dt);
+		this->_computerUI->caroussel.update(dt, renderer, this->_rm);
 	this->updateCamera();
 }
 
