@@ -3,8 +3,8 @@
 namespace
 {
 	inline float lerpf(float a, float b, float t)
-	{
-		return (a +(b - a) * t);
+	{ 
+		return (a + (b - a) * t);
 	}
 }
 
@@ -178,51 +178,56 @@ void	ProjectCard::buildDescription(
 	desc.draw(r);
 }
 
-void	ProjectCard::draw(RendererSDL &renderer)
+void    ProjectCard::buildCoverflowMesh(
+    int                         centerX,
+    int							centerY,
+    std::vector<SDL_Vertex>    	&vertices,
+    std::vector<int>           	&indices
+) const
 {
-	int centerX = this->rect.x + this->rect.w / 2;
-    int centerY = this->rect.y + this->rect.h / 2;
+    constexpr int slices = UIStyle::Caroussel::CoverflowSlices;
 
-    CardQuad quad = this->computeQuad(centerX, centerY, this->rect.w, this->rect.h);
+    float width = this->rect.w * lerpf(1.0f, UIStyle::Caroussel::SideWidthRatio, this->depthT);
+    float nearH = this->rect.h * lerpf(1.0f, UIStyle::Caroussel::SideNearHeightRatio, this->depthT);
+    float farH  = nearH * lerpf(1.0f, UIStyle::Caroussel::SideFarHeightRatio, this->depthT);
+    float left  = centerX - width / 2.f;
 
     Uint8 brightness = (Uint8)(255 * lerpf(1.0f, UIStyle::Caroussel::SideBrightness, this->depthT));
     SDL_Color tint = { brightness, brightness, brightness, 255 };
 
-    SDL_Vertex vertices[4] = {
-        { quad.tl, tint, { 0.f, 0.f } },
-        { quad.tr, tint, { 1.f, 0.f } },
-        { quad.bl, tint, { 0.f, 1.f } },
-        { quad.br, tint, { 1.f, 1.f } },
-    };
-    int indices[6] = { 0, 1, 2, 2, 1, 3 };
+    vertices.clear();
+    indices.clear();
+    vertices.reserve((slices + 1) * 2);
+    indices.reserve(slices * 6);
 
-    if (SDL_RenderGeometry(renderer.getRenderer(), this->texture, vertices, 4, indices, 6) < 0)
+    for (int i = 0; i <= slices; ++i)
+    {
+        float u = (float)i / (float)slices;
+        float h = (this->side > 0) ? lerpf(nearH, farH, u) : lerpf(farH, nearH, u);
+        float x = left + u * width;
+
+        vertices.push_back({ { x, centerY - h / 2.f }, tint, { u, 0.f } });
+        vertices.push_back({ { x, centerY + h / 2.f }, tint, { u, 1.f } });
+    }
+    for (int i = 0; i < slices; ++i)
+    {
+        int top0 = i * 2, bot0 = i * 2 + 1;
+        int top1 = (i + 1) * 2, bot1 = (i + 1) * 2 + 1;
+        indices.push_back(top0); indices.push_back(top1); indices.push_back(bot0);
+        indices.push_back(bot0); indices.push_back(top1); indices.push_back(bot1);
+    }
+}
+
+void    ProjectCard::draw(RendererSDL &renderer)
+{
+    int centerX = this->rect.x + this->rect.w / 2;
+    int centerY = this->rect.y + this->rect.h / 2;
+
+    std::vector<SDL_Vertex> vertices;
+    std::vector<int> indices;
+    this->buildCoverflowMesh(centerX, centerY, vertices, indices);
+
+    if (SDL_RenderGeometry(renderer.getRenderer(), this->texture, vertices.data(), (int)vertices.size(), indices.data(), (int)indices.size()) < 0)
         std::cerr << "SDL_RenderGeometry: " << SDL_GetError() << std::endl;
 }
 
-CardQuad    ProjectCard::computeQuad(int centerX, int centerY, int mainW, int mainH) const
-{
-    float width = mainW * lerpf(1.0f, UIStyle::Caroussel::SideWidthRatio, this->depthT);
-    float nearH = mainH * lerpf(1.0f, UIStyle::Caroussel::SideNearHeightRatio, this->depthT);
-    float farH  = nearH * lerpf(1.0f, UIStyle::Caroussel::SideFarHeightRatio, this->depthT);
-
-    float left  = centerX - width / 2.f;
-    float right = centerX + width / 2.f;
-
-    CardQuad q;
-    if (this->side <= 0) // centre ou gauche : bord lointain à gauche
-    {
-        q.tl = { left,  centerY - farH  / 2.f };
-        q.bl = { left,  centerY + farH  / 2.f };
-        q.tr = { right, centerY - nearH / 2.f };
-        q.br = { right, centerY + nearH / 2.f };
-    }
-    else // droite : bord lointain à droite
-    {
-        q.tl = { left,  centerY - nearH / 2.f };
-        q.bl = { left,  centerY + nearH / 2.f };
-        q.tr = { right, centerY - farH  / 2.f };
-        q.br = { right, centerY + farH  / 2.f };
-    }
-    return (q);
-}

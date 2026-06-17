@@ -59,7 +59,12 @@ class ProjectCard
 		float				depthT;
 		bool				dirty;
 	private :
-		CardQuad	computeQuad(int centerX, int centerY, int mainW, int mainH) const;
+		void    buildCoverflowMesh(
+			int                         centerX,
+			int                         centerY,
+			std::vector<SDL_Vertex>    &vertices,
+			std::vector<int>           &indices
+		) const;
 };
 
 # endif

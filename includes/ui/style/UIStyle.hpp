@@ -24,6 +24,7 @@ namespace UIStyle
 		constexpr float SideNearHeightRatio = 0.85f; // hauteur du bord proche / hauteur carte principale
 		constexpr float SideFarHeightRatio  = 0.7f;  // hauteur du bord loin / hauteur du bord proche
 		constexpr float SideBrightness      = 0.55f; // luminosité des cartes latérales (1.0 = normal)
+		constexpr int	CoverflowSlices		= 16;
 	}
 
 	namespace	Card

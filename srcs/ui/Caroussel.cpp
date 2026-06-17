@@ -83,62 +83,88 @@ void    Caroussel::draw(RendererSDL &renderer)
 
 void Caroussel::drawAnimation(RendererSDL& renderer)
 {
-    float t = this->_animation.progress / this->_animation.duration;
+    float t    = this->_animation.progress / this->_animation.duration;
+    int   dir  = this->_animation.direction;
+    int   size = (int)this->_cards.size();
 
     int w = UIStyle::applyPercentage(UIStyle::Caroussel::MainWidth, this->_rect.w);
     int h = UIStyle::applyPercentage(UIStyle::Caroussel::MainHeight, this->_rect.h);
     int spacing = UIStyle::applyPercentage(UIStyle::Caroussel::Spacing, this->_rect.w);
     int cx = this->_rect.x + this->_rect.w / 2;
     int cy = this->_rect.y + this->_rect.h / 2;
+    int step = w + spacing;
 
-    SDL_Rect leftRect   = { cx - w / 2 - spacing - w, cy - h / 2, w, h };
-    SDL_Rect centerRect = { cx - w / 2,               cy - h / 2, w, h };
-    SDL_Rect rightRect  = { cx - w / 2 + w + spacing, cy - h / 2, w, h };
+    SDL_Rect farLeftRect  = { cx - w / 2 - 2 * step, cy - h / 2, w, h };
+    SDL_Rect leftRect     = { cx - w / 2 - step,      cy - h / 2, w, h };
+    SDL_Rect centerRect   = { cx - w / 2,             cy - h / 2, w, h };
+    SDL_Rect rightRect    = { cx - w / 2 + step,      cy - h / 2, w, h };
+    SDL_Rect farRightRect = { cx - w / 2 + 2 * step,  cy - h / 2, w, h };
 
-    int size = this->_cards.size();
-    ProjectCard &prev   = this->_cards[(this->_selectedCard - 1 + size) % size];
-    ProjectCard &center = this->_cards[this->_selectedCard];
-    ProjectCard &next   = this->_cards[(this->_selectedCard + 1) % size];
+    auto wrap = [size](int i) { return (((i % size) + size) % size); };
 
-    auto lerp = [](int a, int b, float t) { return (a + static_cast<int>((b - a) * t)); };
-    auto animateRect = [&](SDL_Rect from, SDL_Rect to, float t)
+    int oldSelected = this->_selectedCard;
+    int newSelected = wrap(oldSelected + dir);
+    int oldLeftIdx  = wrap(oldSelected - 1);
+    int oldRightIdx = wrap(oldSelected + 1);
+    int newLeftIdx  = wrap(newSelected - 1);
+    int newRightIdx = wrap(newSelected + 1);
+
+    auto lerpI = [](int a, int b, float u) { return (a + static_cast<int>((b - a) * u)); };
+    auto animateRect = [&](SDL_Rect from, SDL_Rect to, float u)
     {
-        return (SDL_Rect{ lerp(from.x, to.x, t), lerp(from.y, to.y, t), lerp(from.w, to.w, t), lerp(from.h, to.h, t) });
+        return (SDL_Rect{ lerpI(from.x, to.x, u), lerpI(from.y, to.y, u), lerpI(from.w, to.w, u), lerpI(from.h, to.h, u) });
     };
 
-    if (this->_animation.direction > 0)
+    std::vector<int> drawOrder;
+    auto place = [&](int idx, SDL_Rect rect, float depthT, int side)
     {
-        prev.rect = animateRect(leftRect, centerRect, t);
-        prev.depthT = 1.f - t;
-        prev.side = -1;
+        ProjectCard &card = this->_cards[idx];
+        card.rect = rect;
+        card.depthT = depthT;
+        card.side = side;
+        drawOrder.push_back(idx);
+    };
 
-        center.rect = animateRect(centerRect, rightRect, t);
-        center.depthT = t;
-        center.side = +1;
-
-        next.rect = animateRect(rightRect, rightRect, t);
-        next.depthT = 1.f;
-        next.side = +1;
-    }
-    else
+    if (dir > 0) // fleche droite : tout glisse vers la gauche, du neuf entre a droite
     {
-        prev.rect = animateRect(leftRect, leftRect, t);
-        prev.depthT = 1.f;
-        prev.side = -1;
+        place(oldSelected, animateRect(centerRect, leftRect, t),  t,       -1);
+        place(oldRightIdx, animateRect(rightRect, centerRect, t), 1.f - t, +1);
 
-        center.rect = animateRect(centerRect, leftRect, t);
-        center.depthT = t;
-        center.side = -1;
+        if (oldLeftIdx == newRightIdx) // exactement 3 cartes : sort a gauche puis revient a droite
+        {
+            if (t < 0.5f)
+                place(oldLeftIdx, animateRect(leftRect, farLeftRect, t * 2.f), 1.f, -1);
+            else
+                place(oldLeftIdx, animateRect(farRightRect, rightRect, (t - 0.5f) * 2.f), 1.f, +1);
+        }
+        else
+        {
+            place(oldLeftIdx,  animateRect(leftRect, farLeftRect, t),   1.f, -1);
+            place(newRightIdx, animateRect(farRightRect, rightRect, t), 1.f, +1);
+        }
+    }
+    else // fleche gauche : tout glisse vers la droite, du neuf entre a gauche
+    {
+        place(oldSelected, animateRect(centerRect, rightRect, t), t,       +1);
+        place(oldLeftIdx,  animateRect(leftRect, centerRect, t),  1.f - t, -1);
 
-        next.rect = animateRect(rightRect, centerRect, t);
-        next.depthT = 1.f - t;
-        next.side = +1;
+        if (oldRightIdx == newLeftIdx)
+        {
+            if (t < 0.5f)
+                place(oldRightIdx, animateRect(rightRect, farRightRect, t * 2.f), 1.f, +1);
+            else
+                place(oldRightIdx, animateRect(farLeftRect, leftRect, (t - 0.5f) * 2.f), 1.f, -1);
+        }
+        else
+        {
+            place(oldRightIdx, animateRect(rightRect, farRightRect, t), 1.f, +1);
+            place(newLeftIdx,  animateRect(farLeftRect, leftRect, t),   1.f, -1);
+        }
     }
 
-    ProjectCard *order[3] = { &prev, &center, &next };
-    std::sort(order, order + 3, [](const ProjectCard *a, const ProjectCard *b) { return (a->depthT > b->depthT); });
-    for (auto *c : order)
-        c->draw(renderer);
+    std::sort(drawOrder.begin(), drawOrder.end(), [&](int a, int b) { return (this->_cards[a].depthT > this->_cards[b].depthT); });
+    for (int idx : drawOrder)
+        this->_cards[idx].draw(renderer);
 }
 
 void    Caroussel::layout()
