@@ -10,9 +10,9 @@ void    Caroussel::init(
 {
     this->_rect = {
         container.x,
-        container.y + UIStyle::applyPercentage(UIStyle::Computer::TitleHeight, container.h) + UIStyle::applyPercentage(UIStyle::Computer::Spacing, container.h),
+        container.y + UIStyle::applyPercentage(UIStyle::Computer::Title::Height, container.h) + UIStyle::applyPercentage(UIStyle::Computer::Spacing, container.h),
         container.w,
-        UIStyle::applyPercentage(UIStyle::Computer::CarousselHeight, container.h)
+        UIStyle::applyPercentage(UIStyle::Caroussel::Height, container.h)
     };
     this->_visibleCard = 3;
     this->_spacing = UIStyle::Caroussel::Spacing;
@@ -101,10 +101,10 @@ void    Caroussel::updatePagination(RendererSDL &renderer, RessourceManager &rm)
         text,
         renderer,
         rm.getFont(
-			std::string(UIStyle::Font::KGSolid12.path),
-			UIStyle::Font::KGSolid12.size
+            UIStyle::Caroussel::Pagination::Font,
+            UIStyle::Caroussel::Pagination::Size
 		),
-        {255,255,255,255}
+        UIStyle::Caroussel::Pagination::Color
     );
     this->_lastSelectedCard = this->_selectedCard;
 }
@@ -122,8 +122,8 @@ void Caroussel::drawAnimation(RendererSDL& renderer)
     int   dir  = this->_animation.direction;
     int   size = (int)this->_cards.size();
 
-    int w = UIStyle::applyPercentage(UIStyle::Caroussel::MainWidth, this->_rect.w);
-    int h = UIStyle::applyPercentage(UIStyle::Caroussel::MainHeight, this->_rect.h);
+    int w = UIStyle::applyPercentage(UIStyle::Caroussel::CardWidth, this->_rect.w);
+    int h = UIStyle::applyPercentage(UIStyle::Caroussel::CardHeight, this->_rect.h);
     int spacing = UIStyle::applyPercentage(UIStyle::Caroussel::Spacing, this->_rect.w);
     int cx = this->_rect.x + this->_rect.w / 2;
     int cy = this->_rect.y + this->_rect.h / 2;
@@ -209,8 +209,8 @@ void Caroussel::drawAnimation(RendererSDL& renderer)
 void    Caroussel::layout()
 {
     int spacing = UIStyle::applyPercentage(UIStyle::Caroussel::Spacing, this->_rect.w);
-    int w = UIStyle::applyPercentage(UIStyle::Caroussel::MainWidth, this->_rect.w);
-    int h = UIStyle::applyPercentage(UIStyle::Caroussel::MainHeight, this->_rect.h);
+    int w = UIStyle::applyPercentage(UIStyle::Caroussel::CardWidth, this->_rect.w);
+    int h = UIStyle::applyPercentage(UIStyle::Caroussel::CardHeight, this->_rect.h);
     int cx = this->_rect.x + this->_rect.w / 2;
     int cy = this->_rect.y + this->_rect.h / 2;
     

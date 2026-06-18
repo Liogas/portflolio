@@ -47,8 +47,7 @@ class ProjectCard
 		void	buildTitle(
 			RendererSDL 		&r,
 			RessourceManager	&rm,
-			int					containerW,
-			int					containerH
+			int					containerW
 		);
 		void	buildDescription(
 			RendererSDL 		&r,
@@ -56,8 +55,17 @@ class ProjectCard
 			int					containerW,
 			int					containerH
 		);
+		void	buildImage(
+			RessourceManager	&rm,
+			int					containerW,
+			int					containerH
+		);
+		void	buildTags(
+			RessourceManager	&rm,
+			int					containerW,
+			int					containerH
+		);
 		void	open();
-		// void	buildTags(RendererSDL &r);
 		void	draw(RendererSDL &renderer);
 		// PROPS
 		const Project		*project;

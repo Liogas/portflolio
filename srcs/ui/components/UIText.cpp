@@ -4,7 +4,6 @@ UIText::UIText()
 {
 	this->_texture = nullptr;
 	this->_wrapWidth = 0;
-	std::cout << "UIText created" << std::endl;
 }
 
 UIText::~UIText()

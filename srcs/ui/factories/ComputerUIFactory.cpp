@@ -18,10 +18,10 @@ ComputerUI	ComputerUIFactory::create(
 		data.title,
 		renderer,
 		rm.getFont(
-			std::string(UIStyle::Font::WC55.path),
-			UIStyle::Font::WC55.size
+			UIStyle::Computer::Title::Font,
+			UIStyle::Computer::Title::Size
 		),
-		UIStyle::Card::TitleColor
+		UIStyle::Computer::Title::Color
 	);
 	ui.title.rect.x = ui.rect.w / 2 - ui.title.rect.w / 2;
 	ui.title.rect.y = ui.rect.y + UIStyle::applyPercentage(UIStyle::Computer::Spacing, renderer.getWidth());

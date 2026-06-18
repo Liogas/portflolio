@@ -18,7 +18,8 @@ typedef struct	s_project
 
 inline void from_json(
     const nlohmann::json& j,
-    Project& p)
+    Project& p
+)
 {
     j.at("id").get_to(p.id);
     j.at("title").get_to(p.title);

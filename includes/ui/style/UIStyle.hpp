@@ -1,6 +1,7 @@
 #ifndef UISTYLE_HPP
 # define UISTYLE_HPP
 
+# include <iostream>
 # include <SDL2/SDL.h>
 # include <string_view>
 
@@ -9,64 +10,68 @@ namespace UIStyle
 
 	namespace	Computer
 	{
-		constexpr float	TitleHeight{20.f};
-		constexpr float	CarousselHeight{75.f};
-		constexpr float	Spacing{2.5f};
+		namespace	Title
+		{
+			constexpr const char	*Font	= "WorkforceCombine.otf";
+			constexpr int			Size	= 55;
+			constexpr SDL_Color		Color	{255,255,255,255};
+			constexpr float			Height	= 20.f;
+		}
+		constexpr float		Height			= 75.f;
+		constexpr float		Spacing			= 2.5f;
+    	constexpr SDL_Color	BackgroundColor	{30,30,30,200};
+		constexpr SDL_Color	BorderColor		{255,255,255,255};
 	}
 
 	namespace	Caroussel
 	{
-		constexpr float	MainWidth{30.f};
-		constexpr float MainHeight{70.f};
-		constexpr float SideWidth{15.f};
-		constexpr float	Spacing{2.5f};
-		constexpr float SideWidthRatio      = 0.6f;  // largeur carte latérale / largeur carte principale
-		constexpr float SideNearHeightRatio = 0.85f; // hauteur du bord proche / hauteur carte principale
-		constexpr float SideFarHeightRatio  = 0.7f;  // hauteur du bord loin / hauteur du bord proche
-		constexpr float SideBrightness      = 0.55f; // luminosité des cartes latérales (1.0 = normal)
+		constexpr int	Height				= 80.f;
+		constexpr float	CardWidth			= 30.f;
+		constexpr float CardHeight			= 80.f;
+		constexpr float SideWidth			= 15.f;
+		constexpr float	Spacing				= 2.5f;
+		constexpr float SideWidthRatio      = 0.6f; 
+		constexpr float SideNearHeightRatio = 0.85f;
+		constexpr float SideFarHeightRatio  = 0.7f;
+		constexpr float SideBrightness      = 0.55f;
 		constexpr int	CoverflowSlices		= 16;
+		namespace	Pagination
+		{
+			constexpr const char	*Font	= "KGSecondChancesSolid.ttf";
+			constexpr int			Size	= 10;
+			constexpr SDL_Color		Color	= {255,255,255,200};
+		}
 	}
 
 	namespace	Card
 	{
-		constexpr float	TitleHeight{15.f};
-		constexpr float TitleSize{12.f};
-		constexpr float	TagsHeight{15.f};
-		constexpr float DescHeight{60.f};
-		constexpr float DescSize{8.f};
-		constexpr float	Spacing{2.5f};
-		constexpr SDL_Color	BkgColor{
-			70,
-			70,
-			70,
-			255
-		};
-		constexpr SDL_Color	BorderColor{
-			255,
-			255,
-			255,
-			255
-		};
-		constexpr SDL_Color	TitleColor{
-			255,
-			255,
-			255,
-			255
-		};
+		namespace	Title
+		{
+			constexpr float			Height	= 15.f;
+			constexpr int 			Size	= 16;
+			constexpr const char	*Font	= "KGSecondChancesSketch.ttf";
+			constexpr SDL_Color		Color	{255,255,255,255};
+		}
+		namespace	Desc
+		{
+			constexpr int 			Size	= 8;
+			constexpr const char	*Font	= "KGSecondChancesSolid.ttf";
+			constexpr SDL_Color		Color	{255,255,255,255};
+			constexpr int			Height	= 25.f;
+		}
+		namespace	Img
+		{
+			constexpr float	Height	= 45.f;
+			constexpr float Width	= 80.f;
+		}
+		namespace	Tags
+		{
+			constexpr float	Height	= 5.f;
+		}
+		constexpr float		Spacing		= 5.f;
+		constexpr SDL_Color	BkgColor	{70,70,70,255};
+		constexpr SDL_Color	BorderColor	{255,255,255,255};
 	}
-
-    constexpr SDL_Color	BackgroundColor{
-		30,
-		30,
-		30,
-		200
-	};
-	constexpr SDL_Color	BorderColor{
-		255,
-		255,
-		255,
-		255
-	};
 
 	namespace	Font
 	{
@@ -83,6 +88,7 @@ namespace UIStyle
 			"KGSecondChancesSketch.ttf",
 			18
 		};
+		
 		inline constexpr s_font KGSolid12{
 			"KGSecondChancesSolid.ttf",
 			12

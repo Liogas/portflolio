@@ -85,8 +85,8 @@ void	ProjectCard::rebuild(
 			r,
 			SDL_PIXELFORMAT_RGBA8888,
 			SDL_TEXTUREACCESS_TARGET,
-			UIStyle::applyPercentage(UIStyle::Caroussel::MainWidth, container.w),
-			UIStyle::applyPercentage(UIStyle::Caroussel::MainHeight, container.h)
+			UIStyle::applyPercentage(UIStyle::Caroussel::CardWidth, container.w),
+			UIStyle::applyPercentage(UIStyle::Caroussel::CardHeight, container.h)
 		);
 		if (!this->texture)
 			throw (std::runtime_error(SDL_GetError()));
@@ -103,16 +103,16 @@ void	ProjectCard::rebuild(
 			h 
 		};
 		this->buildContainer(renderer);
-		this->buildTitle(renderer, rm, w, h);
+		this->buildTitle(renderer, rm, w);
 		this->buildDescription(renderer, rm, w, h);
-		// this->buildTags(r);
+		this->buildImage(rm, w, h);
+		this->buildTags(rm, w, h);
 		SDL_SetRenderTarget(r, nullptr);
 	} catch (const std::exception &e)
 	{
 		std::cerr << "ERRREUR BIEN DETECTE ICI" << std::endl;
 		throw (std::runtime_error(SDL_GetError()));
 	}
-	
 }
 
 void	ProjectCard::buildContainer(RendererSDL &renderer)
@@ -133,8 +133,7 @@ void	ProjectCard::buildContainer(RendererSDL &renderer)
 void	ProjectCard::buildTitle(
 	RendererSDL 		&r,
 	RessourceManager	&rm,
-	int					containerW,
-	int					containerH
+	int					containerW
 )
 {
 	UIText title;
@@ -142,13 +141,13 @@ void	ProjectCard::buildTitle(
 		this->project->title,
 		r,
 		rm.getFont(
-			std::string(UIStyle::Font::KGSketch18.path),
-			UIStyle::Font::KGSketch18.size
+			UIStyle::Card::Title::Font,
+			UIStyle::Card::Title::Size
 		),
-		UIStyle::Card::TitleColor
+		UIStyle::Card::Title::Color
 	);
+	title.rect.y = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW);
 	title.rect.x = (containerW - title.rect.w) / 2;
-	title.rect.h = UIStyle::applyPercentage(UIStyle::Card::TitleHeight, containerH);
 	title.draw(r);
 }
 
@@ -165,16 +164,65 @@ void	ProjectCard::buildDescription(
 		this->project->description,
 		r,
 		rm.getFont(
-			std::string(UIStyle::Font::KGSolid8.path),
-			UIStyle::Font::KGSolid8.size
+			UIStyle::Card::Desc::Font,
+			UIStyle::Card::Desc::Size
 		),
-		UIStyle::Card::TitleColor
+		UIStyle::Card::Desc::Color
 	);
-	if (desc.rect.h > UIStyle::applyPercentage(UIStyle::Card::DescHeight, containerH))
-		desc.rect.h = UIStyle::applyPercentage(UIStyle::Card::DescHeight, containerH);
-	desc.rect.y = UIStyle::applyPercentage(UIStyle::Card::TitleHeight, containerH) + UIStyle::Card::Spacing;
+	desc.rect.y = UIStyle::applyPercentage(UIStyle::Card::Title::Height, containerH) + UIStyle::Card::Spacing;
 	desc.rect.x = UIStyle::applyPercentage(UIStyle::Card::Spacing, desc.rect.w);
+	desc.rect.w = containerW - UIStyle::Card::Spacing * 3;
 	desc.draw(r);
+}
+
+void	ProjectCard::buildImage(
+	RessourceManager	&rm,
+	int					containerW,
+	int					containerH
+)
+{
+	std::shared_ptr<TextureSDL> &img = rm.getTexture("imageEmpty.png");
+	int	w, h;
+	int y = 
+		UIStyle::applyPercentage(UIStyle::Card::Title::Height, containerH)
+		+ UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH)
+		+ UIStyle::applyPercentage(UIStyle::Card::Desc::Height, containerH);
+	img->getSize(&w, &h);
+	SDL_Rect rect = {
+		UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW),
+		y,
+		containerW - UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW) * 2,
+		UIStyle::applyPercentage(UIStyle::Card::Img::Height, containerH)
+	};
+	img->render(nullptr, &rect);
+}
+
+void	ProjectCard::buildTags(
+	RessourceManager	&rm,
+	int					containerW,
+	int					containerH
+)
+{
+	const std::vector<std::string> &tags = this->project->tags;
+	int	x = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW);
+	int y = UIStyle::applyPercentage(UIStyle::Card::Title::Height, containerH)
+		+ UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH) * 2
+		+ UIStyle::applyPercentage(UIStyle::Card::Desc::Height, containerH)
+		+ UIStyle::applyPercentage(UIStyle::Card::Img::Height, containerH);
+	int size = UIStyle::applyPercentage(UIStyle::Card::Tags::Height, containerH);
+	std::cout << "size -> " << size << std::endl;
+	for (size_t i = 0; i < tags.size(); i++)
+	{
+		std::string path = tags[i] + ".png";
+		std::shared_ptr<TextureSDL> &img = rm.getTexture(path);
+		SDL_Rect rect = {
+			x,
+			y,
+			size,
+			size
+		};
+		img->render(nullptr, &rect);
+	}
 }
 
 void    ProjectCard::buildCoverflowMesh(
