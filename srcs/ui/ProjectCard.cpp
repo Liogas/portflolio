@@ -15,11 +15,14 @@ ProjectCard::ProjectCard(
 	SDL_Rect			&container
 )
 {
-	this->project = p;
-	this->texture = nullptr;
-	this->dirty = true;
-	this->depthT = 0.f;
-	this->side = 0;
+	this->project		= p;
+	this->texture		= nullptr;
+	this->dirty			= true;
+	this->theta			= 0.f;
+	this->originX		= 0.f;
+	this->originY		= 0.f;
+	this->ringRadius	= 0.f;
+	this->focal 		= 1.f;
 	this->update(renderer, rm, container);
 }
 
@@ -31,13 +34,16 @@ ProjectCard::~ProjectCard()
 
 ProjectCard::ProjectCard(ProjectCard&& other) noexcept
 {
-    this->project = other.project;
-    this->texture = other.texture;
-    this->rect = other.rect;
-    this->dirty = other.dirty;
-	this->depthT = other.depthT;
-	this->side = other.side;
-    other.texture = nullptr;
+    this->project		= other.project;
+    this->texture		= other.texture;
+    this->rect			= other.rect;
+    this->dirty			= other.dirty;
+	this->theta			= other.theta;
+	this->originX		= other.originX;
+	this->originY		= other.originY;
+	this->ringRadius	= other.ringRadius;
+	this->focal 		= other.focal;
+    other.texture		= nullptr;
 }
 
 ProjectCard& ProjectCard::operator=(ProjectCard&& other) noexcept
@@ -47,13 +53,16 @@ ProjectCard& ProjectCard::operator=(ProjectCard&& other) noexcept
         if (this->texture)
             SDL_DestroyTexture(this->texture);
 
-        this->project = other.project;
-        this->texture = other.texture;
-        this->rect = other.rect;
-        this->dirty = other.dirty;
-		this->depthT = other.depthT;
-		this->side = other.side;
-        other.texture = nullptr;
+        this->project		= other.project;
+		this->texture		= other.texture;
+		this->rect			= other.rect;
+		this->dirty			= other.dirty;
+		this->theta			= other.theta;
+		this->originX		= other.originX;
+		this->originY		= other.originY;
+		this->ringRadius	= other.ringRadius;
+		this->focal 		= other.focal;
+		other.texture		= nullptr;
     }
     return (*this);
 }
@@ -226,21 +235,25 @@ void	ProjectCard::buildTags(
 }
 
 void    ProjectCard::buildCoverflowMesh(
-    int                         centerX,
-    int							centerY,
-    std::vector<SDL_Vertex>    	&vertices,
-    std::vector<int>           	&indices
+    std::vector<SDL_Vertex>    &vertices,
+    std::vector<int>           &indices
 ) const
 {
     constexpr int slices = UIStyle::Caroussel::CoverflowSlices;
 
-    float width = this->rect.w * lerpf(1.0f, UIStyle::Caroussel::SideWidthRatio, this->depthT);
-    float nearH = this->rect.h * lerpf(1.0f, UIStyle::Caroussel::SideNearHeightRatio, this->depthT);
-    float farH  = nearH * lerpf(1.0f, UIStyle::Caroussel::SideFarHeightRatio, this->depthT);
-    float left  = centerX - width / 2.f;
+    float cosT = cosf(this->theta);
+    float sinT = sinf(this->theta);
 
-    Uint8 brightness = (Uint8)(255 * lerpf(1.0f, UIStyle::Caroussel::SideBrightness, this->depthT));
-    SDL_Color tint = { brightness, brightness, brightness, 255 };
+    float ringX = this->ringRadius * sinT;
+    float ringZ = this->ringRadius * (1.f - cosT);
+
+    float visualDepth = ringZ / (2.f * this->ringRadius); // 0 = devant, 1 = tout au fond
+    float brightness = lerpf(1.f, UIStyle::Caroussel::MinBrightness, visualDepth);
+    Uint8 b = (Uint8)(255 * brightness);
+    SDL_Color tint = { b, b, b, 255 };
+
+    float hw = this->rect.w / 2.f;
+    float hh = this->rect.h / 2.f;
 
     vertices.clear();
     indices.clear();
@@ -250,16 +263,22 @@ void    ProjectCard::buildCoverflowMesh(
     for (int i = 0; i <= slices; ++i)
     {
         float u = (float)i / (float)slices;
-        float h = (this->side > 0) ? lerpf(nearH, farH, u) : lerpf(farH, nearH, u);
-        float x = left + u * width;
+        float localX = -hw + u * (2.f * hw);
 
-        vertices.push_back({ { x, centerY - h / 2.f }, tint, { u, 0.f } });
-        vertices.push_back({ { x, centerY + h / 2.f }, tint, { u, 1.f } });
+        float worldX = ringX + localX * cosT;
+        float worldZ = ringZ + localX * sinT;
+        float scale  = this->focal / (this->focal + worldZ);
+
+        float screenX    = this->originX + worldX * scale;
+        float screenTopY = this->originY - hh * scale;
+        float screenBotY = this->originY + hh * scale;
+
+        vertices.push_back({ { screenX, screenTopY }, tint, { u, 0.f } });
+        vertices.push_back({ { screenX, screenBotY }, tint, { u, 1.f } });
     }
     for (int i = 0; i < slices; ++i)
     {
-        int top0 = i * 2, bot0 = i * 2 + 1;
-        int top1 = (i + 1) * 2, bot1 = (i + 1) * 2 + 1;
+        int top0 = i * 2, bot0 = i * 2 + 1, top1 = (i + 1) * 2, bot1 = (i + 1) * 2 + 1;
         indices.push_back(top0); indices.push_back(top1); indices.push_back(bot0);
         indices.push_back(bot0); indices.push_back(top1); indices.push_back(bot1);
     }
@@ -267,12 +286,9 @@ void    ProjectCard::buildCoverflowMesh(
 
 void    ProjectCard::draw(RendererSDL &renderer)
 {
-    int centerX = this->rect.x + this->rect.w / 2;
-    int centerY = this->rect.y + this->rect.h / 2;
-
     std::vector<SDL_Vertex> vertices;
     std::vector<int> indices;
-    this->buildCoverflowMesh(centerX, centerY, vertices, indices);
+    this->buildCoverflowMesh(vertices, indices);
 
     if (SDL_RenderGeometry(renderer.getRenderer(), this->texture, vertices.data(), (int)vertices.size(), indices.data(), (int)indices.size()) < 0)
         std::cerr << "SDL_RenderGeometry: " << SDL_GetError() << std::endl;

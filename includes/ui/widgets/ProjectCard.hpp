@@ -14,6 +14,9 @@
 # include "UIStyle.hpp"
 # include "UIText.hpp"
 
+# include <algorithm>
+# include <cmath>
+
 struct CardQuad
 {
 	SDL_FPoint	tl, tr, bl, br;
@@ -68,16 +71,17 @@ class ProjectCard
 		void	open();
 		void	draw(RendererSDL &renderer);
 		// PROPS
-		const Project		*project;
-		SDL_Texture			*texture;
-		SDL_Rect			rect;
-		int					side;
-		float				depthT;
-		bool				dirty;
+		const Project	*project;
+		SDL_Texture		*texture;
+		SDL_Rect		rect;
+		float   		theta;       // angle de rotation/position sur l'anneau, en radians (0 = face camera)
+		float   		originX;     // centre du caroussel a l'ecran (X)
+		float   		originY;     // centre du caroussel a l'ecran (Y)
+		float   		ringRadius;  // rayon de l'anneau en pixels
+		float  	 		focal;        // distance focale virtuelle en pixels
+		bool			dirty;
 	private :
 		void    buildCoverflowMesh(
-			int                         centerX,
-			int                         centerY,
 			std::vector<SDL_Vertex>    &vertices,
 			std::vector<int>           &indices
 		) const;

@@ -7,7 +7,6 @@
 
 # include "RessourceManager.hpp"
 # include "ProjectManager.hpp"
-# include <algorithm>
 
 struct CarousselAnimation
 {
@@ -45,6 +44,8 @@ class Caroussel
 		SDL_Rect					_rect;
 		int							_spacing;
 		CarousselAnimation			_animation;
+		void    placeCardAtDiff(ProjectCard &card, float diff, int n);
+		void    drawRing(RendererSDL &renderer, float phase);
 };
 
 # endif

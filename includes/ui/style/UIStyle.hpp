@@ -30,11 +30,12 @@ namespace UIStyle
 		constexpr float CardHeight			= 80.f;
 		constexpr float SideWidth			= 15.f;
 		constexpr float	Spacing				= 2.5f;
-		constexpr float SideWidthRatio      = 0.6f; 
-		constexpr float SideNearHeightRatio = 0.85f;
-		constexpr float SideFarHeightRatio  = 0.7f;
 		constexpr float SideBrightness      = 0.55f;
 		constexpr int	CoverflowSlices		= 16;
+		constexpr float RingRadiusRatio  	= 42.f;  // rayon de l'anneau 3D, % largeur caroussel
+		constexpr float FocalLengthRatio 	= 70.f;  // distance focale virtuelle, % largeur caroussel (plus petit = perspective plus marquee/dramatique)
+		constexpr float MinBrightness    	= 0.25f; // luminosite des cartes tout au fond de l'anneau
+		constexpr float AngleSpread      	= 1.f;   // 1.0 = repartition reelle 360/n ; reduire (ex 0.6) si peu de cartes rendent les voisines trop de profil
 		namespace	Pagination
 		{
 			constexpr const char	*Font	= "KGSecondChancesSolid.ttf";
