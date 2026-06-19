@@ -112,10 +112,11 @@ void	ProjectCard::rebuild(
 			h 
 		};
 		this->buildContainer(renderer);
-		this->buildTitle(renderer, rm, w);
-		this->buildDescription(renderer, rm, w, h);
-		this->buildImage(rm, w, h);
-		this->buildTags(rm, w, h);
+		int cursorY = 0;
+		this->buildTitle(renderer, rm, w, h, cursorY);
+		this->buildDescription(renderer, rm, w, h, cursorY);
+		this->buildImage(rm, w, h, cursorY);
+		this->buildTags(rm, w, h, cursorY);
 		SDL_SetRenderTarget(r, nullptr);
 	} catch (const std::exception &e)
 	{
@@ -139,99 +140,100 @@ void	ProjectCard::buildContainer(RendererSDL &renderer)
 	SDL_RenderDrawRect(r, &tmp);
 }
 
-void	ProjectCard::buildTitle(
-	RendererSDL 		&r,
-	RessourceManager	&rm,
-	int					containerW
+void ProjectCard::buildTitle(
+	RendererSDL &r,
+	RessourceManager &rm,
+	int containerW,
+	int containerH,
+	int &cursorY
 )
 {
 	UIText title;
 	title.setText(
-		this->project->title,
-		r,
+		this->project->title, r,
 		rm.getFont(
 			UIStyle::Card::Title::Font,
 			UIStyle::Card::Title::Size
 		),
 		UIStyle::Card::Title::Color
 	);
-	title.rect.y = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW);
+	int marginTop = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH);
+	cursorY += marginTop;
+	title.rect.y = cursorY;
 	title.rect.x = (containerW - title.rect.w) / 2;
 	title.draw(r);
+	cursorY += title.rect.h;
 }
 
-void	ProjectCard::buildDescription(
-	RendererSDL 		&r,
-	RessourceManager	&rm,
-	int					containerW,
-	int					containerH
+void ProjectCard::buildDescription(
+	RendererSDL &r,
+	RessourceManager &rm,
+	int containerW,
+	int containerH,
+	int &cursorY
 )
 {
+	int marginX = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW);
+	int marginTop = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH);
+	int wrapWidth = containerW - marginX * 2;
 	UIText desc;
-	desc.setWrapWidth(containerW);
+	desc.setWrapWidth(wrapWidth);
 	desc.setText(
-		this->project->description,
-		r,
+		this->project->description, r,
 		rm.getFont(
 			UIStyle::Card::Desc::Font,
 			UIStyle::Card::Desc::Size
 		),
 		UIStyle::Card::Desc::Color
 	);
-	desc.rect.y = UIStyle::applyPercentage(UIStyle::Card::Title::Height, containerH) + UIStyle::Card::Spacing;
-	desc.rect.x = UIStyle::applyPercentage(UIStyle::Card::Spacing, desc.rect.w);
-	desc.rect.w = containerW - UIStyle::Card::Spacing * 3;
+	cursorY += marginTop;
+	desc.rect.y = cursorY;
+	desc.rect.x = marginX;
+	desc.rect.w = wrapWidth;
 	desc.draw(r);
+	cursorY += desc.rect.h;
 }
 
-void	ProjectCard::buildImage(
-	RessourceManager	&rm,
-	int					containerW,
-	int					containerH
+void ProjectCard::buildImage(
+	RessourceManager &rm,
+	int containerW,
+	int containerH,
+	int &cursorY
 )
 {
 	std::shared_ptr<TextureSDL> &img = rm.getTexture("imageEmpty.png");
-	int	w, h;
-	int y = 
-		UIStyle::applyPercentage(UIStyle::Card::Title::Height, containerH)
-		+ UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH)
-		+ UIStyle::applyPercentage(UIStyle::Card::Desc::Height, containerH);
-	img->getSize(&w, &h);
-	SDL_Rect rect = {
-		UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW),
-		y,
-		containerW - UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW) * 2,
-		UIStyle::applyPercentage(UIStyle::Card::Img::Height, containerH)
-	};
+	int marginX = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW);
+	int marginTop = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH);
+	int imgH = UIStyle::applyPercentage(UIStyle::Card::Img::Height, containerH);
+	cursorY += marginTop;
+	SDL_Rect rect = { marginX, cursorY, containerW - marginX * 2, imgH };
 	img->render(nullptr, &rect);
+	cursorY += imgH;
 }
 
-void	ProjectCard::buildTags(
-	RessourceManager	&rm,
-	int					containerW,
-	int					containerH
+void ProjectCard::buildTags(
+	RessourceManager &rm,
+	int containerW,
+	int containerH,
+	int &cursorY
 )
 {
 	const std::vector<std::string> &tags = this->project->tags;
-	int	x = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW);
-	int y = UIStyle::applyPercentage(UIStyle::Card::Title::Height, containerH)
-		+ UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH) * 2
-		+ UIStyle::applyPercentage(UIStyle::Card::Desc::Height, containerH)
-		+ UIStyle::applyPercentage(UIStyle::Card::Img::Height, containerH);
+	int marginX = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW);
+	int marginTop = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH);
 	int size = UIStyle::applyPercentage(UIStyle::Card::Tags::Height, containerH);
-	std::cout << "size -> " << size << std::endl;
+
+	cursorY += marginTop;
+	int x = marginX;
 	for (size_t i = 0; i < tags.size(); i++)
 	{
 		std::string path = tags[i] + ".png";
 		std::shared_ptr<TextureSDL> &img = rm.getTexture(path);
-		SDL_Rect rect = {
-			x,
-			y,
-			size,
-			size
-		};
+		SDL_Rect rect = { x, cursorY, size, size };
 		img->render(nullptr, &rect);
+		x += size + marginX; // décale chaque tag, sinon ils s'empilent
 	}
+	cursorY += size;
 }
 
 void    ProjectCard::buildCoverflowMesh(

@@ -47,26 +47,31 @@ class ProjectCard
 			SDL_Rect			&container
 		);
 		void	buildContainer(RendererSDL &renderer);
-		void	buildTitle(
-			RendererSDL 		&r,
-			RessourceManager	&rm,
-			int					containerW
+		void 	buildTitle(
+			RendererSDL &r,
+			RessourceManager &rm,
+			int containerW,
+			int containerH,
+			int &cursorY
 		);
-		void	buildDescription(
-			RendererSDL 		&r,
-			RessourceManager 	&rm,
-			int					containerW,
-			int					containerH
+		void 	buildDescription(
+			RendererSDL &r,
+			RessourceManager &rm,
+			int containerW,
+			int containerH,
+			int &cursorY
 		);
-		void	buildImage(
-			RessourceManager	&rm,
-			int					containerW,
-			int					containerH
+		void 	buildImage(
+			RessourceManager &rm,
+			int containerW,
+			int containerH,
+			int &cursorY
 		);
-		void	buildTags(
-			RessourceManager	&rm,
-			int					containerW,
-			int					containerH
+		void 	buildTags(
+			RessourceManager &rm,
+			int containerW,
+			int containerH,
+			int &cursorY
 		);
 		void	open();
 		void	draw(RendererSDL &renderer);

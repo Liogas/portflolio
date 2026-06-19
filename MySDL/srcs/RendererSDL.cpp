@@ -60,6 +60,7 @@ SDL_Texture	*RendererSDL::loadImg(const char *path)
 		SDL_DestroyTexture(tmp);
 		throw std::runtime_error(SDL_GetError());
 	}
+	SDL_Texture *old = SDL_GetRenderTarget(this->_renderer);
 	SDL_SetRenderTarget(this->_renderer, texture);
 	if (SDL_RenderCopy(this->_renderer, tmp, NULL, NULL) != 0)
 	{
@@ -68,7 +69,7 @@ SDL_Texture	*RendererSDL::loadImg(const char *path)
 		SDL_SetRenderTarget(this->_renderer, NULL);
 		throw std::runtime_error(SDL_GetError());
 	}
-	SDL_SetRenderTarget(this->_renderer, NULL);
+	SDL_SetRenderTarget(this->_renderer, old);
 	SDL_DestroyTexture(tmp);
 	return (texture);
 }

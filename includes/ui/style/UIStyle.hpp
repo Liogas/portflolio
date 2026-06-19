@@ -62,12 +62,11 @@ namespace UIStyle
 		}
 		namespace	Img
 		{
-			constexpr float	Height	= 45.f;
-			constexpr float Width	= 80.f;
+			constexpr float	Height	= 30.f;
 		}
 		namespace	Tags
 		{
-			constexpr float	Height	= 5.f;
+			constexpr float	Height	= 10.f;
 		}
 		constexpr float		Spacing		= 5.f;
 		constexpr SDL_Color	BkgColor	{70,70,70,255};
