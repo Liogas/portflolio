@@ -36,48 +36,30 @@ UIText& UIText::operator=(UIText&& other) noexcept
     return *this;
 }
 
-void	UIText::setText(
-	const std::string 	&text,
-	RendererSDL			&renderer,
-	TTF_Font			*font,
-	SDL_Color			color
+void UIText::setText(
+    const std::string   &text,
+    RendererSDL         &renderer,
+    TTF_Font            *font,
+    SDL_Color           color
 )
 {
-	if (this->_texture)
-		SDL_DestroyTexture(this->_texture);
-	SDL_Surface *surface;
-	if (this->_wrapWidth > 0)
-	{
-		surface = TTF_RenderUTF8_Blended_Wrapped(
-			font,
-			text.c_str(),
-			color,
-			this->_wrapWidth
-		);
-	} else
-	{
-		surface = TTF_RenderUTF8_Blended(
-			font,
-			text.c_str(),
-			color
-		);
-	}
-	if (!surface)
-		throw (std::runtime_error(TTF_GetError()));
-	this->_texture = SDL_CreateTextureFromSurface(
-		renderer.getRenderer(),
-		surface
-	);
-	if (!this->_texture)
-	{
-    	std::cerr << "Texture creation failed: " << SDL_GetError() << std::endl;
-	}
-	if (!this->_texture)
-    	throw std::runtime_error(SDL_GetError());
-	SDL_SetTextureBlendMode(this->_texture, SDL_BLENDMODE_BLEND);
-	this->rect.w = surface->w;
-	this->rect.h = surface->h;
-	SDL_FreeSurface(surface);
+    if (this->_texture)
+        SDL_DestroyTexture(this->_texture);
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
+    SDL_Surface *surface;
+    if (this->_wrapWidth > 0)
+    	surface = TTF_RenderUTF8_LCD_Wrapped(font, text.c_str(), color, {70,70,70,255}, this->_wrapWidth);
+	else
+    	surface = TTF_RenderUTF8_LCD(font, text.c_str(), color, {70,70,70,255});
+    if (!surface)
+        throw std::runtime_error(TTF_GetError());
+    this->_texture = SDL_CreateTextureFromSurface(renderer.getRenderer(), surface);
+    SDL_FreeSurface(surface);
+    if (!this->_texture)
+        throw std::runtime_error(SDL_GetError());
+    SDL_SetTextureBlendMode(this->_texture, SDL_BLENDMODE_BLEND);
+    SDL_QueryTexture(this->_texture, nullptr, nullptr, &this->rect.w, &this->rect.h);
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 }
 
 void	UIText::setWrapWidth(int width)

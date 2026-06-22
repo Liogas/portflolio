@@ -3,6 +3,10 @@
 RendererSDL::RendererSDL(WindowSDL &win, ERendererOption opt):
 	_window(win)
 {
+	SDL_SetHint(
+    	SDL_HINT_RENDER_SCALE_QUALITY,
+    	"0"
+	);
 	this->_renderer = SDL_CreateRenderer(
 		win.getWindow(),
 		-1,

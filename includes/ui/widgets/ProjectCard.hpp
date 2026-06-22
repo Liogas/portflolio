@@ -75,6 +75,7 @@ class ProjectCard
 		);
 		void	open();
 		void	draw(RendererSDL &renderer);
+		void	scroll(int delta);
 		// PROPS
 		const Project	*project;
 		SDL_Texture		*texture;
@@ -85,6 +86,8 @@ class ProjectCard
 		float   		ringRadius;  // rayon de l'anneau en pixels
 		float  	 		focal;        // distance focale virtuelle en pixels
 		bool			dirty;
+		int				scrollY;
+		int				contentH;
 	private :
 		void    buildCoverflowMesh(
 			std::vector<SDL_Vertex>    &vertices,

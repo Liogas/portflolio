@@ -23,6 +23,8 @@ ProjectCard::ProjectCard(
 	this->originY		= 0.f;
 	this->ringRadius	= 0.f;
 	this->focal 		= 1.f;
+	this->scrollY		= 0;
+	this->contentH		= 0;
 	this->update(renderer, rm, container);
 }
 
@@ -43,6 +45,8 @@ ProjectCard::ProjectCard(ProjectCard&& other) noexcept
 	this->originY		= other.originY;
 	this->ringRadius	= other.ringRadius;
 	this->focal 		= other.focal;
+	this->contentH		= other.contentH;
+	this->scrollY		= other.scrollY;
     other.texture		= nullptr;
 }
 
@@ -62,6 +66,8 @@ ProjectCard& ProjectCard::operator=(ProjectCard&& other) noexcept
 		this->originY		= other.originY;
 		this->ringRadius	= other.ringRadius;
 		this->focal 		= other.focal;
+		this->contentH		= other.contentH;
+		this->scrollY		= other.scrollY;
 		other.texture		= nullptr;
     }
     return (*this);
@@ -79,6 +85,13 @@ void	ProjectCard::update(
 	this->dirty = false;
 }
 
+void	ProjectCard::scroll(int delta)
+{
+	int maxScroll = std::max(0, this->contentH - this->rect.h);
+	this->scrollY = std::clamp(this->scrollY + delta, 0, maxScroll);
+	this->dirty = true;
+}
+
 void	ProjectCard::rebuild(
 	RendererSDL 		&renderer,
 	RessourceManager	&rm,
@@ -87,9 +100,12 @@ void	ProjectCard::rebuild(
 {
 	try
 	{
+		if (!this->dirty)
+			return ;
 		auto *r = renderer.getRenderer();
 		if (this->texture)
 			SDL_DestroyTexture(this->texture);
+		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 		this->texture = SDL_CreateTexture(
 			r,
 			SDL_PIXELFORMAT_RGBA8888,
@@ -112,11 +128,44 @@ void	ProjectCard::rebuild(
 			h 
 		};
 		this->buildContainer(renderer);
-		int cursorY = 0;
+		int cursorY = -(this->scrollY);
 		this->buildTitle(renderer, rm, w, h, cursorY);
 		this->buildDescription(renderer, rm, w, h, cursorY);
 		this->buildImage(rm, w, h, cursorY);
 		this->buildTags(rm, w, h, cursorY);
+		// stocke la hauteur totale pour connaitre le max de scroll
+		this->contentH = cursorY + this->scrollY;
+		// scrollbar
+		if (this->contentH > h)
+		{
+			constexpr int barW   = UIStyle::Card::ScrollBar::W;
+			constexpr int insetX = UIStyle::Card::ScrollBar::InsetX;
+			constexpr int insetY = UIStyle::Card::ScrollBar::InsetY;
+
+			int trackH  = h - insetY * 2;
+			int barH    = std::max(16, (int)((float)trackH * trackH / this->contentH));
+			int barMaxY = insetY + trackH - barH;
+			int scrollRange = this->contentH - h;
+			int barY    = insetY + (scrollRange > 0
+							? (int)((float)barMaxY * this->scrollY / scrollRange)
+							: 0);
+
+			SDL_Rect track = { w - barW - insetX, insetY, barW, trackH };
+			SDL_SetRenderDrawColor(r, 50, 50, 50, 200);
+			SDL_RenderFillRect(r, &track);
+
+			SDL_Rect thumb = { w - barW - insetX, barY, barW, barH };
+			SDL_SetRenderDrawColor(r, 200, 200, 200, 220);
+			SDL_RenderFillRect(r, &thumb);
+		}
+		UIStyle::applyColor(r, UIStyle::Card::BorderColor);
+		SDL_Rect tmp {
+			0,
+			0,
+			this->rect.w,
+			this->rect.h
+		};
+		SDL_RenderDrawRect(r, &tmp);
 		SDL_SetRenderTarget(r, nullptr);
 	} catch (const std::exception &e)
 	{
@@ -136,8 +185,6 @@ void	ProjectCard::buildContainer(RendererSDL &renderer)
 	};
 	UIStyle::applyColor(r, UIStyle::Card::BkgColor);
 	SDL_RenderFillRect(r, &tmp);
-	UIStyle::applyColor(r, UIStyle::Card::BorderColor);
-	SDL_RenderDrawRect(r, &tmp);
 }
 
 void ProjectCard::buildTitle(
@@ -159,8 +206,9 @@ void ProjectCard::buildTitle(
 	);
 	int marginTop = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH);
 	cursorY += marginTop;
+	int scrollReserve = UIStyle::Card::ScrollBar::W + UIStyle::Card::ScrollBar::InsetX + 2;
+	title.rect.x = (containerW - scrollReserve - title.rect.w) / 2;
 	title.rect.y = cursorY;
-	title.rect.x = (containerW - title.rect.w) / 2;
 	title.draw(r);
 	cursorY += title.rect.h;
 }
@@ -175,7 +223,8 @@ void ProjectCard::buildDescription(
 {
 	int marginX = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW);
 	int marginTop = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH);
-	int wrapWidth = containerW - marginX * 2;
+	int scrollReserve = UIStyle::Card::ScrollBar::W + UIStyle::Card::ScrollBar::InsetX + 2;
+	int wrapWidth = containerW - marginX * 2 - scrollReserve;
 	UIText desc;
 	desc.setWrapWidth(wrapWidth);
 	desc.setText(
@@ -195,20 +244,23 @@ void ProjectCard::buildDescription(
 }
 
 void ProjectCard::buildImage(
-	RessourceManager &rm,
-	int containerW,
-	int containerH,
-	int &cursorY
+    RessourceManager &rm,
+    int containerW,
+    int containerH,
+    int &cursorY
 )
 {
-	std::shared_ptr<TextureSDL> &img = rm.getTexture("imageEmpty.png");
-	int marginX = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW);
-	int marginTop = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH);
-	int imgH = UIStyle::applyPercentage(UIStyle::Card::Img::Height, containerH);
-	cursorY += marginTop;
-	SDL_Rect rect = { marginX, cursorY, containerW - marginX * 2, imgH };
-	img->render(nullptr, &rect);
-	cursorY += imgH;
+    std::shared_ptr<TextureSDL> &img = rm.getTexture("imageEmpty.png");
+    int marginX      = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW);
+    int marginTop    = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH);
+    int scrollReserve = UIStyle::Card::ScrollBar::W + UIStyle::Card::ScrollBar::InsetX + 2;
+    int imgW         = containerW - marginX * 2 - scrollReserve;
+    int imgH         = imgW * 9 / 16;  // ratio 16:9, change en 3/2 ou 4/3 selon ta preference
+
+    cursorY += marginTop;
+    SDL_Rect rect = { marginX, cursorY, imgW, imgH };
+    img->render(nullptr, &rect);
+    cursorY += imgH;
 }
 
 void ProjectCard::buildTags(
@@ -291,7 +343,6 @@ void    ProjectCard::draw(RendererSDL &renderer)
     std::vector<SDL_Vertex> vertices;
     std::vector<int> indices;
     this->buildCoverflowMesh(vertices, indices);
-
     if (SDL_RenderGeometry(renderer.getRenderer(), this->texture, vertices.data(), (int)vertices.size(), indices.data(), (int)indices.size()) < 0)
         std::cerr << "SDL_RenderGeometry: " << SDL_GetError() << std::endl;
 }

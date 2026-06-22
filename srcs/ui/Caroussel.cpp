@@ -110,9 +110,22 @@ void    Caroussel::previousCard()
     this->_animation.progress = 0.f;
 }
 
+void    Caroussel::scrollUp()
+{
+    if (!this->_animation.on)
+        this->_cards[this->_selectedCard].scroll(-30);
+}
+
+void    Caroussel::scrollDown()
+{
+    if (!this->_animation.on)
+        this->_cards[this->_selectedCard].scroll(30);
+}
+
 void    Caroussel::update(float deltaTime, RendererSDL &renderer, RessourceManager &rm)
 {
     this->updatePagination(renderer, rm);
+    this->_cards[this->_selectedCard].update(renderer, rm, this->_rect);
     if (!this->_animation.on)
         return ;
     this->_animation.progress += deltaTime;
@@ -182,6 +195,7 @@ void    Caroussel::layout()
     int n = (int)this->_cards.size();
     for (int i = 0; i < n; ++i)
     {
+        this->_cards[i].scrollY = 0;
         float diff = circularDiff((float)i, (float)this->_selectedCard, (float)n);
         this->placeCardAtDiff(this->_cards[i], diff, n);
     }

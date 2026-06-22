@@ -31,7 +31,7 @@ namespace UIStyle
 		constexpr float SideWidth			= 15.f;
 		constexpr float	Spacing				= 2.5f;
 		constexpr float SideBrightness      = 0.55f;
-		constexpr int	CoverflowSlices		= 16;
+		constexpr int	CoverflowSlices		= 50;
 		constexpr float RingRadiusRatio  	= 42.f;  // rayon de l'anneau 3D, % largeur caroussel
 		constexpr float FocalLengthRatio 	= 70.f;  // distance focale virtuelle, % largeur caroussel (plus petit = perspective plus marquee/dramatique)
 		constexpr float MinBrightness    	= 0.25f; // luminosite des cartes tout au fond de l'anneau
@@ -39,7 +39,7 @@ namespace UIStyle
 		namespace	Pagination
 		{
 			constexpr const char	*Font	= "KGSecondChancesSolid.ttf";
-			constexpr int			Size	= 10;
+			constexpr int			Size	= 11;
 			constexpr SDL_Color		Color	= {255,255,255,200};
 		}
 	}
@@ -49,13 +49,13 @@ namespace UIStyle
 		namespace	Title
 		{
 			constexpr float			Height	= 15.f;
-			constexpr int 			Size	= 16;
+			constexpr int 			Size	= 18;
 			constexpr const char	*Font	= "KGSecondChancesSketch.ttf";
 			constexpr SDL_Color		Color	{255,255,255,255};
 		}
 		namespace	Desc
 		{
-			constexpr int 			Size	= 8;
+			constexpr int 			Size	= 11;
 			constexpr const char	*Font	= "KGSecondChancesSolid.ttf";
 			constexpr SDL_Color		Color	{255,255,255,255};
 			constexpr int			Height	= 25.f;
@@ -68,40 +68,17 @@ namespace UIStyle
 		{
 			constexpr float	Height	= 10.f;
 		}
+		namespace   ScrollBar
+		{
+			constexpr int W      = 4;
+			constexpr int InsetX = 3;
+			constexpr int InsetY = 5;
+		}
 		constexpr float		Spacing		= 5.f;
 		constexpr SDL_Color	BkgColor	{70,70,70,255};
 		constexpr SDL_Color	BorderColor	{255,255,255,255};
 	}
 
-	namespace	Font
-	{
-		struct s_font
-		{
-			std::string_view 	path;
-			int					size;
-		};
-		inline constexpr s_font WC55{
-			"WorkforceCombine.otf",
-			55
-		};
-		inline constexpr s_font KGSketch18{
-			"KGSecondChancesSketch.ttf",
-			18
-		};
-		
-		inline constexpr s_font KGSolid12{
-			"KGSecondChancesSolid.ttf",
-			12
-		};
-		inline constexpr s_font KGSketch8{
-			"KGSecondChancesSketch.ttf",
-			8
-		};
-		inline constexpr s_font KGSolid8{
-			"KGSecondChancesSolid.ttf",
-			8
-		};
-	}
 	inline void applyColor(SDL_Renderer *r, SDL_Color c)
 	{
 		SDL_SetRenderDrawColor(r, c.r, c.g, c.b, c.a);

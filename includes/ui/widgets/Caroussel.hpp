@@ -28,8 +28,9 @@ class Caroussel
 		);
 		void	nextCard();
 		void	previousCard();
+		void	scrollUp();
+		void	scrollDown();
 		void	draw(RendererSDL &renderer);
-		void	drawAnimation(RendererSDL &renderer);
 		void	drawPagination(RendererSDL &renderer);
 		void	web();
 		void	layout();

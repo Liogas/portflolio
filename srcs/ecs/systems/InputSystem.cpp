@@ -26,6 +26,10 @@ static void	inputComputer(ComputerUI &computer, const InputSDL &input)
 		carou.previousCard();
 	else if (input.isKeyPressed(SDL_SCANCODE_RETURN))
 		carou.web();
+	else if (input.isKeyPressed(SDL_SCANCODE_UP))
+		carou.scrollUp();
+	else if (input.isKeyPressed(SDL_SCANCODE_DOWN))
+		carou.scrollDown();
 }
 
 void InputSystem(World &world, entt::registry &registry, const InputSDL &input)
