@@ -18,7 +18,7 @@
 # include "EventBus.hpp"
 
 // UI
-# include "ComputerUIFactory.hpp"
+# include "UIManager.hpp"
 
 // FACTORIES
 # include "PlayerFactories.hpp"
@@ -37,54 +37,42 @@
 
 class Scene;
 
-enum class GameState
-{
-	Playing,
-	ComputerInteraction,
-	Dialogue,
-	Paused
-};
-
 class World
 {
 	public:
 		World(
 			RessourceManager	&rm,
 			ComputerManager 	&cm,
-			ProjectManager 		&pm
+			ProjectManager 		&pm,
+			UIManager			&uiM
 		);
 		// GETTERS
 		[[nodiscard]] entt::registry			&getRegistry();
 		[[nodiscard]] RessourceManager			&getRm();
 		[[nodiscard]] ComputerManager			&getCm();
 		[[nodiscard]] ProjectManager			&getPm();
-		[[nodiscard]] std::optional<ComputerUI>	&getComputerUI();
 		// SETTERS
 		void	setMap(std::unique_ptr<TileMap> map);
-		void	setComputerUI(ComputerUI c);
 		// METHODS
 		void	update(InputSDL &input, float dt, RendererSDL &renderer);
 		void	render(RendererSDL &renderer);
 		void	changeScene(std::unique_ptr<Scene> scene);
 		void	updateCamera();
 		void	toggleDebug();
-		bool	isGameplayBlocked() const;
-		void	openComputer(const std::string &id, RendererSDL &renderer);
-		void	closeComputer();
 		// PROPS
 		bool		debug;
-		GameState	gameState;
 	private:
-		entt::registry				_registry;
-		RessourceManager			&_rm;
-		ProjectManager				&_pm;
-		ComputerManager				&_cm;
-		std::unique_ptr<TileMap>	_map;
-		std::unique_ptr<Scene> 		_scene;
-		Camera						_camera;
-		entt::entity				_player;
-		EventBus					_eventBus;
-		std::optional<ComputerUI>	_computerUI;
+		entt::registry							_registry;
+		entt::dispatcher						_dispatcher;
+		RessourceManager						&_rm;
+		ProjectManager							&_pm;
+		ComputerManager							&_cm;
+		UIManager								&_UIm;
+		std::unique_ptr<TileMap>				_map;
+		std::unique_ptr<Scene> 					_scene;
+		Camera									_camera;
+		entt::entity							_player;
+		EventBus								_eventBus;
 };
 
 #endif

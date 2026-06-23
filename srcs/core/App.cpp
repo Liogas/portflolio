@@ -10,7 +10,8 @@ App::App():
 	_rm(this->_renderer),
 	_pm(),
 	_cm(),
-	_world(this->_rm, this->_cm, this->_pm)
+	_UIm(this->_cm, this->_pm, this->_rm, this->_renderer),
+	_world(this->_rm, this->_cm, this->_pm, this->_UIm)
 {
 	try
 	{

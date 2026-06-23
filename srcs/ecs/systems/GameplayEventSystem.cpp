@@ -15,16 +15,9 @@ void	GameplayEventSystem(
 			{
 				if (registry.all_of<Computer>(e.target))
 				{
-					auto &c = registry.get<Computer>(e.target);
-					if (!c.poweredOn)
-					{
-						c.poweredOn = true;
-						world.openComputer(c.id, renderer);
-					} else
-					{
-						c.poweredOn = false;
-						world.closeComputer();
-					}
+					world.getDispatcher().trigger(OpenComputerEvent{
+						registry.get<Computer>(e.target).id
+					});
 				}
 				break ;
 			}

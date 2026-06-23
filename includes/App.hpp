@@ -35,6 +35,7 @@ class App
 		RessourceManager	_rm;
 		ProjectManager		_pm;
 		ComputerManager		_cm;
+		UIManager			_UIm;
 		World				_world;
 		void	handleEvents();
 };

@@ -1,0 +1,41 @@
+#ifndef UIMANAGER_HPP
+# define UIMANAGER_HPP
+
+#include <vector>
+#include <memory>
+
+# include "ComputerUI.hpp"
+# include "RendererSDL.hpp"
+# include "InputSDL.hpp"
+
+#include "EventBus.hpp"
+
+class UIManager
+{
+	public:
+		UIManager(
+			ComputerManager 	&cm,
+			ProjectManager		&pm,
+			RessourceManager	&rm,
+			RendererSDL			&renderer
+		);
+		void	openComputer(const OpenComputerEvent &e);
+		void	closeTopWindow();
+		void	push(std::unique_ptr<UIWindow> ui);
+		void	pop();
+		void	clear();
+		void	handleInput(const InputSDL &input);
+		void	update(float dt);
+		void	render(RendererSDL &renderer);
+		bool	blocksGameplay() const;
+		bool	empty() const;
+		void	bind(entt::dispatcher &dispatcher);
+	private:
+		std::vector<std::unique_ptr<UIWindow>	_stack;
+		ComputerManager							&_cm;
+		ProjectManager							&_pm;
+		RessourceManager						&_rm;
+		RendererSDL								&_renderer;
+};
+
+#endif

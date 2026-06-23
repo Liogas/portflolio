@@ -17,30 +17,10 @@ static void	inputPlaying(entt::registry &registry, const InputSDL &input)
 	}
 }
 
-static void	inputComputer(ComputerUI &computer, const InputSDL &input)
-{
-	auto &carou = computer.caroussel;
-	if (input.isKeyPressed(SDL_SCANCODE_RIGHT))
-		carou.nextCard();
-	else if (input.isKeyPressed(SDL_SCANCODE_LEFT))
-		carou.previousCard();
-	else if (input.isKeyPressed(SDL_SCANCODE_RETURN))
-		carou.web();
-	else if (input.isKeyPressed(SDL_SCANCODE_UP))
-		carou.scrollUp();
-	else if (input.isKeyPressed(SDL_SCANCODE_DOWN))
-		carou.scrollDown();
-}
-
 void InputSystem(World &world, entt::registry &registry, const InputSDL &input)
 {
 
 	if (input.isKeyPressed(SDL_SCANCODE_F3))
 		world.toggleDebug();
-
-	if (world.gameState == GameState::Playing)
-		inputPlaying(registry, input);
-	else if (world.gameState == GameState::ComputerInteraction && world.getComputerUI().has_value())
-		inputComputer(*world.getComputerUI(), input);
-	
+	inputPlaying(registry, input);
 }

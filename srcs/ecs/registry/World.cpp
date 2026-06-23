@@ -3,19 +3,20 @@
 World::World(
 	RessourceManager 	&rm, 
 	ComputerManager 	&cm,
-	ProjectManager 		&pm
+	ProjectManager 		&pm,
+	UIManager			&UIm
 ):
 	_rm(rm),
 	_pm(pm),
 	_cm(cm),
-	_map(nullptr),
-	_computerUI(std::nullopt)
+	_UIm(UIm),
+	_map(nullptr)
 {
 	this->_player = PlayerFactories::create(
 		this->_registry, this->_rm, 550.f, 280.f, "char1.png"
 	);
 	this->debug = false;
-	this->gameState = GameState::Playing;
+	this->_UIm.bind(this->_dispatcher);
 	std::cout << "World created" << std::endl;
 }
 
@@ -39,23 +40,21 @@ ProjectManager	&World::getPm()
 	return (this->_pm);
 }
 
-std::optional<ComputerUI>	&World::getComputerUI()
-{
-	return (this->_computerUI);
-}
-
 void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 {
-	InputSystem(*this, this->_registry, input);
-	MovementSystem(*this, this->_registry);
-	CollisionSystem(this->_registry, *this->_map, dt);
-	InteractionSystem(*this, this->_registry, input, this->_eventBus);
-	GameplayEventSystem(*this, this->_registry, this->_eventBus, renderer);
-	AnimationStateSystem(this->_registry);
-	AnimationSystem(this->_registry, dt);
-	if (this->_computerUI.has_value())
-		this->_computerUI->caroussel.update(dt, renderer, this->_rm);
-	this->updateCamera();
+	UIm.handleInput(input);
+	UIm.update(dt);
+	if (!UIm.blocksGameplay())
+	{
+		InputSystem(*this, this->_registry, input);
+		MovementSystem(*this, this->_registry);
+		CollisionSystem(this->_registry, *this->_map, dt);
+		InteractionSystem(*this, this->_registry, input, this->_eventBus);
+		GameplayEventSystem(*this, this->_registry, this->_eventBus, renderer);
+		AnimationStateSystem(this->_registry);
+		AnimationSystem(this->_registry, dt);
+		this->updateCamera();
+	}
 }
 
 void	World::toggleDebug()
@@ -79,8 +78,7 @@ void	World::render(RendererSDL &renderer)
 	RenderSystem(this->_registry, this->_camera);
 	if (this->debug)
 		DebugRenderSystem(this->_registry, renderer, this->_camera);
-	if (this->_computerUI.has_value())
-		UISystem(*this, renderer);
+	UIm.render(renderer);
 }
 
 void	World::setMap(std::unique_ptr<TileMap> map)
@@ -94,34 +92,5 @@ void	World::changeScene(std::unique_ptr<Scene> scene)
 		this->_scene->unload(*this);
 	this->_scene = std::move(scene);
 	this->_scene->load(*this);
-}
-
-bool	World::isGameplayBlocked() const
-{
-	return (this->gameState != GameState::Playing);
-}
-
-void	World::setComputerUI(ComputerUI c)
-{
-	this->_computerUI = std::move(c);
-}
-
-void	World::openComputer(const std::string &id, RendererSDL &renderer)
-{
-	auto &data = this->_cm.get(id);
-	ComputerUI	ui = ComputerUIFactory::create(
-		data,
-		this->_pm,
-		this->_rm,
-		renderer
-	);
-	this->_computerUI = std::move(ui);
-	this->gameState = GameState::ComputerInteraction;
-}
-
-void	World::closeComputer()
-{
-	this->_computerUI.reset();
-	this->gameState = GameState::Playing;
 }
 

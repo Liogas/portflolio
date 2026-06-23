@@ -5,18 +5,18 @@
 
 # include <vector>
 
-typedef struct s_event
+struct	InteractEvent
 {
-	enum class Type
-	{
-		Interact,
-		Damage,
-		Trigger
-	};
-	Type			type;
-	entt::entity	source{};
-	entt::entity	target{};
-}	Event;
+	entt::entity	source;
+	entt::entity	target;
+};
+
+struct	CloseComputerEvent{};
+
+struct	OpenComputerEvent
+{
+	std::string	computerId;
+};
 
 class EventBus
 {
