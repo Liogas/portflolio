@@ -1,9 +1,7 @@
-#ifndef EVENTBUS_HPP
-# define EVENTBUS_HPP
+#ifndef EVENTS_HPP
+# define EVENTS_HPP
 
 # include <entt/entt.hpp>
-
-# include <vector>
 
 struct	InteractEvent
 {
@@ -16,14 +14,6 @@ struct	CloseComputerEvent{};
 struct	OpenComputerEvent
 {
 	std::string	computerId;
-};
-
-class EventBus
-{
-	public:
-		void	emit(const Event &e);
-		void	clear();
-		std::vector<Event> events;
 };
 
 #endif

@@ -10,7 +10,8 @@ World::World(
 	_pm(pm),
 	_cm(cm),
 	_UIm(UIm),
-	_map(nullptr)
+	_map(nullptr),
+	_interaction(this->_registry, this->_dispatcher)
 {
 	this->_player = PlayerFactories::create(
 		this->_registry, this->_rm, 550.f, 280.f, "char1.png"
@@ -42,15 +43,15 @@ ProjectManager	&World::getPm()
 
 void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 {
-	UIm.handleInput(input);
-	UIm.update(dt);
-	if (!UIm.blocksGameplay())
+	(void)renderer;
+	this->_UIm.handleInput(input);
+	this->_UIm.update(dt);
+	if (!this->_UIm.blocksGameplay())
 	{
 		InputSystem(*this, this->_registry, input);
-		MovementSystem(*this, this->_registry);
+		MovementSystem(this->_registry);
 		CollisionSystem(this->_registry, *this->_map, dt);
-		InteractionSystem(*this, this->_registry, input, this->_eventBus);
-		GameplayEventSystem(*this, this->_registry, this->_eventBus, renderer);
+		InteractionSystem(*this, this->_registry, input, this->_dispatcher);
 		AnimationStateSystem(this->_registry);
 		AnimationSystem(this->_registry, dt);
 		this->updateCamera();
@@ -78,7 +79,7 @@ void	World::render(RendererSDL &renderer)
 	RenderSystem(this->_registry, this->_camera);
 	if (this->debug)
 		DebugRenderSystem(this->_registry, renderer, this->_camera);
-	UIm.render(renderer);
+	this->_UIm.render(renderer);
 }
 
 void	World::setMap(std::unique_ptr<TileMap> map)

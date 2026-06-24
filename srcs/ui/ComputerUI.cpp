@@ -1,20 +1,18 @@
 #include "ComputerUI.hpp"
 
-ComputerUI::ComputerUI(const std::string &id, ComputerManager &cm)
+ComputerUI::ComputerUI(
+	const std::string		&id,
+	ComputerManager			&cm,
+	RessourceManager		&rm,
+    const ProjectManager	&pm,
+    RendererSDL				&renderer
+):
+	_data(cm.get(id)),
+	_rm(rm),
+	_renderer(renderer)
 {
-    this->id = id;
-    this->_data = cm.get(id);
-}
-
-void    ComputerUI::init(
-    RessourceManager        &rm,
-    RendererSDL             &renderer,
-    const ProjectManager    &pm
-)
-{
-    this->_closeRequested = false;
-    this->_rm = rm;
-    this->_renderer = renderer;
+    this->_id = id;
+	this->_closeRequested = false;
 	this->_rect = {
 		UIStyle::applyPercentage(UIStyle::Computer::Spacing, renderer.getWidth()),
     	UIStyle::applyPercentage(UIStyle::Computer::Spacing, renderer.getHeight()),
@@ -32,7 +30,7 @@ void    ComputerUI::init(
 	);
 	this->_title.rect.x = this->_rect.w / 2 - this->_title.rect.w / 2;
 	this->_title.rect.y = this->_rect.y + UIStyle::applyPercentage(UIStyle::Computer::Spacing, renderer.getWidth());
-	this->_caroussel.init(data.projectIds, this->_rect, rm, pm, renderer);
+	this->_caroussel.init(this->_data.projectIds, this->_rect, rm, pm, this->_renderer);
 }
 
 void    ComputerUI::update(float dt)
@@ -40,7 +38,7 @@ void    ComputerUI::update(float dt)
     this->_caroussel.update(dt, this->_renderer, this->_rm);
 }
 
-void    ComputerUI::handleInput(const InputSDL &input) override
+void    ComputerUI::handleInput(const InputSDL &input)
 {
     if (input.isKeyPressed(SDL_SCANCODE_RIGHT))
 		this->_caroussel.nextCard();

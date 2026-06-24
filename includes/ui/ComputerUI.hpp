@@ -10,24 +10,15 @@
 
 # include "UIStyle.hpp"
 
-struct	ComputerUI
-{
-	UIText		title;
-	Caroussel	caroussel;
-	SDL_Rect	rect;
-};
-
 class ComputerUI : public UIWindow
 {
 	public:
 		ComputerUI(
-			const std::string	&id,
-			ComputerManager		&cm
-		);
-		void	init(
-    		RessourceManager        &rm,
-    		RendererSDL             &renderer,
-    		const ProjectManager    &pm
+			const std::string		&id,
+			ComputerManager			&cm,
+			RessourceManager		&rm,
+    		const ProjectManager	&pm,
+    		RendererSDL				&renderer
 		);
 		void	update(float dt) 					override;
 		void	render(RendererSDL &renderer) 		override;
@@ -41,8 +32,8 @@ class ComputerUI : public UIWindow
 		SDL_Rect			_rect;
 		bool				_closeRequested;
 		const ComputerData	&_data;
-		RendererSDL			&_renderer;
 		RessourceManager	&_rm;
+		RendererSDL			&_renderer;
 };
 
 #endif

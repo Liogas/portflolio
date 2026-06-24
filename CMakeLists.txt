@@ -29,6 +29,7 @@ include_directories(
     includes/ecs/factories
     includes/ecs/world
     includes/ecs/systems
+    includes/ecs/events
     srcs/ecs/registry
     srcs/ecs/systems
     srcs/ecs/components

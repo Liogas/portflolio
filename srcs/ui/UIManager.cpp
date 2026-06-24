@@ -11,16 +11,17 @@ UIManager::UIManager(
 	_rm(rm),
 	_renderer(renderer)
 {
-	this->_cm = cm;
-	this->_pm = pm;
-	this->_rm = rm;
-	this->_renderer = renderer;
 }
 
 void	UIManager::openComputer(const OpenComputerEvent &e)
 {
-	auto ui = std::make_unique<ComputerUI>(e.computerId, this->_cm);
-	ui->init(this->_rm, this->_renderer, this->_pm);
+	auto ui = std::make_unique<ComputerUI>(
+		e.computerId,
+		this->_cm,
+		this->_rm,
+		this->_pm,
+		this->_renderer
+	);
 	this->push(std::move(ui));
 }
 

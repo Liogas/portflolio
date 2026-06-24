@@ -1,7 +1,6 @@
 #ifndef WORLD_HPP
 # define WORLD_HPP
 
-# include <entt/entt.hpp>
 # include <iostream>
 
 // MYSDL
@@ -15,13 +14,15 @@
 # include "Camera.hpp"
 # include "Scene.hpp"
 # include "Position.hpp"
-# include "EventBus.hpp"
 
 // UI
 # include "UIManager.hpp"
 
 // FACTORIES
 # include "PlayerFactories.hpp"
+
+// EVENT
+# include "InteractionModule.hpp"
 
 // SYSTEMS
 # include "MovementSystem.hpp"
@@ -32,8 +33,6 @@
 # include "InteractionSystem.hpp"
 # include "RenderSystem.hpp"
 # include "DebugRenderSystem.hpp"
-# include "GameplayEventSystem.hpp"
-# include "UISystem.hpp"
 
 class Scene;
 
@@ -72,7 +71,7 @@ class World
 		std::unique_ptr<Scene> 					_scene;
 		Camera									_camera;
 		entt::entity							_player;
-		EventBus								_eventBus;
+		InteractionModule						_interaction;
 };
 
 #endif

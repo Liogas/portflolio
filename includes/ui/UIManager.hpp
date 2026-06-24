@@ -8,7 +8,7 @@
 # include "RendererSDL.hpp"
 # include "InputSDL.hpp"
 
-#include "EventBus.hpp"
+#include "Events.hpp"
 
 class UIManager
 {
@@ -31,7 +31,7 @@ class UIManager
 		bool	empty() const;
 		void	bind(entt::dispatcher &dispatcher);
 	private:
-		std::vector<std::unique_ptr<UIWindow>	_stack;
+		std::vector<std::unique_ptr<UIWindow>>	_stack;
 		ComputerManager							&_cm;
 		ProjectManager							&_pm;
 		RessourceManager						&_rm;

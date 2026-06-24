@@ -1,22 +1,10 @@
 #include "InteractionSystem.hpp"
 
-// void tmp(const EDirection2 &dir)
-// {
-// 	switch (dir)
-// 	{
-// 		case EDirection2::LEFT : std::cout << "left" << std::endl; break ;
-// 		case EDirection2::RIGHT : std::cout << "right" << std::endl; break ;
-// 		case EDirection2::UP : std::cout << "up" << std::endl; break ;
-// 		case EDirection2::DOWN : std::cout << "down" << std::endl; break ;
-// 		default : std::cout << "none" << std::endl; break ;
-// 	}
-// }
-
 void	InteractionSystem(
-	World			&world,
-	entt::registry	&registry,
-	const InputSDL	&input,
-	EventBus		&bus
+	World				&world,
+	entt::registry		&registry,
+	const InputSDL		&input,
+	entt::dispatcher	&dispatcher
 )
 {
 	if (!input.isKeyPressed(SDL_SCANCODE_E))
@@ -86,11 +74,12 @@ void	InteractionSystem(
 				&targetBox
 			) && inter.direction == mov.lastDirection)
 			{
-				bus.emit(Event{
-					Event::Type::Interact,
-					player,
-					entity
-				});
+				dispatcher.trigger(
+					InteractEvent{
+						player,
+						entity
+					}
+				);
 			}
 		}
 	}
