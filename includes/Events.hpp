@@ -16,4 +16,9 @@ struct	OpenComputerEvent
 	std::string	computerId;
 };
 
+struct	OpenPauseMenuEvent {};
+struct	QuitGameEvent {};
+struct	ChangeResolutionEvent {int w; int h;};
+struct	ToggleFullScreenEvent {};
+
 #endif

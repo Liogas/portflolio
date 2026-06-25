@@ -79,6 +79,27 @@ namespace UIStyle
 		constexpr SDL_Color	BorderColor	{255,255,255,255};
 	}
 
+	namespace PauseMenu
+	{
+		constexpr float     WidthRatio    = 50.f;
+		constexpr float     HeightRatio   = 70.f;
+		constexpr SDL_Color BkgColor      { 20,  20,  20, 235 };
+		constexpr SDL_Color BorderColor   {255, 255, 255, 255 };
+		constexpr SDL_Color ItemColor     {200, 200, 200, 255 };
+		constexpr SDL_Color SelectedColor {255, 220,  60, 255 };
+		constexpr float     Spacing       = 5.f;
+		namespace Title
+		{
+			constexpr const char *Font = "WorkforceCombine.otf";
+			constexpr int Size = 28;
+		}
+		namespace Item 
+		{
+			constexpr const char *Font = "KGSecondChancesSolid.ttf";
+			constexpr int Size = 13;
+		}
+	}
+
 	inline void applyColor(SDL_Renderer *r, SDL_Color c)
 	{
 		SDL_SetRenderDrawColor(r, c.r, c.g, c.b, c.a);

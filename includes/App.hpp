@@ -25,6 +25,7 @@ class App
 		~App();
 		void	run();
 		void	init();
+		void	onQuit(const QuitGameEvent &e);
 	private:
 		bool				_running;
 		AppSDL				_sdl;
@@ -35,7 +36,8 @@ class App
 		RessourceManager	_rm;
 		ProjectManager		_pm;
 		ComputerManager		_cm;
-		UIManager			_UIm;
+		entt::registry		_registry;
+		entt::dispatcher	_dispatcher;
 		World				_world;
 		void	handleEvents();
 };

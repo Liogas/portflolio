@@ -1,15 +1,19 @@
 #include "World.hpp"
 
 World::World(
+	entt::registry		&registry,
+	entt::dispatcher	&dispatcher,
 	RessourceManager 	&rm, 
 	ComputerManager 	&cm,
 	ProjectManager 		&pm,
-	UIManager			&UIm
+	RendererSDL			&renderer
 ):
+	_registry(registry),
+	_dispatcher(dispatcher),
 	_rm(rm),
 	_pm(pm),
 	_cm(cm),
-	_UIm(UIm),
+	_UIm(this->_cm, this->_pm, this->_rm, renderer, this->_dispatcher, this->_cfg),
 	_map(nullptr),
 	_interaction(this->_registry, this->_dispatcher)
 {
@@ -48,7 +52,9 @@ void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 	this->_UIm.update(dt);
 	if (!this->_UIm.blocksGameplay())
 	{
-		InputSystem(*this, this->_registry, input);
+		if (input.isKeyPressed(SDL_SCANCODE_ESCAPE))
+            this->_dispatcher.trigger(OpenPauseMenuEvent{});
+		InputSystem(*this, this->_registry, input, this->_cfg);
 		MovementSystem(this->_registry);
 		CollisionSystem(this->_registry, *this->_map, dt);
 		InteractionSystem(*this, this->_registry, input, this->_dispatcher);

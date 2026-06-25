@@ -10,8 +10,7 @@ App::App():
 	_rm(this->_renderer),
 	_pm(),
 	_cm(),
-	_UIm(this->_cm, this->_pm, this->_rm, this->_renderer),
-	_world(this->_rm, this->_cm, this->_pm, this->_UIm)
+	_world(this->_registry, this->_dispatcher, this->_rm, this->_cm, this->_pm, this->_renderer)
 {
 	try
 	{
@@ -31,10 +30,17 @@ App::~App()
 	std::cout << "App destroyed" << std::endl;
 }
 
+void    App::onQuit(const QuitGameEvent &e)
+{
+	(void)e;
+	this->_running = false;
+}
+
 void	App::init()
 {
 	try
 	{
+		this->_dispatcher.sink<QuitGameEvent>().connect<&App::onQuit>(*this);
 		this->_world.changeScene(std::make_unique<TestScene>(
 			this->_window.getWidth(), this->_window.getHeight()
 		));

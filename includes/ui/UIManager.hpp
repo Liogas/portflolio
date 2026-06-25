@@ -4,7 +4,11 @@
 #include <vector>
 #include <memory>
 
+# include <entt/entt.hpp>
+
 # include "ComputerUI.hpp"
+# include "PauseMenuUI.hpp"
+
 # include "RendererSDL.hpp"
 # include "InputSDL.hpp"
 
@@ -17,7 +21,9 @@ class UIManager
 			ComputerManager 	&cm,
 			ProjectManager		&pm,
 			RessourceManager	&rm,
-			RendererSDL			&renderer
+			RendererSDL			&renderer,
+			entt::dispatcher	&dispatcher,
+			ControlsConfig		&cfg
 		);
 		void	openComputer(const OpenComputerEvent &e);
 		void	closeTopWindow();
@@ -30,12 +36,17 @@ class UIManager
 		bool	blocksGameplay() const;
 		bool	empty() const;
 		void	bind(entt::dispatcher &dispatcher);
+		void	openPause(const OpenPauseMenuEvent &);
+		void	changeResolution(const ChangeResolutionEvent &e);
+		void    toggleFullscreen(const ToggleFullScreenEvent &);
 	private:
 		std::vector<std::unique_ptr<UIWindow>>	_stack;
 		ComputerManager							&_cm;
 		ProjectManager							&_pm;
 		RessourceManager						&_rm;
 		RendererSDL								&_renderer;
+		entt::dispatcher						&_dispatcher;
+		ControlsConfig							&_cfg;
 };
 
 #endif

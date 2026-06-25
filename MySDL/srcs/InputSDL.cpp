@@ -24,6 +24,20 @@ void	InputSDL::update()
 	}
 	SDL_PumpEvents();
 	this->_keyboard = SDL_GetKeyboardState(NULL);
+	this->_lastPressed = SDL_SCANCODE_UNKNOWN;
+	for (int i = 0; i < SDL_NUM_SCANCODES; ++i)
+	{
+		if (this->_keyboard[i] && !this->_prevKeyboard[i])
+		{
+			this->_lastPressed = (SDL_Scancode)i;
+			break ;
+		}
+	}
+}
+
+SDL_Scancode	InputSDL::getLastPressedKey() const
+{
+	return (this->_lastPressed);
 }
 
 bool	InputSDL::isKeyPressed(SDL_Scancode code) const

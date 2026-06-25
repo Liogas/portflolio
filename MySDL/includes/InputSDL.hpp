@@ -14,14 +14,16 @@ class InputSDL
 		InputSDL();
 		~InputSDL();
 		InputSDL(const InputSDL &) = delete;
-		InputSDL &operator=(const InputSDL &) = delete;
-		void	update();
-		bool	isKeyPressed(SDL_Scancode) const;
-		bool	isKeyDown(SDL_Scancode) const;
-		bool	isKeyReleased(SDL_Scancode) const;
+		InputSDL 		&operator=(const InputSDL &) = delete;
+		void			update();
+		bool			isKeyPressed(SDL_Scancode) const;
+		bool			isKeyDown(SDL_Scancode) const;
+		bool			isKeyReleased(SDL_Scancode) const;
+		SDL_Scancode	getLastPressedKey() const;
 	private:
-		const Uint8	*_keyboard;
-		std::array<Uint8, SDL_NUM_SCANCODES> _prevKeyboard;
+		const Uint8								*_keyboard;
+		std::array<Uint8, SDL_NUM_SCANCODES>	_prevKeyboard;
+		SDL_Scancode							_lastPressed;
 };
 
 #endif

@@ -7,10 +7,17 @@
 # include "PlayerTag.hpp"
 # include "InputSDL.hpp"
 
+# include "ControlsConfig.hpp"
+
 # include "World.hpp"
 
 class World;
 
-void InputSystem(World &world, entt::registry &registry, const InputSDL &input);
+void InputSystem(
+    World &world,
+    entt::registry			&registry,
+    const InputSDL  		&input,
+    const ControlsConfig    &cfg
+);
 
 #endif

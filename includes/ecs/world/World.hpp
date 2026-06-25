@@ -40,10 +40,12 @@ class World
 {
 	public:
 		World(
+			entt::registry		&registry,
+			entt::dispatcher	&dispatcher,
 			RessourceManager	&rm,
 			ComputerManager 	&cm,
 			ProjectManager 		&pm,
-			UIManager			&uiM
+			RendererSDL			&renderer
 		);
 		// GETTERS
 		[[nodiscard]] entt::registry			&getRegistry();
@@ -61,12 +63,13 @@ class World
 		// PROPS
 		bool		debug;
 	private:
-		entt::registry							_registry;
-		entt::dispatcher						_dispatcher;
+		ControlsConfig							_cfg;
+		entt::registry							&_registry;
+		entt::dispatcher						&_dispatcher;
 		RessourceManager						&_rm;
 		ProjectManager							&_pm;
 		ComputerManager							&_cm;
-		UIManager								&_UIm;
+		UIManager								_UIm;
 		std::unique_ptr<TileMap>				_map;
 		std::unique_ptr<Scene> 					_scene;
 		Camera									_camera;
