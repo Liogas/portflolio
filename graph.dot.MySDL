@@ -1,0 +1,8 @@
+digraph "MySDL" {
+node [
+  fontsize = "12"
+];
+    "node0" [ label = "MySDL", shape = octagon ];
+    "node1" [ label = "SDL2::SDL2", shape = doubleoctagon ];
+    "node0" -> "node1"  // MySDL -> SDL2::SDL2
+}

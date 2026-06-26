@@ -1,0 +1,440 @@
+.
+├── assets
+│   ├── fonts
+│   │   ├── KGSecondChancesSketch.ttf
+│   │   ├── KGSecondChancesSolid.ttf
+│   │   ├── Roboto-Black.ttf
+│   │   └── WorkforceCombine.otf
+│   ├── maps
+│   │   └── home.tmj
+│   ├── textures
+│   │   ├── characters
+│   │   │   └── char1.png
+│   │   ├── technologies
+│   │   │   ├── passages.png
+│   │   │   ├── prio_w.png
+│   │   │   └── terrain_tag.png
+│   │   ├── ui
+│   │   │   ├── BABYLONJS.png
+│   │   │   ├── C++.png
+│   │   │   ├── C.png
+│   │   │   ├── DOCKER.png
+│   │   │   ├── imageEmpty.png
+│   │   │   ├── NGINX.png
+│   │   │   └── TS.png
+│   │   └── world
+│   │       ├── TECH-Assets.png
+│   │       ├── TECH-Basement.png
+│   │       ├── TECH-Battle.png
+│   │       ├── TECH-borders.png
+│   │       ├── TECH-Buildings.png
+│   │       ├── TECH-Casino.png
+│   │       ├── TECH-Caves.png
+│   │       ├── TECH-Elevator.png
+│   │       ├── TECH-HQ.png
+│   │       ├── TECH-Hub.png
+│   │       ├── TECH-Lab.png
+│   │       ├── TECH-Library.png
+│   │       ├── TECH-Misc.png
+│   │       ├── TECH-Mountains.png
+│   │       ├── TECH-Nature-animations.png
+│   │       ├── TECH-Nature.png
+│   │       ├── TECH-Photo.png
+│   │       └── TECH-Wifi.png
+│   └── tilesets
+│       ├── passages.tsx
+│       ├── systemtags.tsx
+│       ├── TECH-Animations.tsx
+│       ├── TECH-Assets.tsx
+│       ├── TECH_Basement.tsx
+│       ├── TECH-Battle.tsx
+│       ├── TECH-borders.tsx
+│       ├── TECH-Buildings.tsx
+│       ├── TECH-Casino.tsx
+│       ├── TECH-Caves.tsx
+│       ├── TECH-Elevator.tsx
+│       ├── TECH-HQ.tsx
+│       ├── TECH-Hub.tsx
+│       ├── TECH_Lab.tsx
+│       ├── TECH-Library.tsx
+│       ├── TECH-Misc..tsx
+│       ├── TECH-Mounts.tsx
+│       ├── TECH-Nature.tsx
+│       ├── TECH-Photo.tsx
+│       ├── TECH-SYS-Wifi.tsx
+│       └── terrain_tag.tsx
+├── build
+│   ├── CMakeCache.txt
+│   ├── CMakeFiles
+│   │   ├── 3.31.11
+│   │   │   ├── CMakeCXXCompiler.cmake
+│   │   │   ├── CMakeDetermineCompilerABI_CXX.bin
+│   │   │   ├── CMakeSystem.cmake
+│   │   │   └── CompilerIdCXX
+│   │   │       ├── a.out
+│   │   │       ├── CMakeCXXCompilerId.cpp
+│   │   │       └── tmp
+│   │   ├── cmake.check_cache
+│   │   ├── CMakeConfigureLog.yaml
+│   │   ├── CMakeDirectoryInformation.cmake
+│   │   ├── Makefile2
+│   │   ├── Makefile.cmake
+│   │   ├── pkgRedirects
+│   │   ├── portfolio.dir
+│   │   │   ├── build.make
+│   │   │   ├── cmake_clean.cmake
+│   │   │   ├── compiler_depend.internal
+│   │   │   ├── compiler_depend.make
+│   │   │   ├── compiler_depend.ts
+│   │   │   ├── DependInfo.cmake
+│   │   │   ├── depend.make
+│   │   │   ├── flags.make
+│   │   │   ├── link.d
+│   │   │   ├── link.txt
+│   │   │   ├── MySDL
+│   │   │   │   └── srcs
+│   │   │   │       ├── AnimationSDL.cpp.o
+│   │   │   │       ├── AnimationSDL.cpp.o.d
+│   │   │   │       ├── AppSDL.cpp.o
+│   │   │   │       ├── AppSDL.cpp.o.d
+│   │   │   │       ├── EventSDL.cpp.o
+│   │   │   │       ├── EventSDL.cpp.o.d
+│   │   │   │       ├── InputSDL.cpp.o
+│   │   │   │       ├── InputSDL.cpp.o.d
+│   │   │   │       ├── RendererSDL.cpp.o
+│   │   │   │       ├── RendererSDL.cpp.o.d
+│   │   │   │       ├── TextureSDL.cpp.o
+│   │   │   │       ├── TextureSDL.cpp.o.d
+│   │   │   │       ├── WindowSDL.cpp.o
+│   │   │   │       └── WindowSDL.cpp.o.d
+│   │   │   ├── progress.make
+│   │   │   └── srcs
+│   │   │       ├── core
+│   │   │       │   ├── App.cpp.o
+│   │   │       │   ├── App.cpp.o.d
+│   │   │       │   ├── ComputerManager.cpp.o
+│   │   │       │   ├── ComputerManager.cpp.o.d
+│   │   │       │   ├── main.cpp.o
+│   │   │       │   ├── main.cpp.o.d
+│   │   │       │   ├── ProjectManager.cpp.o
+│   │   │       │   ├── ProjectManager.cpp.o.d
+│   │   │       │   ├── RessourceManager.cpp.o
+│   │   │       │   ├── RessourceManager.cpp.o.d
+│   │   │       │   ├── scene
+│   │   │       │   │   ├── TestScene.cpp.o
+│   │   │       │   │   └── TestScene.cpp.o.d
+│   │   │       │   ├── tinyxml2.cpp.o
+│   │   │       │   └── tinyxml2.cpp.o.d
+│   │   │       ├── ecs
+│   │   │       │   ├── events
+│   │   │       │   │   ├── InteractionModule.cpp.o
+│   │   │       │   │   └── InteractionModule.cpp.o.d
+│   │   │       │   ├── factories
+│   │   │       │   │   ├── ComputerFactories.cpp.o
+│   │   │       │   │   ├── ComputerFactories.cpp.o.d
+│   │   │       │   │   ├── PlayerFactories.cpp.o
+│   │   │       │   │   └── PlayerFactories.cpp.o.d
+│   │   │       │   ├── registry
+│   │   │       │   │   ├── World.cpp.o
+│   │   │       │   │   └── World.cpp.o.d
+│   │   │       │   └── systems
+│   │   │       │       ├── AnimationStateSystem.cpp.o
+│   │   │       │       ├── AnimationStateSystem.cpp.o.d
+│   │   │       │       ├── AnimationSystem.cpp.o
+│   │   │       │       ├── AnimationSystem.cpp.o.d
+│   │   │       │       ├── CollisionSystem.cpp.o
+│   │   │       │       ├── CollisionSystem.cpp.o.d
+│   │   │       │       ├── ComputerInteractionSystem.cpp.o
+│   │   │       │       ├── ComputerInteractionSystem.cpp.o.d
+│   │   │       │       ├── DebugRenderSystem.cpp.o
+│   │   │       │       ├── DebugRenderSystem.cpp.o.d
+│   │   │       │       ├── InputSystem.cpp.o
+│   │   │       │       ├── InputSystem.cpp.o.d
+│   │   │       │       ├── InteractionSystem.cpp.o
+│   │   │       │       ├── InteractionSystem.cpp.o.d
+│   │   │       │       ├── MovementSystem.cpp.o
+│   │   │       │       ├── MovementSystem.cpp.o.d
+│   │   │       │       ├── RenderSystem.cpp.o
+│   │   │       │       ├── RenderSystem.cpp.o.d
+│   │   │       │       └── UISystem.cpp.o.d
+│   │   │       ├── game
+│   │   │       │   ├── TileMap.cpp.o
+│   │   │       │   └── TileMap.cpp.o.d
+│   │   │       ├── graphics
+│   │   │       │   ├── Camera.cpp.o
+│   │   │       │   ├── Camera.cpp.o.d
+│   │   │       │   ├── Sprite.cpp.o
+│   │   │       │   └── Sprite.cpp.o.d
+│   │   │       ├── parseur
+│   │   │       │   ├── MapParseur.cpp.o
+│   │   │       │   └── MapParseur.cpp.o.d
+│   │   │       └── ui
+│   │   │           ├── Caroussel.cpp.o
+│   │   │           ├── Caroussel.cpp.o.d
+│   │   │           ├── components
+│   │   │           │   ├── UIContainer.cpp.o
+│   │   │           │   ├── UIContainer.cpp.o.d
+│   │   │           │   ├── UIPanel.cpp.o
+│   │   │           │   ├── UIPanel.cpp.o.d
+│   │   │           │   ├── UIText.cpp.o
+│   │   │           │   └── UIText.cpp.o.d
+│   │   │           ├── ComputerUI.cpp.o
+│   │   │           ├── ComputerUI.cpp.o.d
+│   │   │           ├── PauseMenuUI.cpp.o
+│   │   │           ├── PauseMenuUI.cpp.o.d
+│   │   │           ├── ProjectCard.cpp.o
+│   │   │           ├── ProjectCard.cpp.o.d
+│   │   │           ├── UIManager.cpp.o
+│   │   │           └── UIManager.cpp.o.d
+│   │   ├── progress.marks
+│   │   └── TargetDirectories.txt
+│   ├── cmake_install.cmake
+│   ├── Makefile
+│   └── portfolio
+├── CMakeLists.txt
+├── data
+│   ├── computers
+│   │   └── portfolio.json
+│   ├── config
+│   └── projects
+│       ├── minishell.json
+│       ├── test1.json
+│       ├── test2.json
+│       ├── test3.json
+│       ├── test4.json
+│       ├── transcendance.json
+│       └── webserv.json
+├── engine
+│   ├── CMakeLists.txt
+│   └── src
+│       ├── application
+│       │   ├── App.cpp
+│       │   └── App.hpp
+│       ├── ecs
+│       │   ├── events
+│       │   │   ├── InteractionModule.cpp
+│       │   │   └── InteractionModule.hpp
+│       │   ├── factories
+│       │   │   ├── ComputerFactories.cpp
+│       │   │   ├── ComputerFactories.hpp
+│       │   │   ├── PlayerFactories.cpp
+│       │   │   └── PlayerFactories.hpp
+│       │   ├── systems
+│       │   │   ├── AnimationStateSystem.cpp
+│       │   │   ├── AnimationStateSystem.hpp
+│       │   │   ├── AnimationSystem.cpp
+│       │   │   ├── AnimationSystem.hpp
+│       │   │   ├── CollisionSystem.cpp
+│       │   │   ├── CollisionSystem.hpp
+│       │   │   ├── ComputerInteractionSystem.cpp
+│       │   │   ├── ComputerInteractionSystem.hpp
+│       │   │   ├── DebugRenderSystem.cpp
+│       │   │   ├── DebugRenderSystem.hpp
+│       │   │   ├── InputSystem.cpp
+│       │   │   ├── InputSystem.hpp
+│       │   │   ├── InteractionSystem.cpp
+│       │   │   ├── InteractionSystem.hpp
+│       │   │   ├── MovementSystem.cpp
+│       │   │   ├── MovementSystem.hpp
+│       │   │   ├── RenderSystem.cpp
+│       │   │   └── RenderSystem.hpp
+│       │   └── world
+│       │       ├── World.cpp
+│       │       └── World.hpp
+│       ├── events
+│       │   └── Events.hpp
+│       ├── graphics
+│       │   ├── Camera.cpp
+│       │   ├── Camera.hpp
+│       │   ├── Sprite.cpp
+│       │   └── Sprite.hpp
+│       ├── map
+│       │   ├── MapParser.cpp
+│       │   ├── MapParser.hpp
+│       │   ├── TileMap.cpp
+│       │   └── TileMap.hpp
+│       ├── resources
+│       │   ├── ResourceManager.cpp
+│       │   └── ResourceManager.hpp
+│       ├── scene
+│       │   ├── Scene.hpp
+│       │   ├── TestScene.cpp
+│       │   └── TestScene.hpp
+│       └── ui
+│           ├── components
+│           │   ├── UIContainer.cpp
+│           │   ├── UIContainer.hpp
+│           │   ├── UIElement.hpp
+│           │   ├── UIPanel.cpp
+│           │   ├── UIPanel.hpp
+│           │   ├── UIText.cpp
+│           │   ├── UIText.hpp
+│           │   └── UIWindow.hpp
+│           ├── manager
+│           │   ├── UIManager.cpp
+│           │   └── UIManager.hpp
+│           ├── menus
+│           │   ├── computerMenu
+│           │   │   ├── ComputerUI.cpp
+│           │   │   └── ComputerUI.hpp
+│           │   └── pauseMenu
+│           │       ├── PauseMenuUI.cpp
+│           │       └── PauseMenuUI.hpp
+│           ├── style
+│           │   └── UIStyle.hpp
+│           └── widgets
+│               ├── Caroussel.cpp
+│               ├── Caroussel.hpp
+│               ├── ProjectCard.cpp
+│               └── ProjectCard.hpp
+├── external
+│   ├── entt
+│   │   ├── config
+│   │   │   ├── config.h
+│   │   │   ├── macro.h
+│   │   │   └── version.h
+│   │   ├── container
+│   │   │   ├── dense_map.hpp
+│   │   │   ├── dense_set.hpp
+│   │   │   ├── fwd.hpp
+│   │   │   └── table.hpp
+│   │   ├── core
+│   │   │   ├── algorithm.hpp
+│   │   │   ├── any.hpp
+│   │   │   ├── bit.hpp
+│   │   │   ├── compressed_pair.hpp
+│   │   │   ├── concepts.hpp
+│   │   │   ├── enum.hpp
+│   │   │   ├── family.hpp
+│   │   │   ├── fwd.hpp
+│   │   │   ├── hashed_string.hpp
+│   │   │   ├── ident.hpp
+│   │   │   ├── iterator.hpp
+│   │   │   ├── memory.hpp
+│   │   │   ├── monostate.hpp
+│   │   │   ├── ranges.hpp
+│   │   │   ├── tuple.hpp
+│   │   │   ├── type_info.hpp
+│   │   │   ├── type_traits.hpp
+│   │   │   └── utility.hpp
+│   │   ├── entity
+│   │   │   ├── component.hpp
+│   │   │   ├── entity.hpp
+│   │   │   ├── fwd.hpp
+│   │   │   ├── group.hpp
+│   │   │   ├── handle.hpp
+│   │   │   ├── helper.hpp
+│   │   │   ├── mixin.hpp
+│   │   │   ├── organizer.hpp
+│   │   │   ├── ranges.hpp
+│   │   │   ├── registry.hpp
+│   │   │   ├── runtime_view.hpp
+│   │   │   ├── snapshot.hpp
+│   │   │   ├── sparse_set.hpp
+│   │   │   ├── storage.hpp
+│   │   │   └── view.hpp
+│   │   ├── entt.hpp
+│   │   ├── fwd.hpp
+│   │   ├── graph
+│   │   │   ├── adjacency_matrix.hpp
+│   │   │   ├── dot.hpp
+│   │   │   ├── flow.hpp
+│   │   │   └── fwd.hpp
+│   │   ├── locator
+│   │   │   └── locator.hpp
+│   │   ├── meta
+│   │   │   ├── adl_pointer.hpp
+│   │   │   ├── container.hpp
+│   │   │   ├── context.hpp
+│   │   │   ├── factory.hpp
+│   │   │   ├── fwd.hpp
+│   │   │   ├── meta.hpp
+│   │   │   ├── node.hpp
+│   │   │   ├── pointer.hpp
+│   │   │   ├── policy.hpp
+│   │   │   ├── range.hpp
+│   │   │   ├── resolve.hpp
+│   │   │   ├── template.hpp
+│   │   │   ├── type_traits.hpp
+│   │   │   └── utility.hpp
+│   │   ├── natvis
+│   │   │   ├── config.natvis
+│   │   │   ├── container.natvis
+│   │   │   ├── core.natvis
+│   │   │   ├── entity.natvis
+│   │   │   ├── graph.natvis
+│   │   │   ├── locator.natvis
+│   │   │   ├── meta.natvis
+│   │   │   ├── poly.natvis
+│   │   │   ├── process.natvis
+│   │   │   ├── resource.natvis
+│   │   │   └── signal.natvis
+│   │   ├── poly
+│   │   │   ├── fwd.hpp
+│   │   │   └── poly.hpp
+│   │   ├── process
+│   │   │   ├── fwd.hpp
+│   │   │   ├── process.hpp
+│   │   │   └── scheduler.hpp
+│   │   ├── resource
+│   │   │   ├── cache.hpp
+│   │   │   ├── fwd.hpp
+│   │   │   ├── loader.hpp
+│   │   │   └── resource.hpp
+│   │   ├── signal
+│   │   │   ├── delegate.hpp
+│   │   │   ├── dispatcher.hpp
+│   │   │   ├── emitter.hpp
+│   │   │   ├── fwd.hpp
+│   │   │   └── sigh.hpp
+│   │   ├── stl
+│   │   │   ├── functional.hpp
+│   │   │   ├── iterator.hpp
+│   │   │   └── memory.hpp
+│   │   ├── tools
+│   │   │   └── davey.hpp
+│   │   └── tools.hpp
+│   └── json
+│       └── json.hpp
+├── game
+│   ├── CMakeLists.txt
+│   └── src
+│       ├── computers
+│       │   ├── ComputerManager.cpp
+│       │   └── ComputerManager.hpp
+│       ├── config
+│       │   └── ControlsConfig.hpp
+│       ├── gameplay
+│       ├── main.cpp
+│       └── projects
+│           ├── ProjectManager.cpp
+│           └── ProjectManager.hpp
+├── libs
+│   ├── MySDL
+│   │   ├── CMakeLists.txt
+│   │   ├── include
+│   │   │   ├── AnimationSDL.hpp
+│   │   │   ├── AppSDL.hpp
+│   │   │   ├── Color.hpp
+│   │   │   ├── EventSDL.hpp
+│   │   │   ├── InputSDL.hpp
+│   │   │   ├── RendererSDL.hpp
+│   │   │   ├── TextureSDL.hpp
+│   │   │   └── WindowSDL.hpp
+│   │   └── src
+│   │       ├── AnimationSDL.cpp
+│   │       ├── AppSDL.cpp
+│   │       ├── EventSDL.cpp
+│   │       ├── InputSDL.cpp
+│   │       ├── RendererSDL.cpp
+│   │       ├── TextureSDL.cpp
+│   │       └── WindowSDL.cpp
+│   └── tinyxml2
+│       ├── include
+│       │   └── tinyxml2.h
+│       └── src
+│           └── tinyxml2.cpp
+├── README.md
+└── tree.txt
+
+87 directories, 351 files

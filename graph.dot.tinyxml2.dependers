@@ -1,0 +1,12 @@
+digraph "tinyxml2" {
+node [
+  fontsize = "12"
+];
+    "node8" [ label = "tinyxml2", shape = octagon ];
+    "node7" [ label = "engine_map", shape = octagon ];
+    "node7" -> "node8"  // engine_map -> tinyxml2
+    "node2" [ label = "engine", shape = pentagon ];
+    "node2" -> "node7" [ style = dashed ] // engine -> engine_map
+    "node12" [ label = "game", shape = egg ];
+    "node12" -> "node2" [ style = dotted ] // game -> engine
+}

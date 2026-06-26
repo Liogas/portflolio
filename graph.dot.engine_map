@@ -1,0 +1,8 @@
+digraph "engine_map" {
+node [
+  fontsize = "12"
+];
+    "node7" [ label = "engine_map", shape = octagon ];
+    "node8" [ label = "tinyxml2", shape = octagon ];
+    "node7" -> "node8"  // engine_map -> tinyxml2
+}

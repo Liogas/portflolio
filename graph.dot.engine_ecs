@@ -1,0 +1,8 @@
+digraph "engine_ecs" {
+node [
+  fontsize = "12"
+];
+    "node4" [ label = "engine_ecs", shape = octagon ];
+    "node5" [ label = "external", shape = pentagon ];
+    "node4" -> "node5"  // engine_ecs -> external
+}

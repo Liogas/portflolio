@@ -1,0 +1,10 @@
+digraph "engine_map" {
+node [
+  fontsize = "12"
+];
+    "node7" [ label = "engine_map", shape = octagon ];
+    "node2" [ label = "engine", shape = pentagon ];
+    "node2" -> "node7" [ style = dashed ] // engine -> engine_map
+    "node12" [ label = "game", shape = egg ];
+    "node12" -> "node2" [ style = dotted ] // game -> engine
+}
