@@ -10,7 +10,9 @@ target_sources(MySDL PRIVATE
     src/WindowSDL.cpp
 )
 
-target_include_directories(MySDL PUBLIC include)
+target_include_directories(MySDL PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
 find_package(SDL2 REQUIRED)
 

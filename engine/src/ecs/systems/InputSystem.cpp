@@ -22,13 +22,10 @@ static void	inputPlaying(
 }
 
 void InputSystem(
-	World &world,
     entt::registry			&registry,
     const InputSDL  		&input,
     const ControlsConfig    &cfg
 )
 {
-	if (input.isKeyPressed(SDL_SCANCODE_F3))
-		world.toggleDebug();
 	inputPlaying(registry, input, cfg);
 }

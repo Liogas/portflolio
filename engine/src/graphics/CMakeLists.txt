@@ -8,3 +8,7 @@ target_sources(engine_graphics PRIVATE
 target_include_directories(engine_graphics PUBLIC
     ${CMAKE_SOURCE_DIR}/engine/src
 )
+
+target_link_libraries(engine_graphics PUBLIC
+    MySDL
+)

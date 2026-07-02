@@ -1,4 +1,4 @@
-#include "Sprite.hpp"
+#include "graphics/Sprite.hpp"
 
 Sprite::Sprite(
 	std::shared_ptr<TextureSDL> t,

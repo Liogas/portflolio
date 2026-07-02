@@ -1,7 +1,6 @@
 #include "InteractionSystem.hpp"
 
 void	InteractionSystem(
-	World				&world,
 	entt::registry		&registry,
 	const InputSDL		&input,
 	entt::dispatcher	&dispatcher
@@ -47,13 +46,6 @@ void	InteractionSystem(
 				interactBox.y = static_cast<int>(pos.y) + col.height / 1.5;
 				break ;
 			default : break ;
-		}
-		if (world.debug)
-		{
-			registry.emplace_or_replace<DebugBox>(
-				player,
-				DebugBox{interactBox, SDL_Color{255, 0, 0, 255}}
-			);
 		}
 		auto interactables = registry.view<Interactable, Position, Collider>();
 		for (auto entity : interactables)

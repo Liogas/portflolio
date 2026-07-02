@@ -2,7 +2,7 @@
 # define COMPUTERMANAGER_HPP
 
 # include <unordered_map>
-# include "Computer.hpp"
+# include "ecs/components/Computer.hpp"
 # include <filesystem>
 # include <fstream>
 

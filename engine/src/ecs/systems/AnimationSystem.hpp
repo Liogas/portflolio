@@ -4,9 +4,9 @@
 # include <entt/entt.hpp>
 
 // COMPOSANTS ECS
-# include "SpriteComponent.hpp"
-# include "AnimationSet.hpp"
-# include "AnimationState.hpp"
+# include "ecs/components/SpriteComponent.hpp"
+# include "ecs/components/AnimationSet.hpp"
+# include "ecs/components/AnimationState.hpp"
 
 void	AnimationSystem(entt::registry &registry, float dt);
 

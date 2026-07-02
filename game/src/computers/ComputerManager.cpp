@@ -1,4 +1,4 @@
-#include "ComputerManager.hpp"
+#include "ui/manager/ComputerManager.hpp"
 
 const ComputerData	&ComputerManager::get(const std::string &id) const
 {

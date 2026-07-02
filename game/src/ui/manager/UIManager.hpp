@@ -6,7 +6,7 @@
 
 # include <entt/entt.hpp>
 
-# include "ComputerUI.hpp"
+# include "ui/menus/computerMenu/ComputerUI.hpp"
 # include "PauseMenuUI.hpp"
 
 # include "RendererSDL.hpp"

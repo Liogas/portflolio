@@ -1,7 +1,7 @@
 #ifndef	INTERACTIONMODULE_HPP
 # define INTERACTIONMODULE_HPP
 
-# include "ComputerInteractionSystem.hpp"
+# include "ecs/systems/ComputerInteractionSystem.hpp"
 # include <iostream>
 
 class InteractionModule

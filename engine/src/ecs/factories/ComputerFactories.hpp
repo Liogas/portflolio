@@ -4,10 +4,10 @@
 # include <entt/entt.hpp>
 
 // COMPONENTS
-# include "Position.hpp"
-# include "Collider.hpp"
-# include "Interactable.hpp"
-# include "Computer.hpp"
+# include "ecs/components/Position.hpp"
+# include "ecs/components/Collider.hpp"
+# include "ecs/components/Interactable.hpp"
+# include "ecs/components/Computer.hpp"
 
 class ComputerFactories
 {

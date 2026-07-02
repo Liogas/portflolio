@@ -5,8 +5,8 @@
 # include <vector>
 # include <memory>
 
-# include "Sprite.hpp"
-# include "Camera.hpp"
+# include "graphics/Sprite.hpp"
+# include "graphics/Camera.hpp"
 
 typedef struct s_tileset
 {

@@ -3,10 +3,10 @@
 
 # include <entt/entt.hpp>
 
-# include "Camera.hpp"
+# include "graphics/Camera.hpp"
 
-# include "Position.hpp"
-# include "SpriteComponent.hpp"
+# include "ecs/components/Position.hpp"
+# include "ecs/components/SpriteComponent.hpp"
 
 void RenderSystem(entt::registry &registry, Camera &camera);
 

@@ -5,15 +5,15 @@
 # include <filesystem>
 # include <fstream>
 
-# include "TileMap.hpp"
+# include "map/TileMap.hpp"
 # include "resources/ResourceManager.hpp"
-# include "Computer.hpp"
-# include "Scene.hpp"
+# include "ecs/components/Computer.hpp"
+# include "scene/Scene.hpp"
 
 # include "tinyxml2.h"
-# include "json.hpp"
+# include <json/json.hpp>
 
-# include "factories/ComputerFactories.hpp"
+# include "ecs/factories/ComputerFactories.hpp"
 
 class MapParser
 {

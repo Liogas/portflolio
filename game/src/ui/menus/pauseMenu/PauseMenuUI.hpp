@@ -6,8 +6,8 @@
 # include "UIStyle.hpp"
 # include "RendererSDL.hpp"
 # include "resources/ResourceManager.hpp"
-# include "Events.hpp"
-# include "ControlsConfig.hpp"
+# include "events/Events.hpp"
+# include "config/ControlsConfig.hpp"
 # include <entt/entt.hpp>
 # include <vector>
 # include <string>

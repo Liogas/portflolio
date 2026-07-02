@@ -2,8 +2,8 @@
 # define COMPUTERINTERACTIONSYSTEM_HPP
 
 # include <entt/entt.hpp>
-# include "Events.hpp"
-# include "Computer.hpp"
+# include "events/Events.hpp"
+# include "ecs/components/Computer.hpp"
 
 class ComputerInteractionSystem
 {

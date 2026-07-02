@@ -3,13 +3,13 @@
 
 # include <entt/entt.hpp>
 
-# include "TileMap.hpp"
+# include "map/TileMap.hpp"
 
 // COMPOSANTS ECS
-# include "Movement.hpp"
-# include "Position.hpp"
-# include "Collider.hpp"
-# include "Velocity.hpp"
+# include "ecs/components/Movement.hpp"
+# include "ecs/components/Position.hpp"
+# include "ecs/components/Collider.hpp"
+# include "ecs/components/Velocity.hpp"
 
 void	CollisionSystem(entt::registry &registry, TileMap &map, float dt);
 

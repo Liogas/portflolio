@@ -7,11 +7,11 @@ TestScene::TestScene(int width, int height)
     std::cout << "TestScene created" << std::endl;
 }
 
-void	TestScene::load(World &world)
+void	TestScene::load(SceneContext &ctx)
 {
 	try
 	{
-		std::string path = world.getRm().getAssetsPath() + "maps/";
+		std::string path = ctx.resources.getAssetsPath() + "maps/";
 		world.setMap(MapParser::start(path + "home.tmj", world));
 	} catch (const std::exception& e)
 	{
@@ -20,8 +20,7 @@ void	TestScene::load(World &world)
 	}
 }
 
-void	TestScene::unload(World &world)
+void	TestScene::unload(SceneContext &ctx)
 {
-	(void) world;
 	std::cout << "TestScene::unload WIP" << std::endl;
 }

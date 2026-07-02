@@ -1,4 +1,4 @@
-#include "factories/ComputerFactories.hpp"
+#include "ecs/factories/ComputerFactories.hpp"
 
 
 static EDirection2	getDir(const std::string &dir)

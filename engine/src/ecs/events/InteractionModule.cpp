@@ -1,4 +1,4 @@
-#include "events/InteractionModule.hpp"
+#include "ecs/events/InteractionModule.hpp"
 
 InteractionModule::InteractionModule(
 	entt::registry 		&registry,

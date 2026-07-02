@@ -6,15 +6,15 @@
 # include "resources/ResourceManager.hpp"
 
 // COMPONENTS
-# include "Persistent.hpp"
-# include "Velocity.hpp"
-# include "Collider.hpp"
-# include "PlayerTag.hpp"
-# include "Position.hpp"
-# include "Movement.hpp"
-# include "SpriteComponent.hpp"
-# include "AnimationState.hpp"
-# include "AnimationSet.hpp"
+# include "ecs/components/Persistent.hpp"
+# include "ecs/components/Velocity.hpp"
+# include "ecs/components/Collider.hpp"
+# include "ecs/components/PlayerTag.hpp"
+# include "ecs/components/Position.hpp"
+# include "ecs/components/Movement.hpp"
+# include "ecs/components/SpriteComponent.hpp"
+# include "ecs/components/AnimationState.hpp"
+# include "ecs/components/AnimationSet.hpp"
 
 class PlayerFactories
 {

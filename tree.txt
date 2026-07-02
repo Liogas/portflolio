@@ -64,6 +64,7 @@
 │       ├── TECH-SYS-Wifi.tsx
 │       └── terrain_tag.tsx
 ├── build
+│   ├── bin
 │   ├── CMakeCache.txt
 │   ├── CMakeFiles
 │   │   ├── 3.31.11
@@ -77,121 +78,246 @@
 │   │   ├── cmake.check_cache
 │   │   ├── CMakeConfigureLog.yaml
 │   │   ├── CMakeDirectoryInformation.cmake
+│   │   ├── CMakeScratch
 │   │   ├── Makefile2
 │   │   ├── Makefile.cmake
 │   │   ├── pkgRedirects
-│   │   ├── portfolio.dir
-│   │   │   ├── build.make
-│   │   │   ├── cmake_clean.cmake
-│   │   │   ├── compiler_depend.internal
-│   │   │   ├── compiler_depend.make
-│   │   │   ├── compiler_depend.ts
-│   │   │   ├── DependInfo.cmake
-│   │   │   ├── depend.make
-│   │   │   ├── flags.make
-│   │   │   ├── link.d
-│   │   │   ├── link.txt
-│   │   │   ├── MySDL
-│   │   │   │   └── srcs
-│   │   │   │       ├── AnimationSDL.cpp.o
-│   │   │   │       ├── AnimationSDL.cpp.o.d
-│   │   │   │       ├── AppSDL.cpp.o
-│   │   │   │       ├── AppSDL.cpp.o.d
-│   │   │   │       ├── EventSDL.cpp.o
-│   │   │   │       ├── EventSDL.cpp.o.d
-│   │   │   │       ├── InputSDL.cpp.o
-│   │   │   │       ├── InputSDL.cpp.o.d
-│   │   │   │       ├── RendererSDL.cpp.o
-│   │   │   │       ├── RendererSDL.cpp.o.d
-│   │   │   │       ├── TextureSDL.cpp.o
-│   │   │   │       ├── TextureSDL.cpp.o.d
-│   │   │   │       ├── WindowSDL.cpp.o
-│   │   │   │       └── WindowSDL.cpp.o.d
-│   │   │   ├── progress.make
-│   │   │   └── srcs
-│   │   │       ├── core
-│   │   │       │   ├── App.cpp.o
-│   │   │       │   ├── App.cpp.o.d
-│   │   │       │   ├── ComputerManager.cpp.o
-│   │   │       │   ├── ComputerManager.cpp.o.d
-│   │   │       │   ├── main.cpp.o
-│   │   │       │   ├── main.cpp.o.d
-│   │   │       │   ├── ProjectManager.cpp.o
-│   │   │       │   ├── ProjectManager.cpp.o.d
-│   │   │       │   ├── RessourceManager.cpp.o
-│   │   │       │   ├── RessourceManager.cpp.o.d
-│   │   │       │   ├── scene
-│   │   │       │   │   ├── TestScene.cpp.o
-│   │   │       │   │   └── TestScene.cpp.o.d
-│   │   │       │   ├── tinyxml2.cpp.o
-│   │   │       │   └── tinyxml2.cpp.o.d
-│   │   │       ├── ecs
-│   │   │       │   ├── events
-│   │   │       │   │   ├── InteractionModule.cpp.o
-│   │   │       │   │   └── InteractionModule.cpp.o.d
-│   │   │       │   ├── factories
-│   │   │       │   │   ├── ComputerFactories.cpp.o
-│   │   │       │   │   ├── ComputerFactories.cpp.o.d
-│   │   │       │   │   ├── PlayerFactories.cpp.o
-│   │   │       │   │   └── PlayerFactories.cpp.o.d
-│   │   │       │   ├── registry
-│   │   │       │   │   ├── World.cpp.o
-│   │   │       │   │   └── World.cpp.o.d
-│   │   │       │   └── systems
-│   │   │       │       ├── AnimationStateSystem.cpp.o
-│   │   │       │       ├── AnimationStateSystem.cpp.o.d
-│   │   │       │       ├── AnimationSystem.cpp.o
-│   │   │       │       ├── AnimationSystem.cpp.o.d
-│   │   │       │       ├── CollisionSystem.cpp.o
-│   │   │       │       ├── CollisionSystem.cpp.o.d
-│   │   │       │       ├── ComputerInteractionSystem.cpp.o
-│   │   │       │       ├── ComputerInteractionSystem.cpp.o.d
-│   │   │       │       ├── DebugRenderSystem.cpp.o
-│   │   │       │       ├── DebugRenderSystem.cpp.o.d
-│   │   │       │       ├── InputSystem.cpp.o
-│   │   │       │       ├── InputSystem.cpp.o.d
-│   │   │       │       ├── InteractionSystem.cpp.o
-│   │   │       │       ├── InteractionSystem.cpp.o.d
-│   │   │       │       ├── MovementSystem.cpp.o
-│   │   │       │       ├── MovementSystem.cpp.o.d
-│   │   │       │       ├── RenderSystem.cpp.o
-│   │   │       │       ├── RenderSystem.cpp.o.d
-│   │   │       │       └── UISystem.cpp.o.d
-│   │   │       ├── game
-│   │   │       │   ├── TileMap.cpp.o
-│   │   │       │   └── TileMap.cpp.o.d
-│   │   │       ├── graphics
-│   │   │       │   ├── Camera.cpp.o
-│   │   │       │   ├── Camera.cpp.o.d
-│   │   │       │   ├── Sprite.cpp.o
-│   │   │       │   └── Sprite.cpp.o.d
-│   │   │       ├── parseur
-│   │   │       │   ├── MapParseur.cpp.o
-│   │   │       │   └── MapParseur.cpp.o.d
-│   │   │       └── ui
-│   │   │           ├── Caroussel.cpp.o
-│   │   │           ├── Caroussel.cpp.o.d
-│   │   │           ├── components
-│   │   │           │   ├── UIContainer.cpp.o
-│   │   │           │   ├── UIContainer.cpp.o.d
-│   │   │           │   ├── UIPanel.cpp.o
-│   │   │           │   ├── UIPanel.cpp.o.d
-│   │   │           │   ├── UIText.cpp.o
-│   │   │           │   └── UIText.cpp.o.d
-│   │   │           ├── ComputerUI.cpp.o
-│   │   │           ├── ComputerUI.cpp.o.d
-│   │   │           ├── PauseMenuUI.cpp.o
-│   │   │           ├── PauseMenuUI.cpp.o.d
-│   │   │           ├── ProjectCard.cpp.o
-│   │   │           ├── ProjectCard.cpp.o.d
-│   │   │           ├── UIManager.cpp.o
-│   │   │           └── UIManager.cpp.o.d
+│   │   ├── Progress
+│   │   │   ├── 1
+│   │   │   ├── 11
+│   │   │   ├── 2
+│   │   │   ├── 3
+│   │   │   ├── 4
+│   │   │   ├── 48
+│   │   │   ├── 49
+│   │   │   ├── 5
+│   │   │   ├── 6
+│   │   │   ├── 7
+│   │   │   ├── 8
+│   │   │   └── count.txt
 │   │   ├── progress.marks
 │   │   └── TargetDirectories.txt
 │   ├── cmake_install.cmake
-│   ├── Makefile
-│   └── portfolio
+│   ├── compile_commands.json
+│   ├── engine
+│   │   ├── CMakeFiles
+│   │   │   ├── CMakeDirectoryInformation.cmake
+│   │   │   └── progress.marks
+│   │   ├── cmake_install.cmake
+│   │   ├── Makefile
+│   │   └── src
+│   │       ├── application
+│   │       │   ├── CMakeFiles
+│   │       │   │   ├── CMakeDirectoryInformation.cmake
+│   │       │   │   ├── engine_application.dir
+│   │       │   │   │   ├── build.make
+│   │       │   │   │   ├── cmake_clean.cmake
+│   │       │   │   │   ├── cmake_clean_target.cmake
+│   │       │   │   │   ├── compiler_depend.make
+│   │       │   │   │   ├── compiler_depend.ts
+│   │       │   │   │   ├── DependInfo.cmake
+│   │       │   │   │   ├── depend.make
+│   │       │   │   │   ├── flags.make
+│   │       │   │   │   ├── link.txt
+│   │       │   │   │   └── progress.make
+│   │       │   │   └── progress.marks
+│   │       │   ├── cmake_install.cmake
+│   │       │   └── Makefile
+│   │       ├── ecs
+│   │       │   ├── CMakeFiles
+│   │       │   │   ├── CMakeDirectoryInformation.cmake
+│   │       │   │   ├── engine_ecs.dir
+│   │       │   │   │   ├── build.make
+│   │       │   │   │   ├── cmake_clean.cmake
+│   │       │   │   │   ├── cmake_clean_target.cmake
+│   │       │   │   │   ├── compiler_depend.make
+│   │       │   │   │   ├── compiler_depend.ts
+│   │       │   │   │   ├── DependInfo.cmake
+│   │       │   │   │   ├── depend.make
+│   │       │   │   │   ├── events
+│   │       │   │   │   ├── factories
+│   │       │   │   │   ├── flags.make
+│   │       │   │   │   ├── link.txt
+│   │       │   │   │   ├── progress.make
+│   │       │   │   │   └── systems
+│   │       │   │   └── progress.marks
+│   │       │   ├── cmake_install.cmake
+│   │       │   └── Makefile
+│   │       ├── graphics
+│   │       │   ├── CMakeFiles
+│   │       │   │   ├── CMakeDirectoryInformation.cmake
+│   │       │   │   ├── engine_graphics.dir
+│   │       │   │   │   ├── build.make
+│   │       │   │   │   ├── cmake_clean.cmake
+│   │       │   │   │   ├── cmake_clean_target.cmake
+│   │       │   │   │   ├── compiler_depend.make
+│   │       │   │   │   ├── compiler_depend.ts
+│   │       │   │   │   ├── DependInfo.cmake
+│   │       │   │   │   ├── depend.make
+│   │       │   │   │   ├── flags.make
+│   │       │   │   │   ├── link.txt
+│   │       │   │   │   └── progress.make
+│   │       │   │   └── progress.marks
+│   │       │   ├── cmake_install.cmake
+│   │       │   └── Makefile
+│   │       ├── map
+│   │       │   ├── CMakeFiles
+│   │       │   │   ├── CMakeDirectoryInformation.cmake
+│   │       │   │   ├── engine_map.dir
+│   │       │   │   │   ├── build.make
+│   │       │   │   │   ├── cmake_clean.cmake
+│   │       │   │   │   ├── cmake_clean_target.cmake
+│   │       │   │   │   ├── compiler_depend.make
+│   │       │   │   │   ├── compiler_depend.ts
+│   │       │   │   │   ├── DependInfo.cmake
+│   │       │   │   │   ├── depend.make
+│   │       │   │   │   ├── flags.make
+│   │       │   │   │   ├── link.txt
+│   │       │   │   │   └── progress.make
+│   │       │   │   └── progress.marks
+│   │       │   ├── cmake_install.cmake
+│   │       │   └── Makefile
+│   │       ├── resources
+│   │       │   ├── CMakeFiles
+│   │       │   │   ├── CMakeDirectoryInformation.cmake
+│   │       │   │   ├── engine_resources.dir
+│   │       │   │   │   ├── build.make
+│   │       │   │   │   ├── cmake_clean.cmake
+│   │       │   │   │   ├── cmake_clean_target.cmake
+│   │       │   │   │   ├── compiler_depend.make
+│   │       │   │   │   ├── compiler_depend.ts
+│   │       │   │   │   ├── DependInfo.cmake
+│   │       │   │   │   ├── depend.make
+│   │       │   │   │   ├── flags.make
+│   │       │   │   │   ├── link.txt
+│   │       │   │   │   └── progress.make
+│   │       │   │   └── progress.marks
+│   │       │   ├── cmake_install.cmake
+│   │       │   └── Makefile
+│   │       ├── scene
+│   │       │   ├── CMakeFiles
+│   │       │   │   ├── CMakeDirectoryInformation.cmake
+│   │       │   │   ├── engine_scene.dir
+│   │       │   │   │   ├── build.make
+│   │       │   │   │   ├── cmake_clean.cmake
+│   │       │   │   │   ├── cmake_clean_target.cmake
+│   │       │   │   │   ├── compiler_depend.make
+│   │       │   │   │   ├── compiler_depend.ts
+│   │       │   │   │   ├── DependInfo.cmake
+│   │       │   │   │   ├── depend.make
+│   │       │   │   │   ├── flags.make
+│   │       │   │   │   ├── link.txt
+│   │       │   │   │   └── progress.make
+│   │       │   │   └── progress.marks
+│   │       │   ├── cmake_install.cmake
+│   │       │   └── Makefile
+│   │       └── ui
+│   │           ├── CMakeFiles
+│   │           │   ├── CMakeDirectoryInformation.cmake
+│   │           │   ├── engine_ui.dir
+│   │           │   │   ├── build.make
+│   │           │   │   ├── cmake_clean.cmake
+│   │           │   │   ├── cmake_clean_target.cmake
+│   │           │   │   ├── compiler_depend.make
+│   │           │   │   ├── compiler_depend.ts
+│   │           │   │   ├── components
+│   │           │   │   ├── DependInfo.cmake
+│   │           │   │   ├── depend.make
+│   │           │   │   ├── flags.make
+│   │           │   │   ├── link.txt
+│   │           │   │   ├── manager
+│   │           │   │   ├── menus
+│   │           │   │   │   ├── computerMenu
+│   │           │   │   │   └── pauseMenu
+│   │           │   │   ├── progress.make
+│   │           │   │   └── widgets
+│   │           │   └── progress.marks
+│   │           ├── cmake_install.cmake
+│   │           └── Makefile
+│   ├── external
+│   │   ├── CMakeFiles
+│   │   │   ├── CMakeDirectoryInformation.cmake
+│   │   │   └── progress.marks
+│   │   ├── cmake_install.cmake
+│   │   └── Makefile
+│   ├── game
+│   │   ├── CMakeFiles
+│   │   │   ├── CMakeDirectoryInformation.cmake
+│   │   │   ├── game.dir
+│   │   │   │   ├── build.make
+│   │   │   │   ├── cmake_clean.cmake
+│   │   │   │   ├── compiler_depend.make
+│   │   │   │   ├── compiler_depend.ts
+│   │   │   │   ├── DependInfo.cmake
+│   │   │   │   ├── depend.make
+│   │   │   │   ├── flags.make
+│   │   │   │   ├── link.txt
+│   │   │   │   ├── progress.make
+│   │   │   │   └── src
+│   │   │   │       ├── computers
+│   │   │   │       ├── projects
+│   │   │   │       └── world
+│   │   │   └── progress.marks
+│   │   ├── cmake_install.cmake
+│   │   └── Makefile
+│   ├── libs
+│   │   ├── MySDL
+│   │   │   ├── CMakeFiles
+│   │   │   │   ├── CMakeDirectoryInformation.cmake
+│   │   │   │   ├── MySDL.dir
+│   │   │   │   │   ├── build.make
+│   │   │   │   │   ├── cmake_clean.cmake
+│   │   │   │   │   ├── cmake_clean_target.cmake
+│   │   │   │   │   ├── compiler_depend.make
+│   │   │   │   │   ├── compiler_depend.ts
+│   │   │   │   │   ├── DependInfo.cmake
+│   │   │   │   │   ├── depend.make
+│   │   │   │   │   ├── flags.make
+│   │   │   │   │   ├── link.txt
+│   │   │   │   │   ├── progress.make
+│   │   │   │   │   └── src
+│   │   │   │   │       ├── AnimationSDL.cpp.o
+│   │   │   │   │       ├── AnimationSDL.cpp.o.d
+│   │   │   │   │       ├── AppSDL.cpp.o
+│   │   │   │   │       ├── AppSDL.cpp.o.d
+│   │   │   │   │       ├── EventSDL.cpp.o
+│   │   │   │   │       ├── EventSDL.cpp.o.d
+│   │   │   │   │       ├── InputSDL.cpp.o
+│   │   │   │   │       ├── InputSDL.cpp.o.d
+│   │   │   │   │       ├── RendererSDL.cpp.o
+│   │   │   │   │       ├── RendererSDL.cpp.o.d
+│   │   │   │   │       ├── TextureSDL.cpp.o
+│   │   │   │   │       ├── TextureSDL.cpp.o.d
+│   │   │   │   │       ├── WindowSDL.cpp.o
+│   │   │   │   │       └── WindowSDL.cpp.o.d
+│   │   │   │   └── progress.marks
+│   │   │   ├── cmake_install.cmake
+│   │   │   ├── libMySDL.a
+│   │   │   └── Makefile
+│   │   └── tinyxml2
+│   │       ├── CMakeFiles
+│   │       │   ├── CMakeDirectoryInformation.cmake
+│   │       │   ├── progress.marks
+│   │       │   └── tinyxml2.dir
+│   │       │       ├── build.make
+│   │       │       ├── cmake_clean.cmake
+│   │       │       ├── cmake_clean_target.cmake
+│   │       │       ├── compiler_depend.make
+│   │       │       ├── compiler_depend.ts
+│   │       │       ├── DependInfo.cmake
+│   │       │       ├── depend.make
+│   │       │       ├── flags.make
+│   │       │       ├── link.txt
+│   │       │       ├── progress.make
+│   │       │       └── src
+│   │       │           ├── tinyxml2.cpp.o
+│   │       │           └── tinyxml2.cpp.o.d
+│   │       ├── cmake_install.cmake
+│   │       ├── libtinyxml2.a
+│   │       └── Makefile
+│   └── Makefile
 ├── CMakeLists.txt
+├── compile_commands.json -> build/compile_commands.json
 ├── data
 │   ├── computers
 │   │   └── portfolio.json
@@ -209,8 +335,26 @@
 │   └── src
 │       ├── application
 │       │   ├── App.cpp
-│       │   └── App.hpp
+│       │   ├── App.hpp
+│       │   └── CMakeLists.txt
 │       ├── ecs
+│       │   ├── CMakeLists.txt
+│       │   ├── components
+│       │   │   ├── AnimationSet.hpp
+│       │   │   ├── AnimationState.hpp
+│       │   │   ├── Collider.hpp
+│       │   │   ├── Computer.hpp
+│       │   │   ├── ComputerTag.hpp
+│       │   │   ├── DebugBox.hpp
+│       │   │   ├── Interactable.hpp
+│       │   │   ├── Movement.hpp
+│       │   │   ├── Persistent.hpp
+│       │   │   ├── PlayerTag.hpp
+│       │   │   ├── Position.hpp
+│       │   │   ├── Project.hpp
+│       │   │   ├── SceneTag.hpp
+│       │   │   ├── SpriteComponent.hpp
+│       │   │   └── Velocity.hpp
 │       │   ├── events
 │       │   │   ├── InteractionModule.cpp
 │       │   │   └── InteractionModule.hpp
@@ -219,48 +363,51 @@
 │       │   │   ├── ComputerFactories.hpp
 │       │   │   ├── PlayerFactories.cpp
 │       │   │   └── PlayerFactories.hpp
-│       │   ├── systems
-│       │   │   ├── AnimationStateSystem.cpp
-│       │   │   ├── AnimationStateSystem.hpp
-│       │   │   ├── AnimationSystem.cpp
-│       │   │   ├── AnimationSystem.hpp
-│       │   │   ├── CollisionSystem.cpp
-│       │   │   ├── CollisionSystem.hpp
-│       │   │   ├── ComputerInteractionSystem.cpp
-│       │   │   ├── ComputerInteractionSystem.hpp
-│       │   │   ├── DebugRenderSystem.cpp
-│       │   │   ├── DebugRenderSystem.hpp
-│       │   │   ├── InputSystem.cpp
-│       │   │   ├── InputSystem.hpp
-│       │   │   ├── InteractionSystem.cpp
-│       │   │   ├── InteractionSystem.hpp
-│       │   │   ├── MovementSystem.cpp
-│       │   │   ├── MovementSystem.hpp
-│       │   │   ├── RenderSystem.cpp
-│       │   │   └── RenderSystem.hpp
-│       │   └── world
-│       │       ├── World.cpp
-│       │       └── World.hpp
+│       │   └── systems
+│       │       ├── AnimationStateSystem.cpp
+│       │       ├── AnimationStateSystem.hpp
+│       │       ├── AnimationSystem.cpp
+│       │       ├── AnimationSystem.hpp
+│       │       ├── CMakeLists.txt
+│       │       ├── CollisionSystem.cpp
+│       │       ├── CollisionSystem.hpp
+│       │       ├── ComputerInteractionSystem.cpp
+│       │       ├── ComputerInteractionSystem.hpp
+│       │       ├── DebugRenderSystem.cpp
+│       │       ├── DebugRenderSystem.hpp
+│       │       ├── InputSystem.cpp
+│       │       ├── InputSystem.hpp
+│       │       ├── InteractionSystem.cpp
+│       │       ├── InteractionSystem.hpp
+│       │       ├── MovementSystem.cpp
+│       │       ├── MovementSystem.hpp
+│       │       ├── RenderSystem.cpp
+│       │       └── RenderSystem.hpp
 │       ├── events
 │       │   └── Events.hpp
 │       ├── graphics
 │       │   ├── Camera.cpp
 │       │   ├── Camera.hpp
+│       │   ├── CMakeLists.txt
 │       │   ├── Sprite.cpp
 │       │   └── Sprite.hpp
 │       ├── map
+│       │   ├── CMakeLists.txt
 │       │   ├── MapParser.cpp
 │       │   ├── MapParser.hpp
 │       │   ├── TileMap.cpp
 │       │   └── TileMap.hpp
 │       ├── resources
+│       │   ├── CMakeLists.txt
 │       │   ├── ResourceManager.cpp
 │       │   └── ResourceManager.hpp
 │       ├── scene
+│       │   ├── CMakeLists.txt
 │       │   ├── Scene.hpp
 │       │   ├── TestScene.cpp
 │       │   └── TestScene.hpp
 │       └── ui
+│           ├── CMakeLists.txt
 │           ├── components
 │           │   ├── UIContainer.cpp
 │           │   ├── UIContainer.hpp
@@ -288,6 +435,7 @@
 │               ├── ProjectCard.cpp
 │               └── ProjectCard.hpp
 ├── external
+│   ├── CMakeLists.txt
 │   ├── entt
 │   │   ├── config
 │   │   │   ├── config.h
@@ -406,9 +554,31 @@
 │       │   └── ControlsConfig.hpp
 │       ├── gameplay
 │       ├── main.cpp
-│       └── projects
-│           ├── ProjectManager.cpp
-│           └── ProjectManager.hpp
+│       ├── projects
+│       │   ├── ProjectManager.cpp
+│       │   └── ProjectManager.hpp
+│       └── world
+│           ├── World.cpp
+│           └── World.hpp
+├── graph.dot
+├── graph.dot.engine
+├── graph.dot.engine_application
+├── graph.dot.engine_application.dependers
+├── graph.dot.engine.dependers
+├── graph.dot.engine_ecs
+├── graph.dot.engine_ecs.dependers
+├── graph.dot.engine_graphics.dependers
+├── graph.dot.engine_map
+├── graph.dot.engine_map.dependers
+├── graph.dot.engine_resources.dependers
+├── graph.dot.engine_scene.dependers
+├── graph.dot.engine_ui.dependers
+├── graph.dot.external.dependers
+├── graph.dot.game
+├── graph.dot.MySDL
+├── graph.dot.SDL2SDL2.dependers
+├── graph.dot.tinyxml2.dependers
+├── graph.png
 ├── libs
 │   ├── MySDL
 │   │   ├── CMakeLists.txt
@@ -430,6 +600,7 @@
 │   │       ├── TextureSDL.cpp
 │   │       └── WindowSDL.cpp
 │   └── tinyxml2
+│       ├── CMakeLists.txt
 │       ├── include
 │       │   └── tinyxml2.h
 │       └── src
@@ -437,4 +608,4 @@
 ├── README.md
 └── tree.txt
 
-87 directories, 351 files
+126 directories, 483 files

@@ -1,7 +1,6 @@
 add_library(engine_ecs STATIC)
 
 target_sources(engine_ecs PRIVATE
-    world/World.cpp
 
     systems/AnimationSystem.cpp
     systems/AnimationStateSystem.cpp
@@ -26,8 +25,4 @@ target_link_libraries(engine_ecs PUBLIC
 
 target_include_directories(engine_ecs PUBLIC
     ${CMAKE_SOURCE_DIR}/engine/src
-)
-
-target_link_libraries(engine_ecs PUBLIC
-    external
 )

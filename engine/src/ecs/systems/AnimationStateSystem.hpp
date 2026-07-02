@@ -3,8 +3,8 @@
 
 # include <entt/entt.hpp>
 
-# include "Movement.hpp"
-# include "AnimationState.hpp"
+# include "ecs/components/Movement.hpp"
+# include "ecs/components/AnimationState.hpp"
 
 void	AnimationStateSystem(entt::registry &registry);
 

@@ -5,11 +5,11 @@
 
 # include "RendererSDL.hpp"
 
-# include "DebugBox.hpp"
-# include "Collider.hpp"
-# include "Position.hpp"
+# include "ecs/components/DebugBox.hpp"
+# include "ecs/components/Collider.hpp"
+# include "ecs/components/Position.hpp"
 
-# include "Camera.hpp"
+# include "graphics/Camera.hpp"
 
 void	DebugRenderSystem(entt::registry &registry, RendererSDL &renderer, Camera &camera);
 

@@ -11,4 +11,6 @@ target_include_directories(engine_map PUBLIC
 
 target_link_libraries(engine_map PUBLIC
     tinyxml2
+    MySDL
+    external
 )

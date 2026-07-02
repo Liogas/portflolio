@@ -5,19 +5,16 @@
 
 # include "InputSDL.hpp"
 
-# include "PlayerTag.hpp"
-# include "Position.hpp"
-# include "Movement.hpp"
-# include "Collider.hpp"
-# include "Interactable.hpp"
-# include "DebugBox.hpp"
+# include "ecs/components/PlayerTag.hpp"
+# include "ecs/components/Position.hpp"
+# include "ecs/components/Movement.hpp"
+# include "ecs/components/Collider.hpp"
+# include "ecs/components/Interactable.hpp"
+# include "ecs/components/DebugBox.hpp"
 
-# include "World.hpp"
-
-class World;
+# include "events/Events.hpp"
 
 void	InteractionSystem(
-    World			    &world,
     entt::registry	    &registry,
     const InputSDL	    &input,
     entt::dispatcher    &dispatcher

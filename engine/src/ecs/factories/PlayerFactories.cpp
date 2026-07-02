@@ -1,4 +1,4 @@
-#include "factories/PlayerFactories.hpp"
+#include "ecs/factories/PlayerFactories.hpp"
 
 entt::entity	PlayerFactories::create(
 	entt::registry		&registry,

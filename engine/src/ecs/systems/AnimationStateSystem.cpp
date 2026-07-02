@@ -1,4 +1,4 @@
-#include "systems/AnimationStateSystem.hpp"
+#include "ecs/systems/AnimationStateSystem.hpp"
 
 void	AnimationStateSystem(entt::registry &registry)
 {

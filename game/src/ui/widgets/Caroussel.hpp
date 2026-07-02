@@ -6,7 +6,7 @@
 # include <vector>
 
 # include "resources/ResourceManager.hpp"
-# include "ProjectManager.hpp"
+# include "projects/ProjectManager.hpp"
 
 struct CarousselAnimation
 {

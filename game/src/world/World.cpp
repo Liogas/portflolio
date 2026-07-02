@@ -54,10 +54,10 @@ void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 	{
 		if (input.isKeyPressed(SDL_SCANCODE_ESCAPE))
             this->_dispatcher.trigger(OpenPauseMenuEvent{});
-		InputSystem(*this, this->_registry, input, this->_cfg);
+		InputSystem(this->_registry, input, this->_cfg);
 		MovementSystem(this->_registry);
 		CollisionSystem(this->_registry, *this->_map, dt);
-		InteractionSystem(*this, this->_registry, input, this->_dispatcher);
+		InteractionSystem(this->_registry, input, this->_dispatcher);
 		AnimationStateSystem(this->_registry);
 		AnimationSystem(this->_registry, dt);
 		this->updateCamera();
@@ -93,11 +93,19 @@ void	World::setMap(std::unique_ptr<TileMap> map)
 	this->_map = std::move(map);
 }
 
-void	World::changeScene(std::unique_ptr<Scene> scene)
+void	World::changeScene(std::unique_ptr<Scene> newScene)
 {
+	SceneContext ctx{this->_registry, this->_dispatcher, this->_rm, this->_camera};
 	if (this->_scene)
-		this->_scene->unload(*this);
-	this->_scene = std::move(scene);
-	this->_scene->load(*this);
+	{
+		this->_scene->onExit(ctx);
+		this->_scene->unload(ctx);
+	}
+	this->_scene = std::move(newScene);
+	if (this->_scene)
+	{
+		this->_scene->load(ctx);
+		this->_scene->onEnter(ctx);
+	}
 }
 

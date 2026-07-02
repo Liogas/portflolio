@@ -8,18 +8,18 @@
 
 // MANAGERS
 # include "resources/ResourceManager.hpp"
-# include "ProjectManager.hpp"
-# include "ComputerManager.hpp"
+# include "src/projects/ProjectManager.hpp"
+# include "ui/manager/ComputerManager.hpp"
 
-# include "Camera.hpp"
-# include "Scene.hpp"
-# include "Position.hpp"
+# include "graphics/Camera.hpp"
+# include "scene/Scene.hpp"
+# include "ecs/components/Position.hpp"
 
 // UI
 # include "UIManager.hpp"
 
 // FACTORIES
-# include "factories/PlayerFactories.hpp"
+# include "ecs/factories/PlayerFactories.hpp"
 
 // EVENT
 # include "events/InteractionModule.hpp"
@@ -28,13 +28,13 @@
 # include "MovementSystem.hpp"
 # include "InputSystem.hpp"
 # include "CollisionSystem.hpp"
-# include "systems/AnimationStateSystem.hpp"
+# include "ecs/systems/AnimationStateSystem.hpp"
 # include "AnimationSystem.hpp"
 # include "InteractionSystem.hpp"
 # include "RenderSystem.hpp"
 # include "DebugRenderSystem.hpp"
 
-class Scene;
+# include "scene/SceneContext.hpp"
 
 class World
 {
@@ -42,7 +42,7 @@ class World
 		World(
 			entt::registry		&registry,
 			entt::dispatcher	&dispatcher,
-			ResourceManager	&rm,
+			ResourceManager		&rm,
 			ComputerManager 	&cm,
 			ProjectManager 		&pm,
 			RendererSDL			&renderer
@@ -66,7 +66,7 @@ class World
 		ControlsConfig							_cfg;
 		entt::registry							&_registry;
 		entt::dispatcher						&_dispatcher;
-		ResourceManager						&_rm;
+		ResourceManager							&_rm;
 		ProjectManager							&_pm;
 		ComputerManager							&_cm;
 		UIManager								_UIm;
