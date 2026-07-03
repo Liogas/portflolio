@@ -1,0 +1,108 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "/home/glions/portflolio/assets/maps/home.tmj": {
+            "scale": 0.5,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 522,
+                "y": 239
+            }
+        },
+        "/home/glions/portflolio/assets/maps/hubTest.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 460.66666666666663,
+                "y": 176.66666666666663
+            }
+        },
+        "/home/glions/portflolio/assets/maps/tilesets/TECH-Hub.tsx": {
+            "scaleInDock": 1
+        },
+        "/home/glions/portflolio/assets/maps/tilesets/TECH-Misc..tsx": {
+            "scaleInDock": 1
+        },
+        "/home/glions/portflolio/assets/maps/tilesets/TECH_Lab.tsx": {
+            "scaleInDock": 1
+        },
+        "/home/glions/portflolio/assets/maps/tilesets/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/Plant.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/Props.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/TECH-Hub.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/TECH-Misc..tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/TECH_Lab.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/TX Shadow Plant.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/TX Shadow.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/TX Struct.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Grass.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Stone Ground.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Wall.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/glions/portflolio/assets/tilesets/passages.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.externalTilesetPath": "/home/glions/portflolio/assets/tilesets",
+    "last.imagePath": "/home/glions/Downloads/Pixel Art Top Down - Basic v1.2.3/Texture",
+    "map.lastUsedFormat": "json",
+    "openFiles": [
+    ],
+    "project": "world.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "/home/glions/portflolio/assets/maps/hubTest.tmx",
+        "/home/glions/portflolio/assets/tilesets/TX Shadow Plant.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Grass.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Stone Ground.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Wall.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Shadow.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Struct.tsx",
+        "/home/glions/portflolio/assets/tilesets/Props.tsx",
+        "/home/glions/portflolio/assets/tilesets/Plant.tsx",
+        "/home/glions/portflolio/assets/maps/home.tmj",
+        "/home/glions/portflolio/assets/tilesets/TECH-Misc..tsx",
+        "/home/glions/portflolio/assets/tilesets/TECH_Lab.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.transparentColor": "#ffffff",
+    "tileset.useTransparentColor": true
+}
