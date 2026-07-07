@@ -1,0 +1,35 @@
+Type possible pour les objets :
+- Computer
+- Door
+- NPC
+- Trigger
+- Spawn
+- Light
+- CameraZone
+- Sound
+- Checkpoint
+- Cutscene
+
+Proprietes pour les objets :
+- id
+- enabled
+- group
+
+Proprietes supplementaires pour un objet Trigger :
+- event
+- delay
+- duration
+- once
+
+Propriete pour un objet qui reagit :
+- listen
+
+Proprietes pour un objet light :
+- radius
+- color
+- intensity
+
+Proprietes pour un objet son :
+- sound
+- volume
+- loop

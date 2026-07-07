@@ -1,5 +1,5 @@
 {
-    "activeFile": "",
+    "activeFile": "/home/glions/portflolio/assets/maps/hubtest.tmj",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -18,6 +18,14 @@
             "viewCenter": {
                 "x": 460.66666666666663,
                 "y": 176.66666666666663
+            }
+        },
+        "/home/glions/portflolio/assets/maps/hubtest.tmj": {
+            "scale": 3,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 432.16666666666663,
+                "y": 197.16666666666666
             }
         },
         "/home/glions/portflolio/assets/maps/tilesets/TECH-Hub.tsx": {
@@ -85,6 +93,15 @@
     "last.imagePath": "/home/glions/Downloads/Pixel Art Top Down - Basic v1.2.3/Texture",
     "map.lastUsedFormat": "json",
     "openFiles": [
+        "/home/glions/portflolio/assets/maps/hubtest.tmj",
+        "/home/glions/portflolio/assets/tilesets/Plant.tsx",
+        "/home/glions/portflolio/assets/tilesets/Props.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Shadow Plant.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Shadow.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Struct.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Grass.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Stone Ground.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Wall.tsx"
     ],
     "project": "world.tiled-project",
     "property.type": "string",
