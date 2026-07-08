@@ -1,5 +1,5 @@
 {
-    "activeFile": "/home/glions/portflolio/assets/maps/hubtest.tmj",
+    "activeFile": "/home/glions/portflolio/assets/tilesets/TX Struct.tsx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -21,11 +21,11 @@
             }
         },
         "/home/glions/portflolio/assets/maps/hubtest.tmj": {
-            "scale": 3,
+            "scale": 0.75,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 432.16666666666663,
-                "y": 197.16666666666666
+                "x": 851.3333333333333,
+                "y": 212.66666666666663
             }
         },
         "/home/glions/portflolio/assets/maps/tilesets/TECH-Hub.tsx": {
@@ -42,7 +42,7 @@
         },
         "/home/glions/portflolio/assets/tilesets/Plant.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 2
         },
         "/home/glions/portflolio/assets/tilesets/Props.tsx": {
             "scaleInDock": 1,
@@ -106,18 +106,18 @@
     "project": "world.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "/home/glions/portflolio/assets/maps/hubTest.tmx",
-        "/home/glions/portflolio/assets/tilesets/TX Shadow Plant.tsx",
-        "/home/glions/portflolio/assets/tilesets/TX Tileset Grass.tsx",
-        "/home/glions/portflolio/assets/tilesets/TX Tileset Stone Ground.tsx",
-        "/home/glions/portflolio/assets/tilesets/TX Tileset Wall.tsx",
-        "/home/glions/portflolio/assets/tilesets/TX Shadow.tsx",
-        "/home/glions/portflolio/assets/tilesets/TX Struct.tsx",
-        "/home/glions/portflolio/assets/tilesets/Props.tsx",
+        "/home/glions/portflolio/assets/maps/hubtest.tmj",
         "/home/glions/portflolio/assets/tilesets/Plant.tsx",
+        "/home/glions/portflolio/assets/tilesets/Props.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Shadow Plant.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Shadow.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Wall.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Stone Ground.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Grass.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Struct.tsx",
+        "/home/glions/portflolio/assets/maps/hubTest.tmx",
         "/home/glions/portflolio/assets/maps/home.tmj",
-        "/home/glions/portflolio/assets/tilesets/TECH-Misc..tsx",
-        "/home/glions/portflolio/assets/tilesets/TECH_Lab.tsx"
+        "/home/glions/portflolio/assets/tilesets/TECH-Misc..tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.transparentColor": "#ffffff",
