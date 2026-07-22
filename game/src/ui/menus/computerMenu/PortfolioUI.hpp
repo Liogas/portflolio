@@ -1,5 +1,5 @@
-#ifndef COMPUTERUI_HPP
-# define COMPUTERUI_HPP
+#ifndef PORTFOLIOUI_HPP
+# define PORTFOLIOUI_HPP
 
 # include "ComputerManager.hpp"
 
@@ -10,13 +10,13 @@
 
 # include "UIStyle.hpp"
 
-class ComputerUI : public UIWindow
+class PortfolioUI : public UIWindow
 {
 	public:
-		ComputerUI(
+		PortfolioUI(
 			const std::string		&id,
 			ComputerManager			&cm,
-			ResourceManager		&rm,
+			ResourceManager			&rm,
     		const ProjectManager	&pm,
     		RendererSDL				&renderer
 		);
@@ -32,7 +32,7 @@ class ComputerUI : public UIWindow
 		SDL_Rect			_rect;
 		bool				_closeRequested;
 		const ComputerData	&_data;
-		ResourceManager	&_rm;
+		ResourceManager		&_rm;
 		RendererSDL			&_renderer;
 };
 

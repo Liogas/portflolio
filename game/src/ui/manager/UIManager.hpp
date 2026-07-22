@@ -6,7 +6,7 @@
 
 # include <entt/entt.hpp>
 
-# include "ui/menus/computerMenu/ComputerUI.hpp"
+# include "ui/menus/computerMenu/PortfolioUI.hpp"
 # include "PauseMenuUI.hpp"
 
 # include "RendererSDL.hpp"
@@ -39,11 +39,12 @@ class UIManager
 		void	openPause(const OpenPauseMenuEvent &);
 		void	changeResolution(const ChangeResolutionEvent &e);
 		void    toggleFullscreen(const ToggleFullScreenEvent &);
+		void	onTrigger(const TriggerFiredEvent &);
 	private:
 		std::vector<std::unique_ptr<UIWindow>>	_stack;
 		ComputerManager							&_cm;
 		ProjectManager							&_pm;
-		ResourceManager						&_rm;
+		ResourceManager							&_rm;
 		RendererSDL								&_renderer;
 		entt::dispatcher						&_dispatcher;
 		ControlsConfig							&_cfg;

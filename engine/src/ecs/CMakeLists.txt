@@ -11,6 +11,7 @@ target_sources(engine_ecs PRIVATE
     systems/DebugRenderSystem.cpp
     systems/InteractionSystem.cpp
     systems/ComputerInteractionSystem.cpp
+    systems/TriggerSystem.cpp
 
     events/InteractionModule.cpp
 

@@ -1,0 +1,17 @@
+#include "Pylon.hpp"
+
+entt::entity	create(
+	entt::registry		&registry,
+	const std::string 	&listen,
+	float				x,
+	float				y,
+	int					w,
+	int					h
+)
+{
+	auto entity = registry.create();
+	registry.emplace<Position>(entity, x, y);
+	registry.emplace<Collider>(entity, w, h);
+	registry.emplace<Pylon>(entity, Pylon { listen, false });
+	return (entity);
+}

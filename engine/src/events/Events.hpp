@@ -11,9 +11,15 @@ struct	InteractEvent
 
 struct	CloseComputerEvent{};
 
-struct	OpenComputerEvent
+struct TriggerFiredEvent
 {
-	std::string	computerId;
+	std::string	emit;
+	std::string	id;
+};
+
+struct TriggerEnteredEvent
+{
+	std::string	animation;
 };
 
 struct	OpenPauseMenuEvent {};

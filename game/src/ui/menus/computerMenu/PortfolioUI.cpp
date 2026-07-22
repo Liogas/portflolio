@@ -1,9 +1,9 @@
-#include "ComputerUI.hpp"
+#include "PortfolioUI.hpp"
 
-ComputerUI::ComputerUI(
+PortfolioUI::PortfolioUI(
 	const std::string		&id,
 	ComputerManager			&cm,
-	ResourceManager		&rm,
+	ResourceManager			&rm,
     const ProjectManager	&pm,
     RendererSDL				&renderer
 ):
@@ -33,12 +33,12 @@ ComputerUI::ComputerUI(
 	this->_caroussel.init(this->_data.projectIds, this->_rect, rm, pm, this->_renderer);
 }
 
-void    ComputerUI::update(float dt)
+void    PortfolioUI::update(float dt)
 {
     this->_caroussel.update(dt, this->_renderer, this->_rm);
 }
 
-void    ComputerUI::handleInput(const InputSDL &input)
+void    PortfolioUI::handleInput(const InputSDL &input)
 {
     if (input.isKeyPressed(SDL_SCANCODE_RIGHT))
 		this->_caroussel.nextCard();
@@ -54,7 +54,7 @@ void    ComputerUI::handleInput(const InputSDL &input)
         this->_closeRequested = true;
 }
 
-void    ComputerUI::render(RendererSDL &renderer)
+void    PortfolioUI::render(RendererSDL &renderer)
 {
     auto r = renderer.getRenderer();
 	SDL_SetRenderDrawBlendMode(r, SDL_BLENDMODE_BLEND);
@@ -72,12 +72,12 @@ void    ComputerUI::render(RendererSDL &renderer)
     this->_caroussel.draw(renderer);
 }
 
-bool    ComputerUI::blocksGameplay() const
+bool    PortfolioUI::blocksGameplay() const
 {
     return (true);
 }
 
-bool    ComputerUI::shouldClose() const
+bool    PortfolioUI::shouldClose() const
 {
     return (this->_closeRequested);
 }

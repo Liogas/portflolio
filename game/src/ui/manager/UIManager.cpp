@@ -17,10 +17,13 @@ UIManager::UIManager(
 {
 }
 
-void	UIManager::openComputer(const OpenComputerEvent &e)
+void	UIManager::openPortolio(
+	std::string	&emit,
+	std::string	&id
+)
 {
-	auto ui = std::make_unique<ComputerUI>(
-		e.computerId,
+	auto ui = std::make_unique<PortfolioUI>(
+		id,
 		this->_cm,
 		this->_rm,
 		this->_pm,
@@ -64,10 +67,16 @@ void    UIManager::changeResolution(const ChangeResolutionEvent &e)
 
 void	UIManager::bind(entt::dispatcher &dispatcher)
 {
-	dispatcher.sink<OpenComputerEvent>().connect<&UIManager::openComputer>(*this);
 	dispatcher.sink<OpenPauseMenuEvent>().connect<&UIManager::openPause>(*this);
 	dispatcher.sink<ChangeResolutionEvent>().connect<&UIManager::changeResolution>(*this);
 	dispatcher.sink<ToggleFullScreenEvent>().connect<&UIManager::toggleFullscreen>(*this);
+	dispatcher.sink<TriggerFiredEvent>().connect<&UIManager::onTrigger>(*this);
+}
+
+void	UIManager::onTrigger(const TriggerFiredEvent &e)
+{
+	if (e.emit == "portfolio_loading")
+		this->openPortfolio(e.emit, e.id);
 }
 
 void	UIManager::closeTopWindow()
