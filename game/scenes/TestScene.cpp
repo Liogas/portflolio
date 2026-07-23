@@ -12,7 +12,7 @@ void	TestScene::load(SceneContext &ctx)
 	try
 	{
 		std::string path = ctx.resources.getAssetsPath() + "maps/";
-		world.setMap(MapParser::start(path + "home.tmj", world));
+		ctx.map = MapParser::start(path, ctx.registry, ctx.ressources);
 	} catch (const std::exception& e)
 	{
 		std::cerr << "ERROR TestScene::load" << std::endl;

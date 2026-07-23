@@ -25,3 +25,13 @@ void	PylonSystem(
         }
     }
 }
+
+void    onTriggerEntered(entt::registry &registry, const TriggerEnteredEvent &e)
+{
+	auto pylons = registry.view<Pylon>;
+	for (auto entity : pylons)
+	{
+		auto &pylon = pylons.get<Pylon>(entity);
+		pylon.active = (pylon.listenEvent == e.animation && !e.animation.empty());
+	}
+}

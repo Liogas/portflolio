@@ -63,7 +63,31 @@ static void parseTilesets(TileMap &map, nlohmann::json &data, RessourceManager &
                 ressources.getTexture(t.pathfile),
                 t.tileWidth, t.tileHeight, false
             );
-            map.addTileset(t);
+            for (
+                tinyxml2::XMLElement *tile = tileset->FirstChildElement("title");
+                tile != nullptr;
+                tile = tile->NextSiblingElement("tile")
+            )
+            {
+                int localId = tile->IntAttribute("id");
+                tinyxml2::XMLElement *og = tile->FirstChildElement("objectgroup");
+                if (!og) continue ;
+                for (
+                    tinyxml2::XMLElement *obj = og->FirstChildElement("object");
+                    obj != nullptr;
+                    obj = obj->NextSiblingElement("object")
+                )
+                {
+                    SDL_Rect hitbox = {
+                        (int)obj->FloatAttribute("x"),
+                        (int)obj->FloatAttribute("y"),
+                        obj->Attribute("width") ? (int)obj->FloatAttribute("width") : t.tileWidth,
+                        obj->Attribute("height") ? (int)obj->FloatAttribute("height") : t.tileHeight
+                    };
+                    t.collisions[localId].push_back(hitbox);
+                }
+            }
+			map.addTileset(t);
         }
     } catch (const std::exception &e) {
         throw std::runtime_error(std::string("parseTilesets: ") + e.what());
@@ -171,9 +195,45 @@ static void parseLayersRecursive(TileMap &map, const nlohmann::json &layers, ent
     }
 }
 
+static void buildCollisions(TileMap &map, const nlohmann::json &layers)
+{
+    for (const auto &l : layers)
+    {
+        std::string type = l["type"].get<std::string>();
+        if (type == "group")
+        {
+            buildCollisions(map, l["layers"]);
+            continue ;
+        }
+        if (type != "tilelayer")
+            continue ;
+        std::string name = l["name"].get<std::string>();
+        // CHANGER LA CONDITION PLUS TARD
+        if (name == "foreground_1" || name == "foreground_2" || name == "decoration_2")
+            continue ;
+        int width = l["width"].get<int>();
+		const auto &data = l["data"];
+		for (int i = 0; i < (int)data.size(); ++i)
+		{
+			int gid = data[i].get<int>();
+			if (gid <= 0)
+				continue ;
+			int tileX = i % width;
+			int tileY = i / width;
+			auto rects = map.getCollisionRects(gid, tileX, tileY);
+			if (!rects.empty())
+				map.markTileUnwalkable(tileX, tileY);
+		}
+    }
+}
+
 // --- Point d'entree ---
 
-std::unique_ptr<TileMap> MapParser::start(const std::string &path, World &world)
+std::unique_ptr<TileMap> MapParser::start(
+	const std::string 	&path,
+	entt::registry 		&registry,
+	RessourceManager	*rm
+)
 {
     auto map = std::make_unique<TileMap>();
     try
@@ -194,9 +254,11 @@ std::unique_ptr<TileMap> MapParser::start(const std::string &path, World &world)
         map->setWidth(data["width"]);
         map->setHeight(data["height"]);
         map->setTileSize(data["tileheight"]);
+		map->initWalkabilityGrid(data["width"], data["height"]);
 
-        parseTilesets(*map, data, world.getRm());
-        parseLayersRecursive(*map, data["layers"], world.getRegistry());
+        parseTilesets(*map, data, rm);
+        parseLayersRecursive(*map, data["layers"], registry);
+        buildCollisions(*map, data["layers"]);
     }
     catch (const std::exception &e) {
         throw std::runtime_error(std::string("MapParser::start: ") + e.what());

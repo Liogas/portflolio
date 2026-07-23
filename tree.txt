@@ -6,7 +6,9 @@
 │   │   ├── Roboto-Black.ttf
 │   │   └── WorkforceCombine.otf
 │   ├── maps
-│   │   └── home.tmj
+│   │   ├── home.tmj
+│   │   ├── hubtest.tmj
+│   │   └── hubTest.tmj
 │   ├── textures
 │   │   ├── characters
 │   │   │   └── char1.png
@@ -43,6 +45,8 @@
 │   │       └── TECH-Wifi.png
 │   └── tilesets
 │       ├── passages.tsx
+│       ├── Plant.tsx
+│       ├── Props.tsx
 │       ├── systemtags.tsx
 │       ├── TECH-Animations.tsx
 │       ├── TECH-Assets.tsx
@@ -62,7 +66,13 @@
 │       ├── TECH-Nature.tsx
 │       ├── TECH-Photo.tsx
 │       ├── TECH-SYS-Wifi.tsx
-│       └── terrain_tag.tsx
+│       ├── terrain_tag.tsx
+│       ├── TX Shadow Plant.tsx
+│       ├── TX Shadow.tsx
+│       ├── TX Struct.tsx
+│       ├── TX Tileset Grass.tsx
+│       ├── TX Tileset Stone Ground.tsx
+│       └── TX Tileset Wall.tsx
 ├── build
 │   ├── bin
 │   ├── CMakeCache.txt
@@ -78,15 +88,34 @@
 │   │   ├── cmake.check_cache
 │   │   ├── CMakeConfigureLog.yaml
 │   │   ├── CMakeDirectoryInformation.cmake
-│   │   ├── CMakeScratch
 │   │   ├── Makefile2
 │   │   ├── Makefile.cmake
 │   │   ├── pkgRedirects
 │   │   ├── Progress
 │   │   │   ├── 1
 │   │   │   ├── 11
+│   │   │   ├── 12
+│   │   │   ├── 13
+│   │   │   ├── 14
+│   │   │   ├── 15
+│   │   │   ├── 16
+│   │   │   ├── 17
+│   │   │   ├── 18
+│   │   │   ├── 19
 │   │   │   ├── 2
+│   │   │   ├── 20
+│   │   │   ├── 21
+│   │   │   ├── 22
+│   │   │   ├── 23
+│   │   │   ├── 24
+│   │   │   ├── 25
+│   │   │   ├── 26
+│   │   │   ├── 27
 │   │   │   ├── 3
+│   │   │   ├── 34
+│   │   │   ├── 35
+│   │   │   ├── 36
+│   │   │   ├── 37
 │   │   │   ├── 4
 │   │   │   ├── 48
 │   │   │   ├── 49
@@ -130,35 +159,67 @@
 │   │       │   │   │   ├── build.make
 │   │       │   │   │   ├── cmake_clean.cmake
 │   │       │   │   │   ├── cmake_clean_target.cmake
+│   │       │   │   │   ├── compiler_depend.internal
 │   │       │   │   │   ├── compiler_depend.make
 │   │       │   │   │   ├── compiler_depend.ts
 │   │       │   │   │   ├── DependInfo.cmake
 │   │       │   │   │   ├── depend.make
 │   │       │   │   │   ├── events
+│   │       │   │   │   │   ├── InteractionModule.cpp.o
+│   │       │   │   │   │   └── InteractionModule.cpp.o.d
 │   │       │   │   │   ├── factories
+│   │       │   │   │   │   ├── ComputerFactories.cpp.o
+│   │       │   │   │   │   ├── ComputerFactories.cpp.o.d
+│   │       │   │   │   │   ├── PlayerFactories.cpp.o
+│   │       │   │   │   │   └── PlayerFactories.cpp.o.d
 │   │       │   │   │   ├── flags.make
 │   │       │   │   │   ├── link.txt
 │   │       │   │   │   ├── progress.make
 │   │       │   │   │   └── systems
+│   │       │   │   │       ├── AnimationStateSystem.cpp.o
+│   │       │   │   │       ├── AnimationStateSystem.cpp.o.d
+│   │       │   │   │       ├── AnimationSystem.cpp.o
+│   │       │   │   │       ├── AnimationSystem.cpp.o.d
+│   │       │   │   │       ├── CollisionSystem.cpp.o
+│   │       │   │   │       ├── CollisionSystem.cpp.o.d
+│   │       │   │   │       ├── ComputerInteractionSystem.cpp.o
+│   │       │   │   │       ├── ComputerInteractionSystem.cpp.o.d
+│   │       │   │   │       ├── DebugRenderSystem.cpp.o
+│   │       │   │   │       ├── DebugRenderSystem.cpp.o.d
+│   │       │   │   │       ├── InputSystem.cpp.o
+│   │       │   │   │       ├── InputSystem.cpp.o.d
+│   │       │   │   │       ├── InteractionSystem.cpp.o
+│   │       │   │   │       ├── InteractionSystem.cpp.o.d
+│   │       │   │   │       ├── MovementSystem.cpp.o
+│   │       │   │   │       ├── MovementSystem.cpp.o.d
+│   │       │   │   │       ├── RenderSystem.cpp.o
+│   │       │   │   │       └── RenderSystem.cpp.o.d
 │   │       │   │   └── progress.marks
 │   │       │   ├── cmake_install.cmake
+│   │       │   ├── libengine_ecs.a
 │   │       │   └── Makefile
 │   │       ├── graphics
 │   │       │   ├── CMakeFiles
 │   │       │   │   ├── CMakeDirectoryInformation.cmake
 │   │       │   │   ├── engine_graphics.dir
 │   │       │   │   │   ├── build.make
+│   │       │   │   │   ├── Camera.cpp.o
+│   │       │   │   │   ├── Camera.cpp.o.d
 │   │       │   │   │   ├── cmake_clean.cmake
 │   │       │   │   │   ├── cmake_clean_target.cmake
+│   │       │   │   │   ├── compiler_depend.internal
 │   │       │   │   │   ├── compiler_depend.make
 │   │       │   │   │   ├── compiler_depend.ts
 │   │       │   │   │   ├── DependInfo.cmake
 │   │       │   │   │   ├── depend.make
 │   │       │   │   │   ├── flags.make
 │   │       │   │   │   ├── link.txt
-│   │       │   │   │   └── progress.make
+│   │       │   │   │   ├── progress.make
+│   │       │   │   │   ├── Sprite.cpp.o
+│   │       │   │   │   └── Sprite.cpp.o.d
 │   │       │   │   └── progress.marks
 │   │       │   ├── cmake_install.cmake
+│   │       │   ├── libengine_graphics.a
 │   │       │   └── Makefile
 │   │       ├── map
 │   │       │   ├── CMakeFiles
@@ -218,21 +279,24 @@
 │   │           │   │   ├── build.make
 │   │           │   │   ├── cmake_clean.cmake
 │   │           │   │   ├── cmake_clean_target.cmake
+│   │           │   │   ├── compiler_depend.internal
 │   │           │   │   ├── compiler_depend.make
 │   │           │   │   ├── compiler_depend.ts
 │   │           │   │   ├── components
+│   │           │   │   │   ├── UIContainer.cpp.o
+│   │           │   │   │   ├── UIContainer.cpp.o.d
+│   │           │   │   │   ├── UIPanel.cpp.o
+│   │           │   │   │   ├── UIPanel.cpp.o.d
+│   │           │   │   │   ├── UIText.cpp.o
+│   │           │   │   │   └── UIText.cpp.o.d
 │   │           │   │   ├── DependInfo.cmake
 │   │           │   │   ├── depend.make
 │   │           │   │   ├── flags.make
 │   │           │   │   ├── link.txt
-│   │           │   │   ├── manager
-│   │           │   │   ├── menus
-│   │           │   │   │   ├── computerMenu
-│   │           │   │   │   └── pauseMenu
-│   │           │   │   ├── progress.make
-│   │           │   │   └── widgets
+│   │           │   │   └── progress.make
 │   │           │   └── progress.marks
 │   │           ├── cmake_install.cmake
+│   │           ├── libengine_ui.a
 │   │           └── Makefile
 │   ├── external
 │   │   ├── CMakeFiles
@@ -256,6 +320,12 @@
 │   │   │   │   └── src
 │   │   │   │       ├── computers
 │   │   │   │       ├── projects
+│   │   │   │       ├── ui
+│   │   │   │       │   ├── manager
+│   │   │   │       │   ├── menus
+│   │   │   │       │   │   ├── computerMenu
+│   │   │   │       │   │   └── pauseMenu
+│   │   │   │       │   └── widgets
 │   │   │   │       └── world
 │   │   │   └── progress.marks
 │   │   ├── cmake_install.cmake
@@ -268,6 +338,7 @@
 │   │   │   │   │   ├── build.make
 │   │   │   │   │   ├── cmake_clean.cmake
 │   │   │   │   │   ├── cmake_clean_target.cmake
+│   │   │   │   │   ├── compiler_depend.internal
 │   │   │   │   │   ├── compiler_depend.make
 │   │   │   │   │   ├── compiler_depend.ts
 │   │   │   │   │   ├── DependInfo.cmake
@@ -302,6 +373,7 @@
 │   │       │       ├── build.make
 │   │       │       ├── cmake_clean.cmake
 │   │       │       ├── cmake_clean_target.cmake
+│   │       │       ├── compiler_depend.internal
 │   │       │       ├── compiler_depend.make
 │   │       │       ├── compiler_depend.ts
 │   │       │       ├── DependInfo.cmake
@@ -337,6 +409,8 @@
 │       │   ├── App.cpp
 │       │   ├── App.hpp
 │       │   └── CMakeLists.txt
+│       ├── config
+│       │   └── ControlsConfig.hpp
 │       ├── ecs
 │       │   ├── CMakeLists.txt
 │       │   ├── components
@@ -352,8 +426,10 @@
 │       │   │   ├── PlayerTag.hpp
 │       │   │   ├── Position.hpp
 │       │   │   ├── Project.hpp
+│       │   │   ├── Pylon.hpp
 │       │   │   ├── SceneTag.hpp
 │       │   │   ├── SpriteComponent.hpp
+│       │   │   ├── Trigger.hpp
 │       │   │   └── Velocity.hpp
 │       │   ├── events
 │       │   │   ├── InteractionModule.cpp
@@ -362,7 +438,11 @@
 │       │   │   ├── ComputerFactories.cpp
 │       │   │   ├── ComputerFactories.hpp
 │       │   │   ├── PlayerFactories.cpp
-│       │   │   └── PlayerFactories.hpp
+│       │   │   ├── PlayerFactories.hpp
+│       │   │   ├── PylonFactories.cpp
+│       │   │   ├── PylonFactories.hpp
+│       │   │   ├── TriggerFactories.cpp
+│       │   │   └── TriggerFactories.hpp
 │       │   └── systems
 │       │       ├── AnimationStateSystem.cpp
 │       │       ├── AnimationStateSystem.hpp
@@ -381,8 +461,12 @@
 │       │       ├── InteractionSystem.hpp
 │       │       ├── MovementSystem.cpp
 │       │       ├── MovementSystem.hpp
+│       │       ├── PylonSystem.cpp
+│       │       ├── PylonSystem.hpp
 │       │       ├── RenderSystem.cpp
-│       │       └── RenderSystem.hpp
+│       │       ├── RenderSystem.hpp
+│       │       ├── TriggerSystem.cpp
+│       │       └── TriggerSystem.hpp
 │       ├── events
 │       │   └── Events.hpp
 │       ├── graphics
@@ -403,9 +487,8 @@
 │       │   └── ResourceManager.hpp
 │       ├── scene
 │       │   ├── CMakeLists.txt
-│       │   ├── Scene.hpp
-│       │   ├── TestScene.cpp
-│       │   └── TestScene.hpp
+│       │   ├── SceneContext.hpp
+│       │   └── Scene.hpp
 │       └── ui
 │           ├── CMakeLists.txt
 │           ├── components
@@ -417,23 +500,8 @@
 │           │   ├── UIText.cpp
 │           │   ├── UIText.hpp
 │           │   └── UIWindow.hpp
-│           ├── manager
-│           │   ├── UIManager.cpp
-│           │   └── UIManager.hpp
-│           ├── menus
-│           │   ├── computerMenu
-│           │   │   ├── ComputerUI.cpp
-│           │   │   └── ComputerUI.hpp
-│           │   └── pauseMenu
-│           │       ├── PauseMenuUI.cpp
-│           │       └── PauseMenuUI.hpp
-│           ├── style
-│           │   └── UIStyle.hpp
-│           └── widgets
-│               ├── Caroussel.cpp
-│               ├── Caroussel.hpp
-│               ├── ProjectCard.cpp
-│               └── ProjectCard.hpp
+│           └── style
+│               └── UIStyle.hpp
 ├── external
 │   ├── CMakeLists.txt
 │   ├── entt
@@ -546,17 +614,34 @@
 │       └── json.hpp
 ├── game
 │   ├── CMakeLists.txt
+│   ├── scenes
+│   │   ├── TestScene.cpp
+│   │   └── TestScene.hpp
 │   └── src
 │       ├── computers
 │       │   ├── ComputerManager.cpp
 │       │   └── ComputerManager.hpp
-│       ├── config
-│       │   └── ControlsConfig.hpp
 │       ├── gameplay
 │       ├── main.cpp
 │       ├── projects
 │       │   ├── ProjectManager.cpp
 │       │   └── ProjectManager.hpp
+│       ├── ui
+│       │   ├── manager
+│       │   │   ├── UIManager.cpp
+│       │   │   └── UIManager.hpp
+│       │   ├── menus
+│       │   │   ├── computerMenu
+│       │   │   │   ├── PortfolioUI.cpp
+│       │   │   │   └── PortfolioUI.hpp
+│       │   │   └── pauseMenu
+│       │   │       ├── PauseMenuUI.cpp
+│       │   │       └── PauseMenuUI.hpp
+│       │   └── widgets
+│       │       ├── Caroussel.cpp
+│       │       ├── Caroussel.hpp
+│       │       ├── ProjectCard.cpp
+│       │       └── ProjectCard.hpp
 │       └── world
 │           ├── World.cpp
 │           └── World.hpp
@@ -606,6 +691,11 @@
 │       └── src
 │           └── tinyxml2.cpp
 ├── README.md
+├── tools
+│   ├── memo.txt
+│   └── tiled
+│       ├── world.tiled-project
+│       └── world.tiled-session
 └── tree.txt
 
-126 directories, 483 files
+130 directories, 569 files

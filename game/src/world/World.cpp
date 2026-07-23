@@ -22,6 +22,7 @@ World::World(
 	);
 	this->debug = false;
 	this->_UIm.bind(this->_dispatcher);
+	this->_dispatcher.sink<TriggerEnteredEvent>().connect<&onTriggerEntered>(this->_registry);
 	std::cout << "World created" << std::endl;
 }
 
@@ -60,6 +61,8 @@ void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 		InteractionSystem(this->_registry, input, this->_dispatcher);
 		AnimationStateSystem(this->_registry);
 		AnimationSystem(this->_registry, dt);
+		TriggerSystem(this->_registry, this->_dispatcher, dt);
+		PylonSystem(this->_registry, this->_dispatcher, this->_rm, dt);
 		this->updateCamera();
 	}
 }
@@ -95,7 +98,12 @@ void	World::setMap(std::unique_ptr<TileMap> map)
 
 void	World::changeScene(std::unique_ptr<Scene> newScene)
 {
-	SceneContext ctx{this->_registry, this->_dispatcher, this->_rm, this->_camera};
+	SceneContext ctx{
+		this->_registry,
+		this->_dispatcher,
+		this->_rm,
+		this->_camera
+	};
 	if (this->_scene)
 	{
 		this->_scene->onExit(ctx);
@@ -106,6 +114,8 @@ void	World::changeScene(std::unique_ptr<Scene> newScene)
 	{
 		this->_scene->load(ctx);
 		this->_scene->onEnter(ctx);
+		if (ctx.map)
+			this->_map = std::move(ctx.map);
 	}
 }
 

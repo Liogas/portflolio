@@ -8,10 +8,11 @@ class Camera;
 
 struct SceneContext
 {
-	entt::registry		&registry;
-	entt::dispatcher	&dispatcher;
-	ResourceManager		&resources;
-	Camera				&camera;
+	entt::registry				&registry;
+	entt::dispatcher			&dispatcher;
+	ResourceManager				&resources;
+	Camera						&camera;
+	std::unique_ptr<TileMap>	map;
 };
 
 #endif

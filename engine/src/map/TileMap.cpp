@@ -53,6 +53,49 @@ t_layer	TileMap::getCollisionLayer() const
 	return (this->_collisionLayer);
 }
 
+std::vector<SDL_Rect>	TileMap::getCollisionRects(int gid, int tileX, int tileY) const
+{
+	if (gid <= 0)
+		return ({});
+	const t_tileset	*found = nullptr;
+	for (const auto &ts : this->_tilesets)
+		if (ts.firstgid <= gid)
+			found = &ts;
+	if (!found)
+		return ({});
+	int localId = gid - found->firstgid;
+	auto it = found->collisions.find(localId);
+	if (it == found->collisions.end())
+		return ({});
+	std::vector<SDL_Rect> world;
+	int worldX = tileX * found->tileWidth;
+	int worldY = tileY * found->tileHeight;
+	for (const auto &r : it->second)
+	{
+		world.push_back({
+			worldX + r.x,
+			worldY + r.y,
+			r.w,
+			r.h
+		});
+	}
+	return (world);
+}
+
+void	TileMap::markTileUnwalkable(int tileX, int tileY)
+{
+	if (tileX < 0 || tileY < 0 || tileX >= this->_width || tileY >= this->_height)
+		return ;
+	this->_walkabilityGrid[tileY * this->_width + tileX] = false;
+}
+
+void    TileMap::initWalkabilityGrid(int w, int h)
+{
+    this->_width  = w;
+    this->_height = h;
+    this->_walkabilityGrid.assign(w * h, true);
+}
+
 void	TileMap::addLayer(t_layer l)
 {
 	this->_layers.push_back(l);
@@ -110,28 +153,23 @@ const t_tileset	*TileMap::getTilesetForTile(int gid) const
 	return (ts);
 }
 
-bool	TileMap::isWalkable(int x, int y, int w, int h) const
+bool	TileMap::isWalkable(float x, float y, int w, int h) const
 {
-	(void)w;
-	(void)h;
-	int tileX = x / this->_tileSize + 1;
-    int tileY = y / this->_tileSize + 1;
-
-    if (tileX < 0 || tileY < 0 
-        || tileX >= this->_width 
-        || tileY >= this->_height)
-        return (false);
-    int index = tileY * this->_width + tileX;
-    return (this->_collisionLayer.data[index] == 0);
+	int tileSize = this->_tileSize;
+	int corners[4][2] = {
+		{ (int)x, (int)y },
+		{ (int)(x + w), (int)y },
+		{ (int)x, (int)(y + h) },
+		{ (int)(x + w), (int)(y + h) }
+	};
+	for (auto &c : corners)
+	{
+		int tx = c[0] / tileSize;
+		int ty = c[1] / tileSize;
+		if (tx < 0 || ty < 0 || tx >= this->_width || ty >= this->_height)
+			return (false);
+		if (!this->_walkabilityGrid[ty * this->_width + tx])
+			return (false);
+	}
+	return (true);
 }
-
-// bool	TileMap::isTileWalkable(int tileX, int tileY) const
-// {
-// 	if (tileX < 0 || tileX >= this->_width
-// 		|| tileY >= this->_height || tileY < 0)
-// 		return (false);
-// 	int index = tileY * this->_width + tileX;
-// 	return (this->_collisionLayer.data[index] == 0);
-// }
-
-

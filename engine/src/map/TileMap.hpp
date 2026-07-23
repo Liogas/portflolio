@@ -10,12 +10,13 @@
 
 typedef struct s_tileset
 {
-	int						firstgid;
-	int						tileWidth;
-	int						tileHeight;
-	int						columns;
-	std::string 			pathfile;
-	std::shared_ptr<Sprite>	sprite;
+	int												firstgid;
+	int												tileWidth;
+	int												tileHeight;
+	int												columns;
+	std::string 									pathfile;
+	std::shared_ptr<Sprite>							sprite;
+	std::unordered_map<int, std::vector<SDL_Rect>>	collisions;
 }	t_tileset;
 
 typedef struct	s_layer
@@ -23,6 +24,7 @@ typedef struct	s_layer
 	std::vector<int>	data;
 	bool				visible;
 	std::string			name;
+	std::string			renderPass;
 }	t_layer;
 
 class TileMap
@@ -35,17 +37,20 @@ class TileMap
 		void	addLayer(t_layer);
 		void	printLayers();
 		void	render(Camera &camera);
-		bool	isWalkable(int x, int y, int w, int h) const;
+		bool	isWalkable(float x, float y, int w, int h) const;
+		void	markTileUnwalkable(int tileX, int tileY);
+		void    initWalkabilityGrid(int w, int h);
 		// SETTERS
 		void	setWidth(int w);
 		void	setHeight(int h);
 		void	setTileSize(int s);
 		void	setCollisionLayer(t_layer l);
 		// GETTERS
-		[[nodiscard]] int		getWidth() const;
-		[[nodiscard]] int		getHeight() const;
-		[[nodiscard]] int		getTileSize() const;
-		[[nodiscard]] t_layer	getCollisionLayer() const;
+		[[nodiscard]] int					getWidth() const;
+		[[nodiscard]] int					getHeight() const;
+		[[nodiscard]] int					getTileSize() const;
+		[[nodiscard]] t_layer				getCollisionLayer() const;
+		[[nodiscard]] std::vector<SDL_Rect>	getCollisionRects(int gid, int tileX, int tileY) const;
 	private:
 		// PROPS
 		int						_width;
@@ -54,9 +59,9 @@ class TileMap
 		std::vector<t_tileset>	_tilesets;
 		std::vector<t_layer>	_layers;
 		t_layer					_collisionLayer;
+		std::vector<bool>		_walkabilityGrid;
 		// METHODS
 		const t_tileset	*getTilesetForTile(int gid) const;
-		bool			isTileWalkable(int tileX, int tileY) const;
 };
 
 #endif
