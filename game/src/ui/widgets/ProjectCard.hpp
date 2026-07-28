@@ -8,11 +8,11 @@
 	#include <unistd.h>
 #endif
 
-# include "Project.hpp"
+# include "ecs/components/Project.hpp"
 # include "resources/ResourceManager.hpp"
 
-# include "UIStyle.hpp"
-# include "UIText.hpp"
+# include "ui/style/UIStyle.hpp"
+# include "ui/components/UIText.hpp"
 
 # include <algorithm>
 # include <cmath>

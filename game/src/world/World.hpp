@@ -8,31 +8,33 @@
 
 // MANAGERS
 # include "resources/ResourceManager.hpp"
-# include "src/projects/ProjectManager.hpp"
-# include "ui/manager/ComputerManager.hpp"
+# include "projects/ProjectManager.hpp"
+# include "ui/manager/UIManager.hpp"
 
 # include "graphics/Camera.hpp"
 # include "scene/Scene.hpp"
 # include "ecs/components/Position.hpp"
 
 // UI
-# include "UIManager.hpp"
+# include "ui/manager/UIManager.hpp"
 
 // FACTORIES
 # include "ecs/factories/PlayerFactories.hpp"
 
 // EVENT
-# include "events/InteractionModule.hpp"
+# include "ecs/events/InteractionModule.hpp"
 
 // SYSTEMS
-# include "MovementSystem.hpp"
-# include "InputSystem.hpp"
-# include "CollisionSystem.hpp"
+# include "ecs/systems/MovementSystem.hpp"
+# include "ecs/systems/InputSystem.hpp"
+# include "ecs/systems/CollisionSystem.hpp"
 # include "ecs/systems/AnimationStateSystem.hpp"
-# include "AnimationSystem.hpp"
-# include "InteractionSystem.hpp"
-# include "RenderSystem.hpp"
-# include "DebugRenderSystem.hpp"
+# include "ecs/systems/AnimationSystem.hpp"
+# include "ecs/systems/InteractionSystem.hpp"
+# include "ecs/systems/RenderSystem.hpp"
+# include "ecs/systems/DebugRenderSystem.hpp"
+# include "ecs/systems/PylonSystem.hpp"
+# include "ecs/systems/TriggerSystem.hpp"
 
 # include "scene/SceneContext.hpp"
 

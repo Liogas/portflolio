@@ -12,11 +12,14 @@ target_sources(engine_ecs PRIVATE
     systems/InteractionSystem.cpp
     systems/ComputerInteractionSystem.cpp
     systems/TriggerSystem.cpp
+    systems/PylonSystem.cpp
 
     events/InteractionModule.cpp
 
     factories/ComputerFactories.cpp
     factories/PlayerFactories.cpp
+    factories/PylonFactories.cpp
+    factories/TriggerFactories.cpp
 )
 
 target_link_libraries(engine_ecs PUBLIC

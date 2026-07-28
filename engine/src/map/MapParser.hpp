@@ -25,7 +25,7 @@ class MapParser
 		static std::unique_ptr<TileMap> start(
 			const std::string 	&path,
 			entt::registry 		&registry,
-			RessourceManager	*rm
+			ResourceManager		&rm
 		);
 };
 

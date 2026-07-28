@@ -1,6 +1,6 @@
-#include "Pylon.hpp"
+#include "PylonFactories.hpp"
 
-entt::entity	create(
+entt::entity	PylonFactories::create(
 	entt::registry		&registry,
 	const std::string 	&listen,
 	float				x,

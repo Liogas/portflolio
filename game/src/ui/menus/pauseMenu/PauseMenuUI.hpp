@@ -1,9 +1,9 @@
 #ifndef PAUSEMENUUI_HPP
 # define PAUSEMENUUI_HPP
 
-# include "UIWindow.hpp"
-# include "UIText.hpp"
-# include "UIStyle.hpp"
+# include "ui/components/UIWindow.hpp"
+# include "ui/components/UIText.hpp"
+# include "ui/style/UIStyle.hpp"
 # include "RendererSDL.hpp"
 # include "resources/ResourceManager.hpp"
 # include "events/Events.hpp"

@@ -13,4 +13,6 @@ target_link_libraries(engine_map PUBLIC
     tinyxml2
     MySDL
     external
+    engine_graphics
+    engine_ecs
 )

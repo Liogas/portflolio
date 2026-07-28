@@ -1,14 +1,14 @@
 #ifndef PORTFOLIOUI_HPP
 # define PORTFOLIOUI_HPP
 
-# include "ComputerManager.hpp"
+# include "ui/manager/UIManager.hpp"
 
-# include "UIWindow.hpp"
+# include "ui/components/UIWindow.hpp"
 
-# include "ProjectCard.hpp"
-# include "Caroussel.hpp"
+# include "ui/widgets/ProjectCard.hpp"
+# include "ui/widgets/Caroussel.hpp"
 
-# include "UIStyle.hpp"
+# include "computers/ComputerManager.hpp"
 
 class PortfolioUI : public UIWindow
 {

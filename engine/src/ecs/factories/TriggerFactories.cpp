@@ -9,7 +9,7 @@ entt::entity	TriggerFactories::create(
 	float			y,
 	int				w,
 	int				h,
-	int				duration,
+	float			duration,
 	bool			once
 )
 {

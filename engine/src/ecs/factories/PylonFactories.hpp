@@ -19,6 +19,6 @@ class PylonFactories
 			int					w,
 			int					h
 		);
-}
+};
 
 #endif

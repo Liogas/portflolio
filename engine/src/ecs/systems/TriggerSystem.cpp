@@ -45,7 +45,7 @@ void	TriggerSystem(
 			trig.elapsed += dt;
 			if (trig.elapsed >= trig.duration)
 			{
-				dispatcher.trigger(TriggerFireEvent{ trig.emit, trig.id });
+				dispatcher.trigger(TriggerFiredEvent{ trig.emit, trig.id });
 				trig.fired = true;
 				trig.elapsed = 0.f;
 				trig.active = false;

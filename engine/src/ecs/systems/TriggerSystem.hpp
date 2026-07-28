@@ -4,6 +4,8 @@
 # include <entt/entt.hpp>
 # include <SDL2/SDL.h>
 
+# include "events/Events.hpp"
+
 # include "ecs/components/Position.hpp"
 # include "ecs/components/PlayerTag.hpp"
 # include "ecs/components/Trigger.hpp"

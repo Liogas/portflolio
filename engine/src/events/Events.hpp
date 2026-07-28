@@ -22,6 +22,9 @@ struct TriggerEnteredEvent
 	std::string	animation;
 };
 
+struct OpenComputerEvent {
+	std::string id;
+};
 struct	OpenPauseMenuEvent {};
 struct	QuitGameEvent {};
 struct	ChangeResolutionEvent {int w; int h;};

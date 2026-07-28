@@ -7,7 +7,7 @@
 # include <fstream>
 
 # include "ecs/components/Computer.hpp"
-# include "Project.hpp"
+# include "ecs/components/Project.hpp"
 
 class	ProjectManager
 {

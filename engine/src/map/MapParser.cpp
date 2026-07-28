@@ -36,7 +36,7 @@ static bool getPropertyBool(const nlohmann::json &obj, const std::string &name, 
 
 // --- Parsing des tilesets (inchange) ---
 
-static void parseTilesets(TileMap &map, nlohmann::json &data, RessourceManager &ressources)
+static void parseTilesets(TileMap &map, nlohmann::json &data, ResourceManager &ressources)
 {
     try
     {
@@ -232,7 +232,7 @@ static void buildCollisions(TileMap &map, const nlohmann::json &layers)
 std::unique_ptr<TileMap> MapParser::start(
 	const std::string 	&path,
 	entt::registry 		&registry,
-	RessourceManager	*rm
+	ResourceManager	    &rm
 )
 {
     auto map = std::make_unique<TileMap>();

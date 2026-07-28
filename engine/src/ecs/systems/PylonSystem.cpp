@@ -3,7 +3,7 @@
 void	PylonSystem(
 	entt::registry	&registry,
 	entt::dispatcher	&dispatcher,
-	RessourceManager	&rm,
+	ResourceManager	    &rm,
 	float				dt
 )
 {
@@ -28,7 +28,7 @@ void	PylonSystem(
 
 void    onTriggerEntered(entt::registry &registry, const TriggerEnteredEvent &e)
 {
-	auto pylons = registry.view<Pylon>;
+	auto pylons = registry.view<Pylon>();
 	for (auto entity : pylons)
 	{
 		auto &pylon = pylons.get<Pylon>(entity);

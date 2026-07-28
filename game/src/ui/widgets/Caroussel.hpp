@@ -2,7 +2,7 @@
 # define CAROUSSEL_HPP
 
 # include "ProjectCard.hpp"
-# include "UIStyle.hpp"
+# include "ui/style/UIStyle.hpp"
 # include <vector>
 
 # include "resources/ResourceManager.hpp"

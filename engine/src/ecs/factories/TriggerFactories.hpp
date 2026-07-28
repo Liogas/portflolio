@@ -20,9 +20,9 @@ class TriggerFactories
 			float			y,
 			int				w,
 			int				h,
-			int				duration,
+			float			duration,
 			bool			once
 		);
-}
+};
 
 #endif

@@ -17,9 +17,9 @@ UIManager::UIManager(
 {
 }
 
-void	UIManager::openPortolio(
-	std::string	&emit,
-	std::string	&id
+void	UIManager::openPortfolio(
+	const std::string	&emit,
+	const std::string	&id
 )
 {
 	auto ui = std::make_unique<PortfolioUI>(

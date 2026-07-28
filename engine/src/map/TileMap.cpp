@@ -56,17 +56,17 @@ t_layer	TileMap::getCollisionLayer() const
 std::vector<SDL_Rect>	TileMap::getCollisionRects(int gid, int tileX, int tileY) const
 {
 	if (gid <= 0)
-		return ({});
+		return {};
 	const t_tileset	*found = nullptr;
 	for (const auto &ts : this->_tilesets)
 		if (ts.firstgid <= gid)
 			found = &ts;
 	if (!found)
-		return ({});
+		return {};
 	int localId = gid - found->firstgid;
 	auto it = found->collisions.find(localId);
 	if (it == found->collisions.end())
-		return ({});
+		return {};
 	std::vector<SDL_Rect> world;
 	int worldX = tileX * found->tileWidth;
 	int worldY = tileY * found->tileHeight;

@@ -6,13 +6,16 @@
 
 # include <entt/entt.hpp>
 
-# include "ui/menus/computerMenu/PortfolioUI.hpp"
-# include "PauseMenuUI.hpp"
+# include "ui/menus/portfolio/PortfolioUI.hpp"
+# include "ui/menus/pauseMenu/PauseMenuUI.hpp"
 
 # include "RendererSDL.hpp"
 # include "InputSDL.hpp"
 
-#include "Events.hpp"
+# include "computers/ComputerManager.hpp"
+# include "projects/ProjectManager.hpp"
+
+#include "events/Events.hpp"
 
 class UIManager
 {
@@ -20,12 +23,11 @@ class UIManager
 		UIManager(
 			ComputerManager 	&cm,
 			ProjectManager		&pm,
-			ResourceManager	&rm,
+			ResourceManager		&rm,
 			RendererSDL			&renderer,
 			entt::dispatcher	&dispatcher,
 			ControlsConfig		&cfg
 		);
-		void	openComputer(const OpenComputerEvent &e);
 		void	closeTopWindow();
 		void	push(std::unique_ptr<UIWindow> ui);
 		void	pop();
@@ -40,6 +42,7 @@ class UIManager
 		void	changeResolution(const ChangeResolutionEvent &e);
 		void    toggleFullscreen(const ToggleFullScreenEvent &);
 		void	onTrigger(const TriggerFiredEvent &);
+		void	openPortfolio(const std::string &emit, const std::string &id);
 	private:
 		std::vector<std::unique_ptr<UIWindow>>	_stack;
 		ComputerManager							&_cm;

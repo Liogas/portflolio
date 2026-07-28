@@ -2,17 +2,17 @@
 
 #include <stdexcept>
 
-#include "World.hpp"
-#include "TestScene.hpp"
-#include "InputSystem.hpp"
+#include "world/World.hpp"
+#include "world/Game.hpp"
+#include "ecs/systems/InputSystem.hpp"
 
 int main()
 {
     try
     {
-        App app;
-        app.init();
-        app.run();
+        App app(1280, 720, "Portfolio");
+        app.run(std::make_unique<Game>());
+        return (0);
     } catch (const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
