@@ -23,7 +23,7 @@ class App
 		// void	onQuit(const QuitGameEvent &e);
 	private:
 		// bool				_running;
-		// AppSDL				_sdl;
+		AppSDL				_sdl;
 		WindowSDL			_window;
 		RendererSDL			_renderer;
 		// InputSDL			_input;

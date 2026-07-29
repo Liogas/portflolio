@@ -18,7 +18,7 @@ World::World(
 	_interaction(this->_registry, this->_dispatcher)
 {
 	this->_player = PlayerFactories::create(
-		this->_registry, this->_rm, 550.f, 280.f, "char1.png"
+		this->_registry, this->_rm, 200.f, 280.f, "char1.png"
 	);
 	this->debug = false;
 	this->_UIm.bind(this->_dispatcher);
@@ -53,7 +53,7 @@ void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 	this->_UIm.update(dt);
 	if (!this->_UIm.blocksGameplay())
 	{
-		if (input.isKeyPressed(SDL_SCANCODE_ESCAPE))
+		if (input.isKeyPressed(SDL_SCANCODE_ESCAPE)) // VOIR COMPORTEMENT QUAND CAROUSSEL OUVERT
             this->_dispatcher.trigger(OpenPauseMenuEvent{});
 		InputSystem(this->_registry, input, this->_cfg);
 		MovementSystem(this->_registry);
@@ -75,9 +75,10 @@ void	World::toggleDebug()
 void	World::updateCamera()
 {
 	auto &pos = this->_registry.get<Position>(this->_player);
+	auto &size = this->_registry.get<Collider>(this->_player);
 	this->_camera.setPos(
-		pos.x - this->_scene->getWidth() / 4,
-		pos.y - this->_scene->getHeight() / 4
+		pos.x + size.width / 2 - this->_scene->getWidth() / 2,
+		pos.y + size.height / 2 - this->_scene->getHeight() / 2
 	);
 }
 

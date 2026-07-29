@@ -153,23 +153,48 @@ const t_tileset	*TileMap::getTilesetForTile(int gid) const
 	return (ts);
 }
 
-bool	TileMap::isWalkable(float x, float y, int w, int h) const
+std::vector<SDL_Rect>	TileMap::getWorldCollisionRects(const SDL_Rect &area) const
 {
-	int tileSize = this->_tileSize;
-	int corners[4][2] = {
-		{ (int)x, (int)y },
-		{ (int)(x + w), (int)y },
-		{ (int)x, (int)(y + h) },
-		{ (int)(x + w), (int)(y + h) }
-	};
-	for (auto &c : corners)
+	std::vector<SDL_Rect> result;
+	int	startTileX = area.x / this->_tileSize;
+	int endTileX = (area.x + area.w - 1) / this->_tileSize;
+
+	int	startTileY = area.y / this->_tileSize;
+	int endTileY = (area.y + area.h - 1) / this->_tileSize;
+
+	for (int ty = startTileY; ty <= endTileY; ++ty)
 	{
-		int tx = c[0] / tileSize;
-		int ty = c[1] / tileSize;
-		if (tx < 0 || ty < 0 || tx >= this->_width || ty >= this->_height)
-			return (false);
-		if (!this->_walkabilityGrid[ty * this->_width + tx])
-			return (false);
+		for (int tx = startTileX; tx <= endTileX; ++tx)
+		{
+			for (const auto &layer : this->_layers)
+			{
+				if (tx < 0 || ty < 0 || tx >= this->_width || ty >= this->_height)
+					continue ;
+				int gid = layer.data[ty * this->_width + tx];
+				std::vector<SDL_Rect> rects = this->getCollisionRects(gid, tx, ty);
+				result.insert(
+					result.end(),
+					rects.begin(),
+					rects.end()
+				);
+			}
+		}
 	}
-	return (true);
+	return (result);
+}
+
+void    TileMap::debugPrint() const
+{
+    std::cout << "TileMap: " << _width << "x" << _height
+              << " tileSize=" << _tileSize
+              << " tilesets=" << _tilesets.size()
+              << " layers=" << _layers.size() << std::endl;
+    for (const auto &ts : _tilesets)
+        std::cout << "  Tileset firstgid=" << ts.firstgid
+                  << " cols=" << ts.columns
+                  << " path=" << ts.pathfile << std::endl;
+    for (const auto &l : _layers)
+        std::cout << "  Layer: " << l.name
+                  << " data.size()=" << l.data.size()
+                  << " visible=" << l.visible << std::endl;
 }

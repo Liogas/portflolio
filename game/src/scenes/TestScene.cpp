@@ -13,6 +13,7 @@ void	TestScene::load(SceneContext &ctx)
 	{
 		std::string path = ctx.resources.getAssetsPath() + "maps/hubtest.tmj";
 		ctx.map = MapParser::start(path, ctx.registry, ctx.resources);
+		ctx.map->debugPrint();
 	} catch (const std::exception& e)
 	{
 		std::cerr << "ERROR TestScene::load" << std::endl;

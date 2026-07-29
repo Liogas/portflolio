@@ -22,6 +22,7 @@ class MapParser
 {
 	public:
 		MapParser() = delete;
+		void	debugPrint() const;
 		static std::unique_ptr<TileMap> start(
 			const std::string 	&path,
 			entt::registry 		&registry,

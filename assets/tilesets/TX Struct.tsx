@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.12.1" name="TX Struct" tilewidth="32" tileheight="32" tilecount="256" columns="16">
- <image source="../../../Downloads/Pixel Art Top Down - Basic v1.2.3/Texture/TX Struct.png" trans="ffffff" width="512" height="512"/>
+ <image source="../textures/world/TX Struct.png" trans="ffffff" width="512" height="512"/>
  <tile id="17">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="-0.0434783" width="8.04348" height="32.0435"/>

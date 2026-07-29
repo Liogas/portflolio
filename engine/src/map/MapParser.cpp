@@ -48,7 +48,6 @@ static void parseTilesets(TileMap &map, nlohmann::json &data, ResourceManager &r
             std::filesystem::path mapPath = ressources.getMapsPath();
             std::filesystem::path tsxPath = mapPath / tsxRelative;
             tsxPath = tsxPath.lexically_normal();
-            std::cout << "PATH = " << tsxPath << std::endl;
 
             tinyxml2::XMLDocument doc;
             if (doc.LoadFile(tsxPath.c_str()) != tinyxml2::XML_SUCCESS)
@@ -67,11 +66,12 @@ static void parseTilesets(TileMap &map, nlohmann::json &data, ResourceManager &r
                 t.tileWidth, t.tileHeight, false
             );
             for (
-                tinyxml2::XMLElement *tile = tileset->FirstChildElement("title");
+                tinyxml2::XMLElement *tile = tileset->FirstChildElement("tile");
                 tile != nullptr;
                 tile = tile->NextSiblingElement("tile")
             )
             {
+                std::cout << "Je rentre ici" << std::endl;
                 int localId = tile->IntAttribute("id");
                 tinyxml2::XMLElement *og = tile->FirstChildElement("objectgroup");
                 if (!og) continue ;
@@ -198,38 +198,6 @@ static void parseLayersRecursive(TileMap &map, const nlohmann::json &layers, ent
     }
 }
 
-static void buildCollisions(TileMap &map, const nlohmann::json &layers)
-{
-    for (const auto &l : layers)
-    {
-        std::string type = l["type"].get<std::string>();
-        if (type == "group")
-        {
-            buildCollisions(map, l["layers"]);
-            continue ;
-        }
-        if (type != "tilelayer")
-            continue ;
-        std::string name = l["name"].get<std::string>();
-        // CHANGER LA CONDITION PLUS TARD
-        if (name == "foreground_1" || name == "foreground_2" || name == "decoration_2")
-            continue ;
-        int width = l["width"].get<int>();
-		const auto &data = l["data"];
-		for (int i = 0; i < (int)data.size(); ++i)
-		{
-			int gid = data[i].get<int>();
-			if (gid <= 0)
-				continue ;
-			int tileX = i % width;
-			int tileY = i / width;
-			auto rects = map.getCollisionRects(gid, tileX, tileY);
-			if (!rects.empty())
-				map.markTileUnwalkable(tileX, tileY);
-		}
-    }
-}
-
 // --- Point d'entree ---
 
 std::unique_ptr<TileMap> MapParser::start(
@@ -261,7 +229,6 @@ std::unique_ptr<TileMap> MapParser::start(
 
         parseTilesets(*map, data, rm);
         parseLayersRecursive(*map, data["layers"], registry);
-        buildCollisions(*map, data["layers"]);
     }
     catch (const std::exception &e) {
         throw std::runtime_error(std::string("MapParser::start: ") + e.what());

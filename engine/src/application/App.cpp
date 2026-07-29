@@ -26,9 +26,13 @@
 // }
 
 App::App(int width, int height, const std::string &title):
+	_sdl(ESDLOption::VIDEO | ESDLOption::EVENTS),
 	_window(title.c_str(), width, height, EWindowOption::SHOWN),
 	_renderer(this->_window, ERendererOption::ACCELERATED | ERendererOption::PRESENTVSYNC | ERendererOption::TARGETTEXTURE)
-{}
+{
+	SDL_RenderSetLogicalSize(this->_renderer.getRenderer(), 640, 360);
+	this->_renderer.setSize(640, 360);
+}
 
 App::~App()
 {

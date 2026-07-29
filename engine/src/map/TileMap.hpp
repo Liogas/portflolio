@@ -40,6 +40,7 @@ class TileMap
 		bool	isWalkable(float x, float y, int w, int h) const;
 		void	markTileUnwalkable(int tileX, int tileY);
 		void    initWalkabilityGrid(int w, int h);
+		void    debugPrint() const;
 		// SETTERS
 		void	setWidth(int w);
 		void	setHeight(int h);
@@ -51,6 +52,7 @@ class TileMap
 		[[nodiscard]] int					getTileSize() const;
 		[[nodiscard]] t_layer				getCollisionLayer() const;
 		[[nodiscard]] std::vector<SDL_Rect>	getCollisionRects(int gid, int tileX, int tileY) const;
+		[[nodiscard]] std::vector<SDL_Rect>	getWorldCollisionRects(const SDL_Rect &area) const;
 	private:
 		// PROPS
 		int						_width;
@@ -59,7 +61,6 @@ class TileMap
 		std::vector<t_tileset>	_tilesets;
 		std::vector<t_layer>	_layers;
 		t_layer					_collisionLayer;
-		std::vector<bool>		_walkabilityGrid;
 		// METHODS
 		const t_tileset	*getTilesetForTile(int gid) const;
 };
