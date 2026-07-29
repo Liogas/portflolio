@@ -1,8 +1,0 @@
-digraph "engine" {
-node [
-  fontsize = "12"
-];
-    "node2" [ label = "engine", shape = pentagon ];
-    "node12" [ label = "game", shape = egg ];
-    "node12" -> "node2" [ style = dotted ] // game -> engine
-}

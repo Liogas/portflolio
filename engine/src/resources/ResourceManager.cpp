@@ -14,9 +14,12 @@ ResourceManager::~ResourceManager()
 	std::cout << "Ressource Manager destroyed" << std::endl;
 }
 
-std::shared_ptr<TextureSDL>	&ResourceManager::getTexture(const std::string &path)
+std::shared_ptr<TextureSDL>	&ResourceManager::getTexture(
+	const std::string 	&path,
+	TextureFolder		f
+)
 {
-	std::filesystem::path folder = this->getTexturesPath();
+	std::filesystem::path folder = this->getTexturesPath(f);
 	std::filesystem::path fullPath = folder / path;
 	std::string key = fullPath.string();
 	if (!this->_textures.contains(key))
@@ -79,22 +82,28 @@ std::string	ResourceManager::getFontsPath()
 	return (path);
 }
 
-std::string	ResourceManager::getTexturesPath()
+std::string	ResourceManager::getTexturesPath(TextureFolder f)
 {
-	static std::string path;
+	std::filesystem::path path = this->getAssetsPath();
+	path /= "textures";
 
-	if (path.empty())
+	switch (f)
 	{
-		auto exePath = std::filesystem::current_path();
-		while (!std::filesystem::exists(exePath / "assets"))
-		{
-			exePath = exePath.parent_path();
-			if (exePath == exePath.root_path())
-				throw std::runtime_error(
-					"ERROR ResourceManager::getTexturesPath : textures folder not found"
-				);
-		}
-		path = (exePath / "assets/textures").string() + "/";
+		case TextureFolder::CHARACTER :
+			path /= "characters"; break ;
+		case TextureFolder::UI :
+			path /= "ui"; break ;
+		case TextureFolder::TECHNOLOGIE :
+			path /= "technologies"; break ;
+		case TextureFolder::WORLD :
+			path /= "world"; break ;
 	}
-	return (path);
+	return (path.string() + "/");
+}
+
+std::string	ResourceManager::getMapsPath()
+{
+	std::filesystem::path path = this->getAssetsPath();
+	path /= "maps/";
+	return (path.string());
 }

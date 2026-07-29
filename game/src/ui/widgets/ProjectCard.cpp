@@ -250,7 +250,7 @@ void ProjectCard::buildImage(
     int &cursorY
 )
 {
-    std::shared_ptr<TextureSDL> &img = rm.getTexture("imageEmpty.png");
+    std::shared_ptr<TextureSDL> &img = rm.getTexture("imageEmpty.png", TextureFolder::UI);
     int marginX      = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerW);
     int marginTop    = UIStyle::applyPercentage(UIStyle::Card::Spacing, containerH);
     int scrollReserve = UIStyle::Card::ScrollBar::W + UIStyle::Card::ScrollBar::InsetX + 2;
@@ -280,7 +280,7 @@ void ProjectCard::buildTags(
 	for (size_t i = 0; i < tags.size(); i++)
 	{
 		std::string path = tags[i] + ".png";
-		std::shared_ptr<TextureSDL> &img = rm.getTexture(path);
+		std::shared_ptr<TextureSDL> &img = rm.getTexture(path, TextureFolder::UI);
 		SDL_Rect rect = { x, cursorY, size, size };
 		img->render(nullptr, &rect);
 		x += size + marginX; // décale chaque tag, sinon ils s'empilent

@@ -45,11 +45,14 @@ static void parseTilesets(TileMap &map, nlohmann::json &data, ResourceManager &r
             t_tileset t;
             t.firstgid = l["firstgid"];
             std::string tsxRelative = l["source"].get<std::string>();
-            std::string tsxFullPath = ressources.getAssetsPath() + tsxRelative;
+            std::filesystem::path mapPath = ressources.getMapsPath();
+            std::filesystem::path tsxPath = mapPath / tsxRelative;
+            tsxPath = tsxPath.lexically_normal();
+            std::cout << "PATH = " << tsxPath << std::endl;
 
             tinyxml2::XMLDocument doc;
-            if (doc.LoadFile(tsxFullPath.c_str()) != tinyxml2::XML_SUCCESS)
-                throw std::runtime_error("ERROR parseTilesets -> " + tsxFullPath);
+            if (doc.LoadFile(tsxPath.c_str()) != tinyxml2::XML_SUCCESS)
+                throw std::runtime_error("ERROR parseTilesets -> " + tsxPath.string());
 
             tinyxml2::XMLElement *tileset = doc.FirstChildElement("tileset");
             t.tileHeight = tileset->IntAttribute("tileheight");
@@ -57,10 +60,10 @@ static void parseTilesets(TileMap &map, nlohmann::json &data, ResourceManager &r
             t.columns    = tileset->IntAttribute("columns");
 
             tinyxml2::XMLElement *image = tileset->FirstChildElement("image");
-            std::filesystem::path tsxDir = std::filesystem::path(tsxFullPath).parent_path();
+            std::filesystem::path tsxDir = std::filesystem::path(tsxPath).parent_path();
             t.pathfile = (tsxDir / image->Attribute("source")).string();
             t.sprite = std::make_shared<Sprite>(
-                ressources.getTexture(t.pathfile),
+                ressources.getTexture(t.pathfile, TextureFolder::WORLD),
                 t.tileWidth, t.tileHeight, false
             );
             for (

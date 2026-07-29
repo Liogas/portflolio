@@ -17,7 +17,7 @@ entt::entity	PlayerFactories::create(
 	registry.emplace<PlayerTag>(player);
 	registry.emplace<Persistent>(player);
 	SpriteComponent sprite;
-	sprite.texture = rm.getTexture(imgPath);
+	sprite.texture = rm.getTexture(imgPath, TextureFolder::CHARACTER);
 	sprite.width = size;
 	sprite.height = size;
 	sprite.src = { 0, 0, size, size };
