@@ -1,5 +1,21 @@
 #include "CollisionSystem.hpp"
 
+static bool	intersectCollision(
+	const SDL_Rect	&player,
+	const std::vector<CollisionShape> &shapes
+)
+{
+	for (const auto &shape : shapes)
+	{
+		if (shape.type == CollisionShapeType::Rect)
+		{
+			if (SDL_HasIntersection(&player, &shape.rect))
+				return (true);
+		}
+	}
+	return (false);
+}
+
 void	CollisionSystem(
 	entt::registry	&registry,
 	TileMap			&map,
@@ -13,13 +29,28 @@ void	CollisionSystem(
 		auto &vel = view.get<Velocity>(e);
 		auto &col = view.get<Collider>(e);
 
-		float futurX = pos.x + vel.x * dt;
-		if (map.isWalkable(futurX, pos.y, col.width, col.height))
-    		pos.x = futurX;
-		float futurY = pos.y + vel.y * dt;
-		if (map.isWalkable(pos.x, futurY, col.width, col.height))
-    		pos.y = futurY;
-		vel.x = 0.f;
-		vel.y = 0.f;
+		SDL_Rect player = {
+			(int)(pos.x + vel.x * dt),
+			(int)pos.y,
+			col.width,
+			col.height
+		};
+
+		auto shapes = map.getWorldCollisionShapes(player);
+		if (!intersectCollision(player, shapes))
+			pos.x += vel.x * dt;
+		
+		player = 
+		{
+			(int)pos.x,
+			(int)(pos.y + vel.y * dt),
+			col.width,
+			col.height
+		};
+
+		shapes = map.getWorldCollisionShapes(player);
+		if (!intersectCollision(player, shapes))
+			pos.y += vel.y * dt;
+		vel = {0.f, 0.f};
 	}
 }

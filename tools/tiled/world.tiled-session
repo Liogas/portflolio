@@ -1,5 +1,5 @@
 {
-    "activeFile": "/home/glions/portflolio/assets/maps/hubtest.tmj",
+    "activeFile": "/home/glions/portflolio/assets/tilesets/TX Tileset Wall.tsx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -22,13 +22,13 @@
         },
         "/home/glions/portflolio/assets/maps/hubtest.tmj": {
             "expandedGroupLayers": [
-                16,
-                19
+                19,
+                16
             ],
             "scale": 1,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 496.5,
+                "x": 417.5,
                 "y": 270.5
             }
         },
@@ -110,15 +110,15 @@
     "project": "world.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "/home/glions/portflolio/assets/tilesets/TX Tileset Wall.tsx",
-        "/home/glions/portflolio/assets/tilesets/TX Tileset Stone Ground.tsx",
-        "/home/glions/portflolio/assets/tilesets/TX Tileset Grass.tsx",
-        "/home/glions/portflolio/assets/tilesets/TX Struct.tsx",
-        "/home/glions/portflolio/assets/tilesets/TX Shadow.tsx",
-        "/home/glions/portflolio/assets/tilesets/TX Shadow Plant.tsx",
-        "/home/glions/portflolio/assets/tilesets/Props.tsx",
-        "/home/glions/portflolio/assets/tilesets/Plant.tsx",
         "/home/glions/portflolio/assets/maps/hubtest.tmj",
+        "/home/glions/portflolio/assets/tilesets/Plant.tsx",
+        "/home/glions/portflolio/assets/tilesets/Props.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Shadow Plant.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Shadow.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Struct.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Grass.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Stone Ground.tsx",
+        "/home/glions/portflolio/assets/tilesets/TX Tileset Wall.tsx",
         "/home/glions/portflolio/assets/maps/hubTest.tmx",
         "/home/glions/portflolio/assets/maps/home.tmj",
         "/home/glions/portflolio/assets/tilesets/TECH-Misc..tsx"

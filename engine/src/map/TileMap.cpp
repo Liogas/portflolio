@@ -53,49 +53,6 @@ t_layer	TileMap::getCollisionLayer() const
 	return (this->_collisionLayer);
 }
 
-std::vector<SDL_Rect>	TileMap::getCollisionRects(int gid, int tileX, int tileY) const
-{
-	if (gid <= 0)
-		return {};
-	const t_tileset	*found = nullptr;
-	for (const auto &ts : this->_tilesets)
-		if (ts.firstgid <= gid)
-			found = &ts;
-	if (!found)
-		return {};
-	int localId = gid - found->firstgid;
-	auto it = found->collisions.find(localId);
-	if (it == found->collisions.end())
-		return {};
-	std::vector<SDL_Rect> world;
-	int worldX = tileX * found->tileWidth;
-	int worldY = tileY * found->tileHeight;
-	for (const auto &r : it->second)
-	{
-		world.push_back({
-			worldX + r.x,
-			worldY + r.y,
-			r.w,
-			r.h
-		});
-	}
-	return (world);
-}
-
-void	TileMap::markTileUnwalkable(int tileX, int tileY)
-{
-	if (tileX < 0 || tileY < 0 || tileX >= this->_width || tileY >= this->_height)
-		return ;
-	this->_walkabilityGrid[tileY * this->_width + tileX] = false;
-}
-
-void    TileMap::initWalkabilityGrid(int w, int h)
-{
-    this->_width  = w;
-    this->_height = h;
-    this->_walkabilityGrid.assign(w * h, true);
-}
-
 void	TileMap::addLayer(t_layer l)
 {
 	this->_layers.push_back(l);
@@ -153,9 +110,9 @@ const t_tileset	*TileMap::getTilesetForTile(int gid) const
 	return (ts);
 }
 
-std::vector<SDL_Rect>	TileMap::getWorldCollisionRects(const SDL_Rect &area) const
+std::vector<CollisionShape>	TileMap::getWorldCollisionShapes(const SDL_Rect &area) const
 {
-	std::vector<SDL_Rect> result;
+	std::vector<CollisionShape> result;
 	int	startTileX = area.x / this->_tileSize;
 	int endTileX = (area.x + area.w - 1) / this->_tileSize;
 
@@ -166,17 +123,38 @@ std::vector<SDL_Rect>	TileMap::getWorldCollisionRects(const SDL_Rect &area) cons
 	{
 		for (int tx = startTileX; tx <= endTileX; ++tx)
 		{
+			if (tx < 0 || ty < 0 || tx >= this->_width || ty >= this->_height)
+				continue ;
 			for (const auto &layer : this->_layers)
 			{
-				if (tx < 0 || ty < 0 || tx >= this->_width || ty >= this->_height)
-					continue ;
 				int gid = layer.data[ty * this->_width + tx];
-				std::vector<SDL_Rect> rects = this->getCollisionRects(gid, tx, ty);
-				result.insert(
-					result.end(),
-					rects.begin(),
-					rects.end()
-				);
+				if (gid == 0)
+					continue ;
+				const t_tileset *ts = getTilesetForTile(gid);
+				if (!ts)
+					continue ;
+				int localId = gid - ts->firstgid;
+				auto it = ts->collisions.find(localId);
+				if (it == ts->collisions.end())
+					continue ;
+				for (const auto &shape : it->second)
+				{
+					CollisionShape world = shape;
+					if (world.type == CollisionShapeType::Rect)
+					{
+						world.rect.x += tx * ts->tileWidth;
+						world.rect.y += ty * ts->tileHeight;
+					}
+					else
+					{
+						for (auto &p : world.polygon)
+						{
+							p.x += tx * ts->tileWidth;
+							p.y += ty * ts->tileHeight;
+						}
+					}
+					result.push_back(std::move(world));
+				}
 			}
 		}
 	}

@@ -71,7 +71,6 @@ static void parseTilesets(TileMap &map, nlohmann::json &data, ResourceManager &r
                 tile = tile->NextSiblingElement("tile")
             )
             {
-                std::cout << "Je rentre ici" << std::endl;
                 int localId = tile->IntAttribute("id");
                 tinyxml2::XMLElement *og = tile->FirstChildElement("objectgroup");
                 if (!og) continue ;
@@ -81,13 +80,38 @@ static void parseTilesets(TileMap &map, nlohmann::json &data, ResourceManager &r
                     obj = obj->NextSiblingElement("object")
                 )
                 {
-                    SDL_Rect hitbox = {
-                        (int)obj->FloatAttribute("x"),
-                        (int)obj->FloatAttribute("y"),
-                        obj->Attribute("width") ? (int)obj->FloatAttribute("width") : t.tileWidth,
-                        obj->Attribute("height") ? (int)obj->FloatAttribute("height") : t.tileHeight
-                    };
-                    t.collisions[localId].push_back(hitbox);
+                    CollisionShape  shape;
+                    if (auto *poly = obj->FirstChildElement("polygon"))
+                    {
+                        shape.type = CollisionShapeType::Polygon;
+                        float ox = obj->FloatAttribute("x");
+                        float oy = obj->FloatAttribute("y");
+                        std::string points = poly->Attribute("points");
+                        if (points.empty())
+                            continue ;
+                        std::stringstream ss(points);
+                        std::string pair;
+                        while (std::getline(ss, pair, ' '))
+                        {
+                            float px, py;
+                            if (sscanf(pair.c_str(), "%f,%f", &px, &py) != 2)
+                            shape.polygon.push_back({
+                                (int)(ox + px),
+                                (int)(oy + py)
+                            });
+                        }
+                    }
+                    else
+                    {
+                        shape.type = CollisionShapeType::Rect;
+                        shape.rect = {
+                            (int)obj->FloatAttribute("x"),
+                            (int)obj->FloatAttribute("y"),
+                            (int)obj->FloatAttribute("width"),
+                            (int)obj->FloatAttribute("height")
+                        };
+                    }
+                    t.collisions[localId].push_back(shape);
                 }
             }
 			map.addTileset(t);
@@ -225,8 +249,6 @@ std::unique_ptr<TileMap> MapParser::start(
         map->setWidth(data["width"]);
         map->setHeight(data["height"]);
         map->setTileSize(data["tileheight"]);
-		map->initWalkabilityGrid(data["width"], data["height"]);
-
         parseTilesets(*map, data, rm);
         parseLayersRecursive(*map, data["layers"], registry);
     }
