@@ -15,4 +15,5 @@ target_link_libraries(engine_map PUBLIC
     external
     engine_graphics
     engine_ecs
+    engine_utils
 )

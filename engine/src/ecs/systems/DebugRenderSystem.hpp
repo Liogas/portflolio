@@ -10,7 +10,17 @@
 # include "ecs/components/Position.hpp"
 
 # include "graphics/Camera.hpp"
+# include "map/TileMap.hpp"
 
-void	DebugRenderSystem(entt::registry &registry, RendererSDL &renderer, Camera &camera);
+void	DebugRenderSystem(
+    entt::registry &registry,
+    RendererSDL &renderer,
+    Camera &camera
+);
+void    DebugRenderMapCollisions(
+    TileMap &map,
+    RendererSDL &renderer,
+    Camera &camera
+);
 
 #endif

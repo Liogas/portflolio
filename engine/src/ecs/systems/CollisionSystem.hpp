@@ -11,6 +11,8 @@
 # include "ecs/components/Collider.hpp"
 # include "ecs/components/Velocity.hpp"
 
+# include "utils/CollisionUtils.hpp"
+
 void	CollisionSystem(entt::registry &registry, TileMap &map, float dt);
 
 #endif

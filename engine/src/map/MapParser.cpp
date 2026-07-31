@@ -94,7 +94,7 @@ static void parseTilesets(TileMap &map, nlohmann::json &data, ResourceManager &r
                         while (std::getline(ss, pair, ' '))
                         {
                             float px, py;
-                            if (sscanf(pair.c_str(), "%f,%f", &px, &py) != 2)
+                            if (sscanf(pair.c_str(), "%f,%f", &px, &py) == 2)
                             shape.polygon.push_back({
                                 (int)(ox + px),
                                 (int)(oy + py)
@@ -111,6 +111,9 @@ static void parseTilesets(TileMap &map, nlohmann::json &data, ResourceManager &r
                             (int)obj->FloatAttribute("height")
                         };
                     }
+                    shape.convex = CollisionUtils::isConvex(shape.polygon);
+                    if (!shape.convex)
+                        shape.triangles = CollisionUtils::triangulate(shape.polygon);
                     t.collisions[localId].push_back(shape);
                 }
             }

@@ -18,6 +18,8 @@
 # include "ecs/factories/PylonFactories.hpp" 
 # include "ecs/factories/TriggerFactories.hpp"
 
+# include "utils/CollisionUtils.hpp"
+
 class MapParser
 {
 	public:

@@ -88,7 +88,11 @@ void	World::render(RendererSDL &renderer)
 		this->_map->render(this->_camera);
 	RenderSystem(this->_registry, this->_camera);
 	if (this->debug)
+	{
 		DebugRenderSystem(this->_registry, renderer, this->_camera);
+		if (this->_map)
+			DebugRenderMapCollisions(*this->_map, renderer, this->_camera);
+	}
 	this->_UIm.render(renderer);
 }
 

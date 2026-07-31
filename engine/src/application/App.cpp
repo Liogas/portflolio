@@ -51,6 +51,7 @@ void	App::run(std::unique_ptr<IGame> game)
 		lastTime = now;
 		input.update();
 		game->update(this->_renderer, input, dt);
+		SDL_SetRenderDrawColor(this->_renderer.getRenderer(), 0, 0, 0, 0);
 		SDL_RenderClear(this->_renderer.getRenderer());
 		game->render(this->_renderer);
 		SDL_RenderPresent(this->_renderer.getRenderer());

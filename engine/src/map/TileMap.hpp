@@ -16,9 +16,11 @@ enum class CollisionShapeType
 
 struct CollisionShape
 {
-	CollisionShapeType		type;
-	SDL_Rect				rect;
-	std::vector<SDL_Point>	polygon;
+	CollisionShapeType					type;
+	SDL_Rect							rect;
+	std::vector<SDL_Point>				polygon;
+	bool								convex;
+	std::vector<std::vector<SDL_Point>> triangles;
 };
 
 typedef struct s_tileset

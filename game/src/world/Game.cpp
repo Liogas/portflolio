@@ -28,6 +28,8 @@ void Game::init(RendererSDL &renderer, entt::registry &registry)
 
 void	Game::update(RendererSDL &renderer, InputSDL &input, float dt)
 {
+	if (input.isKeyPressed(SDL_SCANCODE_F3))
+		this->_world->toggleDebug();
 	this->_world->update(input, dt, renderer);
 }
 

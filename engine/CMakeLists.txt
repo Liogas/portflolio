@@ -6,6 +6,7 @@ add_subdirectory(src/graphics)
 add_subdirectory(src/map)
 add_subdirectory(src/resources)
 add_subdirectory(src/application)
+add_subdirectory(src/utils)
 
 # META TARGET (juste un agrégateur)
 add_library(engine INTERFACE)
