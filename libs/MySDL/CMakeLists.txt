@@ -10,17 +10,30 @@ target_sources(MySDL PRIVATE
     src/WindowSDL.cpp
 )
 
-target_include_directories(MySDL PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+find_package(PkgConfig REQUIRED)
+
+pkg_check_modules(SDL2 REQUIRED sdl2)
+pkg_check_modules(SDL2_IMAGE REQUIRED SDL2_image)
+pkg_check_modules(SDL2_TTF REQUIRED SDL2_ttf)
+
+target_include_directories(MySDL
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${SDL2_INCLUDE_DIRS}
+        ${SDL2_IMAGE_INCLUDE_DIRS}
+        ${SDL2_TTF_INCLUDE_DIRS}
 )
 
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
-find_package(SDL2_ttf REQUIRED)
+target_link_directories(MySDL
+    PUBLIC
+        ${SDL2_LIBRARY_DIRS}
+        ${SDL2_IMAGE_LIBRARY_DIRS}
+        ${SDL2_TTF_LIBRARY_DIRS}
+)
 
 target_link_libraries(MySDL
     PUBLIC
-        SDL2::SDL2
-        SDL2_image::SDL2_image
-        SDL2_ttf::SDL2_ttf
+        ${SDL2_LIBRARIES}
+        ${SDL2_IMAGE_LIBRARIES}
+        ${SDL2_TTF_LIBRARIES}
 )

@@ -139,7 +139,7 @@ std::vector<CollisionShape>	TileMap::getWorldCollisionShapes(const SDL_Rect &are
 					continue ;
 				for (const auto &shape : it->second)
 				{
-					CollisionShape world = shape;
+					CollisionShape world = shape; // copie polygon ET triangles
 					if (world.type == CollisionShapeType::Rect)
 					{
 						world.rect.x += tx * ts->tileWidth;
@@ -147,11 +147,23 @@ std::vector<CollisionShape>	TileMap::getWorldCollisionShapes(const SDL_Rect &are
 					}
 					else
 					{
+						int offX = tx * ts->tileWidth;
+						int offY = ty * ts->tileHeight;
+
+						// Translate le polygon - OK deja fait
 						for (auto &p : world.polygon)
 						{
-							p.x += tx * ts->tileWidth;
-							p.y += ty * ts->tileHeight;
+							p.x += offX;
+							p.y += offY;
 						}
+
+						// Translate aussi les triangles precalcules - MANQUANT
+						for (auto &tri : world.triangles)
+							for (auto &p : tri)
+							{
+								p.x += offX;
+								p.y += offY;
+							}
 					}
 					result.push_back(std::move(world));
 				}

@@ -113,7 +113,12 @@ static void parseTilesets(TileMap &map, nlohmann::json &data, ResourceManager &r
                     }
                     shape.convex = CollisionUtils::isConvex(shape.polygon);
                     if (!shape.convex)
+                    {
                         shape.triangles = CollisionUtils::triangulate(shape.polygon);
+                        if (shape.triangles.empty() && shape.polygon.size() >= 3)
+                            std::cerr << "WARNING: triangulation failed for localId=" << localId
+                                << " polygon.size()=" << shape.polygon.size() << std::endl;
+                    }
                     t.collisions[localId].push_back(shape);
                 }
             }

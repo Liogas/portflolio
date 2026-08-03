@@ -2,6 +2,42 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+
+static float	polygonSignedArea(const std::vector<SDL_Point> &poly)
+{
+	float area = 0.f;
+	int n = (int)poly.size();
+	for (int i = 0; i < n; ++i)
+	{
+		int j = (1 + 1) % n;
+		area += (float)poly[i].x * poly[j].y;
+		area -= (float)poly[j].x * poly[i].y;
+	}
+	return (area / 2.f);
+}
+
+static bool pointInTriangle(
+	SDL_Point p,
+	SDL_Point a,
+	SDL_Point b,
+	SDL_Point c
+)
+{
+	auto sign = [](SDL_Point p1, SDL_Point p2, SDL_Point p3) -> float
+	{
+		return (
+			(float)(p1.x - p3.x) * (p2.y - p3.y)
+			- (float)(p2.x - p3.x) * (p1.y - p3.y)
+		);
+	};
+	float d1 = sign(p, a, b);
+	float d2 = sign(p, b, c);
+	float d3 = sign(p, c, a);
+	bool hasNeg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+	bool hasPos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+	return !(hasNeg && hasPos);
+}
+
 namespace CollisionUtils
 {
 	bool	rectIntersect(
@@ -104,34 +140,42 @@ namespace CollisionUtils
 		return (true);
 	}
 
-	std::vector<std::vector<SDL_Point>>	triangulate(
+	std::vector<std::vector<SDL_Point>> triangulate(
 		const std::vector<SDL_Point> &polygon
 	)
 	{
 		std::vector<std::vector<SDL_Point>> triangles;
 		std::vector<SDL_Point> verts = polygon;
 
+		// Normalise en CCW - indispensable pour ear clipping
+		if (polygonSignedArea(verts) < 0)
+			std::reverse(verts.begin(), verts.end());
+
 		auto isEar = [&](int prev, int curr, int next) -> bool
 		{
 			Vec2 a = sub(verts[curr], verts[prev]);
 			Vec2 b = sub(verts[next], verts[curr]);
-			if (cross2D(a, b) <= 0) return (false);
+			// Doit etre convexe (CCW)
+			if (cross2D(a, b) <= 0)
+				return false;
 
-			std::vector<SDL_Point> tri = {verts[prev], verts[curr], verts[next]};
-			for (size_t i = 0; i < verts.size(); ++i)
+			// Aucun autre point ne doit etre dans le triangle
+			for (int i = 0; i < (int)verts.size(); ++i)
 			{
-				if ((int)i == prev || (int)i == curr || (int)i == next)
-					continue ;
-				if (satConvex(tri, {verts[i]}))
-					continue ;
-				return (false);
+				if (i == prev || i == curr || i == next)
+					continue;
+				// Utilise point-in-triangle au lieu de SAT avec un seul point
+				if (pointInTriangle(verts[i], verts[prev], verts[curr], verts[next]))
+					return false;
 			}
-			return (true);
+			return true;
 		};
+
 		int maxIter = (int)verts.size() * (int)verts.size();
 		while (verts.size() > 3 && maxIter-- > 0)
 		{
 			int n = (int)verts.size();
+			bool found = false;
 			for (int i = 0; i < n; ++i)
 			{
 				int prev = (i - 1 + n) % n;
@@ -140,12 +184,16 @@ namespace CollisionUtils
 				{
 					triangles.push_back({verts[prev], verts[i], verts[next]});
 					verts.erase(verts.begin() + i);
-					break ;
+					found = true;
+					break;
 				}
 			}
+			// Si aucun ear trouve (polygone degenere), on sort
+			if (!found)
+				break;
 		}
 		if (verts.size() == 3)
 			triangles.push_back(verts);
-		return (triangles);
+		return triangles;
 	}
 }
