@@ -16,7 +16,6 @@ void	ComputerManager::loadAll()
 				continue ;
 			if (entry.path().extension() != ".json")
 				continue ;
-			std::cout << "Computer file -> " << entry.path() << std::endl;
 			std::ifstream file (entry.path());
 			if (!file.is_open())
 				throw (std::runtime_error(

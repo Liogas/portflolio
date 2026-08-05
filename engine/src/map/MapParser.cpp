@@ -185,7 +185,6 @@ static void parseTriggers(const nlohmann::json &layer, entt::registry &registry)
 static void parseObjectLayer(const nlohmann::json &layer, entt::registry &registry)
 {
     std::string name = layer["name"].get<std::string>();
-
     if (name == "Entities")
         parseEntities(layer, registry);
     else if (name == "Triggers")

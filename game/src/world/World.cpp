@@ -48,7 +48,6 @@ ProjectManager	&World::getPm()
 
 void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 {
-	(void)renderer;
 	this->_UIm.handleInput(input);
 	this->_UIm.update(dt);
 	if (!this->_UIm.blocksGameplay())
@@ -62,7 +61,14 @@ void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 		AnimationStateSystem(this->_registry);
 		AnimationSystem(this->_registry, dt);
 		TriggerSystem(this->_registry, this->_dispatcher, dt);
-		PylonSystem(this->_registry, this->_dispatcher, this->_rm, dt);
+		PylonSystem(
+			this->_registry,
+			*this->_map,
+			this->_dispatcher,
+			renderer,
+			this->_rm,
+			dt
+		);
 		this->updateCamera();
 	}
 }

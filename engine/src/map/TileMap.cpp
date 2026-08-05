@@ -9,7 +9,6 @@ TileMap::TileMap()
 
 TileMap::~TileMap()
 {
-	std::cout << "TileMap destroyed" << std::endl;
 }
 
 void	TileMap::setHeight(int h)
@@ -95,6 +94,16 @@ void	TileMap::render(Camera &camera)
 			}
 		}
 	}
+}
+
+const t_tileset	*TileMap::getTilesetByPath(const std::string path)
+{
+	for (const auto &ts : this->_tilesets)
+	{
+		if (ts.pathfile == path)
+			return (&ts);
+	}
+	throw std::runtime_error("ERROR getTilesetByPath : not found");
 }
 
 const t_tileset	*TileMap::getTilesetForTile(int gid) const

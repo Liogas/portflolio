@@ -26,7 +26,7 @@ void	TriggerSystem(
 			auto &pPos = players.get<Position>(playerEntity);
 			auto &pCol = players.get<Collider>(playerEntity);
 			SDL_Rect	playerBox = {
-				(int)pPos.x, (int)pPos.y, pCol.width, pCol.height
+				(int)pPos.x + pCol.offsetX, (int)pPos.y + pCol.offsetY, pCol.width, pCol.height
 			};
 			if (SDL_HasIntersection(&trigBox, &playerBox))
 			{
@@ -38,7 +38,7 @@ void	TriggerSystem(
 		{
 			if (!trig.active)
 			{
-				trig.active = true;
+				trig.active  = true;
 				if (!trig.animation.empty())
 					dispatcher.trigger(TriggerEnteredEvent{ trig.animation });
 			}

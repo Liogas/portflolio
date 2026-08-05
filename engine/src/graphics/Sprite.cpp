@@ -50,6 +50,11 @@ void	Sprite::render()
 	this->_texture->render(&this->_src, &this->_dest);
 }
 
+SDL_Rect	Sprite::getDest()
+{
+	return (this->_dest);
+}
+
 std::shared_ptr<TextureSDL>	Sprite::getTexture() const
 {
 	return (this->_texture);

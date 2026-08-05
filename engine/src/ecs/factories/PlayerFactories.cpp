@@ -13,7 +13,7 @@ entt::entity	PlayerFactories::create(
 	registry.emplace<Position>(player, x, y);
 	registry.emplace<Movement>(player, 200.f, EDirection2::DOWN, EDirection2::DOWN, false);
 	registry.emplace<Velocity>(player, 0.f, 0.f);
-	registry.emplace<Collider>(player, size, size);
+	registry.emplace<Collider>(player, 25, 35, 15, 10);
 	registry.emplace<PlayerTag>(player);
 	registry.emplace<Persistent>(player);
 	SpriteComponent sprite;

@@ -65,6 +65,8 @@ class TileMap
 		[[nodiscard]] t_layer						getCollisionLayer() const;
 		[[nodiscard]] std::vector<SDL_Rect>			getCollisionRects(int gid, int tileX, int tileY) const;
 		[[nodiscard]] std::vector<CollisionShape>	getWorldCollisionShapes(const SDL_Rect &area) const;
+		const t_tileset								*getTilesetByPath(const std::string path);
+
 	private:
 		// PROPS
 		int						_width;

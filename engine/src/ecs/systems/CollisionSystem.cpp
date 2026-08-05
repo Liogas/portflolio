@@ -45,8 +45,8 @@ void	CollisionSystem(
 		auto &col = view.get<Collider>(e);
 
 		SDL_Rect futureX = {
-			(int)(pos.x + vel.x * dt),
-			(int)pos.y,
+			(int)(pos.x + vel.x * dt) + col.offsetX,
+			(int)pos.y + col.offsetY,
 			col.width,
 			col.height
 		};
@@ -55,8 +55,8 @@ void	CollisionSystem(
 			pos.x += vel.x * dt;
 		
 		SDL_Rect futureY = {
-			(int)pos.x,
-			(int)(pos.y + vel.y * dt),
+			(int)pos.x + col.offsetX,
+			(int)(pos.y + vel.y * dt) + col.offsetY,
 			col.width,
 			col.height
 		};

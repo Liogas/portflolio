@@ -28,6 +28,7 @@ class Sprite
 		// GETTERS
 		[[nodiscard]] std::shared_ptr<TextureSDL>		getTexture() const;
 		[[nodiscard]] T_paramAnimation					&getParamAnimation();
+		[[nodiscard]] SDL_Rect							getDest();
 		// METHODS
 		void	render();
 	private:

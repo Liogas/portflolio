@@ -14,8 +14,7 @@ UIManager::UIManager(
 	_renderer(renderer),
 	_dispatcher(dispatcher),
 	_cfg(cfg)
-{
-}
+{}
 
 void	UIManager::openPortfolio(
 	const std::string	&emit,

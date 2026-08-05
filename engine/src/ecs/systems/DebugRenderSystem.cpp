@@ -91,8 +91,8 @@ void	DebugRenderSystem(entt::registry &registry, RendererSDL &renderer, Camera &
 		auto &col = d.get<Collider>(e);
 
 		SDL_Rect rect = {
-			static_cast<int>(pos.x) - camera.getX(),
-			static_cast<int>(pos.y) - camera.getY(),
+			static_cast<int>(pos.x) - camera.getX() + col.offsetX,
+			static_cast<int>(pos.y) - camera.getY() + col.offsetY,
 			col.width,
 			col.height
 		};

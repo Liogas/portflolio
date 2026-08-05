@@ -19,6 +19,8 @@ void Game::init(RendererSDL &renderer, entt::registry &registry)
 		this->_pm,
 		renderer
 	);
+	this->_cm.loadAll();
+	this->_pm.loadAll();
 	this->_dispatcher.sink<QuitGameEvent>().connect<&Game::onQuit>(*this);
 	this->_uim->bind(this->_dispatcher);
 	this->_world->changeScene(std::make_unique<TestScene>(
