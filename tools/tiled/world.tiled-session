@@ -22,14 +22,15 @@
         },
         "/home/glions/portflolio/assets/maps/hubtest.tmj": {
             "expandedGroupLayers": [
+                12,
                 16,
                 19
             ],
             "scale": 1,
-            "selectedLayer": 8,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 496.5,
-                "y": 303.5
+                "x": 400.5,
+                "y": 207.5
             }
         },
         "/home/glions/portflolio/assets/maps/tilesets/TECH-Hub.tsx": {
@@ -108,7 +109,7 @@
         "/home/glions/portflolio/assets/tilesets/TX Tileset Wall.tsx"
     ],
     "project": "world.tiled-project",
-    "property.type": "string",
+    "property.type": "int",
     "recentFiles": [
         "/home/glions/portflolio/assets/tilesets/TX Tileset Wall.tsx",
         "/home/glions/portflolio/assets/tilesets/TX Tileset Stone Ground.tsx",

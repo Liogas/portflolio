@@ -10,7 +10,8 @@ entt::entity	TriggerFactories::create(
 	int				w,
 	int				h,
 	float			duration,
-	bool			once
+	bool			once,
+	int				nbTarget
 )
 {
 	auto entity = registry.create();
@@ -24,7 +25,8 @@ entt::entity	TriggerFactories::create(
 		.elapsed	= 0.f,
 		.once		= once,
 		.fired		= false,
-		.active		= false
+		.active		= false,
+		.nbTarget	= nbTarget
 	});
 	return (entity);
 }

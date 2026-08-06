@@ -17,7 +17,7 @@ class TextureSDL
 		[[nodiscard]] SDL_Texture			*getTexture() const;
 		[[nodiscard]] const AnimationSDL	&getAnimations() const;
 		
-		void				getSize(int *w, int *h);
+		void			getSize(int *w, int *h);
 		// METHODS
 		bool			render(SDL_Rect *src = nullptr, SDL_Rect *dst = nullptr);
 		void			setAsTarget();

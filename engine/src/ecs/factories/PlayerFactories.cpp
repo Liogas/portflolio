@@ -2,7 +2,7 @@
 
 entt::entity	PlayerFactories::create(
 	entt::registry		&registry,
-	ResourceManager	&rm,
+	ResourceManager		&rm,
 	float				x,
 	float				y,
 	const std::string	&imgPath

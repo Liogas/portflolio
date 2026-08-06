@@ -20,6 +20,8 @@ struct TriggerFiredEvent
 struct TriggerEnteredEvent
 {
 	std::string	animation;
+	float		duration;
+	int			nbTarget;
 };
 
 struct OpenComputerEvent {

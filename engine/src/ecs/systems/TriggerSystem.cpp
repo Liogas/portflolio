@@ -40,7 +40,7 @@ void	TriggerSystem(
 			{
 				trig.active  = true;
 				if (!trig.animation.empty())
-					dispatcher.trigger(TriggerEnteredEvent{ trig.animation });
+					dispatcher.trigger(TriggerEnteredEvent{ trig.animation, trig.duration, trig.nbTarget });
 			}
 			trig.elapsed += dt;
 			if (trig.elapsed >= trig.duration)
@@ -58,7 +58,7 @@ void	TriggerSystem(
 				trig.active = false;
 				trig.elapsed = 0.f;
 				if (!trig.animation.empty())
-					dispatcher.trigger(TriggerEnteredEvent{""});
+					dispatcher.trigger(TriggerEnteredEvent{"", 0.f, 0});
 			}
 		}
 	}

@@ -196,6 +196,21 @@
                                  "name":"listen",
                                  "type":"string",
                                  "value":"portfolio_blue"
+                                }, 
+                                {
+                                 "name":"order",
+                                 "type":"int",
+                                 "value":1
+                                }, 
+                                {
+                                 "name":"path",
+                                 "type":"string",
+                                 "value":"\/home\/glions\/portflolio\/assets\/tilesets\/..\/textures\/world\/TX Props.png"
+                                }, 
+                                {
+                                 "name":"type",
+                                 "type":"string",
+                                 "value":"pylon"
                                 }],
                          "rotation":0,
                          "type":"",
@@ -214,6 +229,21 @@
                                  "name":"listen",
                                  "type":"string",
                                  "value":"portfolio_blue"
+                                }, 
+                                {
+                                 "name":"order",
+                                 "type":"int",
+                                 "value":2
+                                }, 
+                                {
+                                 "name":"path",
+                                 "type":"string",
+                                 "value":"\/home\/glions\/portflolio\/assets\/tilesets\/..\/textures\/world\/TX Props.png"
+                                }, 
+                                {
+                                 "name":"type",
+                                 "type":"string",
+                                 "value":"pylon"
                                 }],
                          "rotation":0,
                          "type":"",
@@ -232,6 +262,21 @@
                                  "name":"listen",
                                  "type":"string",
                                  "value":"portfolio_blue"
+                                }, 
+                                {
+                                 "name":"order",
+                                 "type":"int",
+                                 "value":3
+                                }, 
+                                {
+                                 "name":"path",
+                                 "type":"string",
+                                 "value":"\/home\/glions\/portflolio\/assets\/tilesets\/..\/textures\/world\/TX Props.png"
+                                }, 
+                                {
+                                 "name":"type",
+                                 "type":"string",
+                                 "value":"pylon"
                                 }],
                          "rotation":0,
                          "type":"",
@@ -250,6 +295,21 @@
                                  "name":"listen",
                                  "type":"string",
                                  "value":"portfolio_blue"
+                                }, 
+                                {
+                                 "name":"order",
+                                 "type":"int",
+                                 "value":4
+                                }, 
+                                {
+                                 "name":"path",
+                                 "type":"string",
+                                 "value":"\/home\/glions\/portflolio\/assets\/tilesets\/..\/textures\/world\/TX Props.png"
+                                }, 
+                                {
+                                 "name":"type",
+                                 "type":"string",
+                                 "value":"pylon"
                                 }],
                          "rotation":0,
                          "type":"",
@@ -284,6 +344,11 @@
                                  "name":"id",
                                  "type":"string",
                                  "value":"portfolio"
+                                }, 
+                                {
+                                 "name":"nbTarget",
+                                 "type":"int",
+                                 "value":4
                                 }, 
                                 {
                                  "name":"timer",

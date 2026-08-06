@@ -13,6 +13,7 @@ struct	Trigger
 	bool		once;
 	bool		fired;
 	bool		active;
+	int			nbTarget;
 };
 
 #endif

@@ -131,22 +131,42 @@ static void parseTilesets(TileMap &map, nlohmann::json &data, ResourceManager &r
 
 // --- Parsing des objets par layer ---
 
-static void parseEntities(const nlohmann::json &layer, entt::registry &registry)
+static void parseEntities(
+	const nlohmann::json	&layer,
+	entt::registry 			&registry,
+	ResourceManager			&rm
+)
 {
     for (const auto &obj : layer["objects"])
     {
         std::string listen = getPropertyStr(obj, "listen");
         if (listen.empty())
-            continue;
+            continue ;
+        
+        std::string type = getPropertyStr(obj, "type");
+        if (type.empty())
+            continue ;
+        if (type == "pylon")
+        {
+            std::string path = getPropertyStr(obj, "path");
+            if (path.empty())
+                continue ;
+            PylonFactories::create(
+                registry,
+                listen,
+                path,
+                getPropertyInt(obj, "order"),
+                obj["x"].get<float>(),
+                obj["y"].get<float>(),
+                obj["width"].get<int>(),
+                obj["height"].get<int>(),
+                rm
+            );
+        } else
+        {
+            throw std::runtime_error("ERROR parseEntities : Type non reconnu");
+        }
 
-        PylonFactories::create(
-            registry,
-            listen,
-            obj["x"].get<float>(),
-            obj["y"].get<float>(),
-            obj["width"].get<int>(),
-            obj["height"].get<int>()
-        );
     }
 }
 
@@ -159,9 +179,10 @@ static void parseTriggers(const nlohmann::json &layer, entt::registry &registry)
 
     for (const auto &obj : layer["objects"])
     {
-        std::string id        = getPropertyStr(obj, "id");
-        std::string animation = getPropertyStr(obj, "animation");
-        int         timer     = getPropertyInt(obj, "timer", defaultDur);
+        std::string id        	= getPropertyStr(obj, "id");
+        std::string animation 	= getPropertyStr(obj, "animation");
+        int         timer     	= getPropertyInt(obj, "timer", defaultDur);
+        int         nbTarget	= getPropertyInt(obj, "nbTarget");
 
         // Un objet sans id est ignore (pas un trigger valide)
         if (id.empty())
@@ -177,16 +198,21 @@ static void parseTriggers(const nlohmann::json &layer, entt::registry &registry)
             obj["width"].get<int>(),
             obj["height"].get<int>(),
             (float)timer,
-            defaultOnce
+            defaultOnce,
+			nbTarget
         );
     }
 }
 
-static void parseObjectLayer(const nlohmann::json &layer, entt::registry &registry)
+static void parseObjectLayer(
+	const nlohmann::json 	&layer,
+	entt::registry 			&registry,
+	ResourceManager			&rm
+)
 {
     std::string name = layer["name"].get<std::string>();
     if (name == "Entities")
-        parseEntities(layer, registry);
+        parseEntities(layer, registry, rm);
     else if (name == "Triggers")
         parseTriggers(layer, registry);
     // Ajoute d'autres layers d'objets ici selon les besoins
@@ -194,21 +220,21 @@ static void parseObjectLayer(const nlohmann::json &layer, entt::registry &regist
 
 // --- Parsing des layers (recursif pour les groupes) ---
 
-static void parseLayersRecursive(TileMap &map, const nlohmann::json &layers, entt::registry &registry)
+static void parseLayersRecursive(
+    TileMap 				&map,
+    const nlohmann::json	&layers,
+	entt::registry 			&registry,
+	ResourceManager			&rm
+)
 {
     for (const auto &l : layers)
     {
         std::string type = l["type"].get<std::string>();
 
         if (type == "group")
-        {
-            // Descend dans le groupe recursivement
-            parseLayersRecursive(map, l["layers"], registry);
-        }
+            parseLayersRecursive(map, l["layers"], registry, rm);
         else if (type == "objectgroup")
-        {
-            parseObjectLayer(l, registry);
-        }
+            parseObjectLayer(l, registry, rm);
         else if (type == "tilelayer")
         {
             t_layer t;
@@ -220,7 +246,6 @@ static void parseLayersRecursive(TileMap &map, const nlohmann::json &layers, ent
             std::string renderPass = getPropertyStr(l, "renderPass");
             if (!renderPass.empty())
                 t.renderPass = renderPass; // assure-toi que t_layer a ce champ
-
             if (t.name == "Passages")
                 map.setCollisionLayer(t);
             else
@@ -257,7 +282,7 @@ std::unique_ptr<TileMap> MapParser::start(
         map->setHeight(data["height"]);
         map->setTileSize(data["tileheight"]);
         parseTilesets(*map, data, rm);
-        parseLayersRecursive(*map, data["layers"], registry);
+        parseLayersRecursive(*map, data["layers"], registry, rm);
     }
     catch (const std::exception &e) {
         throw std::runtime_error(std::string("MapParser::start: ") + e.what());

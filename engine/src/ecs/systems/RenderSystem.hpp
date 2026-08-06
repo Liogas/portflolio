@@ -7,6 +7,7 @@
 
 # include "ecs/components/Position.hpp"
 # include "ecs/components/SpriteComponent.hpp"
+# include "ecs/components/Pylon.hpp"
 
 void RenderSystem(entt::registry &registry, Camera &camera);
 

@@ -21,7 +21,8 @@ class TriggerFactories
 			int				w,
 			int				h,
 			float			duration,
-			bool			once
+			bool			once,
+			int				nbTarget
 		);
 };
 
