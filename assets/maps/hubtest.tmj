@@ -377,7 +377,7 @@
                         {
                          "name":"once",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }],
                  "type":"objectgroup",
                  "visible":true,
