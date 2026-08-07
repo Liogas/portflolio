@@ -2,6 +2,7 @@
 
 static void	inputPlaying(
 	entt::registry			&registry,
+	entt::dispatcher		&dispatcher,
 	const InputSDL 			&input,
 	const ControlsConfig	&cfg
 )
@@ -16,6 +17,8 @@ static void	inputPlaying(
         else if (input.isKeyDown(cfg.get(Action::MoveRight))) m.direction = EDirection2::RIGHT;
         else if (input.isKeyDown(cfg.get(Action::MoveUp)))    m.direction = EDirection2::UP;
         else if (input.isKeyDown(cfg.get(Action::MoveDown)))  m.direction = EDirection2::DOWN;
+		else if (input.isKeyPressed(cfg.get(Action::Pause)))
+            dispatcher.trigger(OpenPauseMenuEvent{});
 		if (m.direction != EDirection2::NONE)
 			m.lastDirection = m.direction;
 	}
@@ -23,9 +26,10 @@ static void	inputPlaying(
 
 void InputSystem(
     entt::registry			&registry,
+	entt::dispatcher		&dispatcher,
     const InputSDL  		&input,
     const ControlsConfig    &cfg
 )
 {
-	inputPlaying(registry, input, cfg);
+	inputPlaying(registry, dispatcher, input, cfg);
 }

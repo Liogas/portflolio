@@ -28,7 +28,6 @@ class UIManager
 			entt::dispatcher	&dispatcher,
 			ControlsConfig		&cfg
 		);
-		void	closeTopWindow();
 		void	push(std::unique_ptr<UIWindow> ui);
 		void	pop();
 		void	clear();

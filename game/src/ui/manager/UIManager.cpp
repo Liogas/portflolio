@@ -78,11 +78,6 @@ void	UIManager::onTrigger(const TriggerFiredEvent &e)
 		this->openPortfolio(e.emit, e.id);
 }
 
-void	UIManager::closeTopWindow()
-{
-
-}
-
 void	UIManager::push(std::unique_ptr<UIWindow> ui)
 {
 	this->_stack.push_back(std::move(ui));

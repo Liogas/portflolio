@@ -72,28 +72,53 @@ void	TileMap::render(Camera &camera)
 {
 	for (const auto &layer : this->_layers)
 	{
-		if (!layer.visible)
+		if (!layer.visible || this->isForegroundLayer(layer.name))
 			continue ;
-		for (int y = 0; y < this->_height; y++)
+		this->renderLayer(layer, camera);
+	}
+}
+
+void	TileMap::renderForeground(Camera &camera)
+{
+	for (const auto &layer : this->_layers)
+	{
+		if (!layer.visible || !this->isForegroundLayer(layer.name))
+			continue ;
+		this->renderLayer(layer, camera);
+	}
+}
+
+void	TileMap::renderLayer(const t_layer &layer, Camera &camera)
+{
+	for (int y = 0; y < this->_height; y++)
+	{
+		for (int x = 0; x < this->_width; x++)
 		{
-			for (int x = 0; x < this->_width; x++)
-			{
-				int index = layer.data[y * this->_width + x];
-				if (index == 0)
-					continue ;
-				const t_tileset *tileset = this->getTilesetForTile(index);
-				int localId = index - tileset->firstgid;
-				int tilesPerRow = tileset->columns;
-				int srcX = (localId % tilesPerRow) * tileset->tileWidth;
-				int srcY = (localId / tilesPerRow) * tileset->tileHeight;
-				int dstX = x * this->_tileSize;
-				int dstY = y * this->_tileSize;
-				tileset->sprite->setSrcPosition(srcX, srcY);
-				tileset->sprite->setDestPosition(dstX - camera.getX(), dstY - camera.getY());
-				tileset->sprite->render();
-			}
+			int index = layer.data[y * this->_width + x];
+			if (index == 0)
+				continue ;
+			const t_tileset *tileset = this->getTilesetForTile(index);
+			int localId = index - tileset->firstgid;
+			int tilesPerRow = tileset->columns;
+			int srcX = (localId % tilesPerRow) * tileset->tileWidth;
+			int srcY = (localId / tilesPerRow) * tileset->tileHeight;
+			int dstX = x * this->_tileSize;
+			int dstY = y * this->_tileSize;
+			tileset->sprite->setSrcPosition(srcX, srcY);
+			tileset->sprite->setDestPosition(dstX - camera.getX(), dstY - camera.getY());
+			tileset->sprite->render();
 		}
 	}
+}
+
+bool	TileMap::isForegroundLayer(std::string name)
+{
+	std::transform(name.begin(), name.end(), name.begin(),
+		[](unsigned char c){
+			return (std::tolower(c));
+		}
+	);
+	return (name.contains("foreground"));
 }
 
 const t_tileset	*TileMap::getTilesetByPath(const std::string path)

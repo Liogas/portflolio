@@ -52,6 +52,7 @@ class TileMap
 		void	addLayer(t_layer);
 		void	printLayers();
 		void	render(Camera &camera);
+		void	renderForeground(Camera &camera);
 		void    debugPrint() const;
 		// SETTERS
 		void	setWidth(int w);
@@ -77,6 +78,8 @@ class TileMap
 		t_layer					_collisionLayer;
 		// METHODS
 		const t_tileset	*getTilesetForTile(int gid) const;
+		bool			isForegroundLayer(std::string name);
+		void			renderLayer(const t_layer &layer, Camera &camera);
 };
 
 #endif

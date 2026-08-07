@@ -48,13 +48,14 @@ ProjectManager	&World::getPm()
 
 void	World::update(InputSDL &input, float dt, RendererSDL &renderer)
 {
-	this->_UIm.handleInput(input);
-	this->_UIm.update(dt);
-	if (!this->_UIm.blocksGameplay())
+	if (!this->_UIm.empty())
 	{
-		if (input.isKeyPressed(SDL_SCANCODE_ESCAPE)) // VOIR COMPORTEMENT QUAND CAROUSSEL OUVERT
-            this->_dispatcher.trigger(OpenPauseMenuEvent{});
-		InputSystem(this->_registry, input, this->_cfg);
+		this->_UIm.handleInput(input);
+		this->_UIm.update(dt);
+	}
+	else if (!this->_UIm.blocksGameplay())
+	{
+		InputSystem(this->_registry, this->_dispatcher, input, this->_cfg);
 		MovementSystem(this->_registry);
 		CollisionSystem(this->_registry, *this->_map, dt);
 		InteractionSystem(this->_registry, input, this->_dispatcher);
@@ -93,13 +94,16 @@ void	World::render(RendererSDL &renderer)
 	if (this->_map)
 		this->_map->render(this->_camera);
 	RenderSystem(this->_registry, this->_camera);
+	if (this->_map)
+		this->_map->renderForeground(this->_camera);
 	if (this->debug)
 	{
 		DebugRenderSystem(this->_registry, renderer, this->_camera);
 		if (this->_map)
 			DebugRenderMapCollisions(*this->_map, renderer, this->_camera);
 	}
-	this->_UIm.render(renderer);
+	if (!this->_UIm.empty())
+		this->_UIm.render(renderer);
 }
 
 void	World::setMap(std::unique_ptr<TileMap> map)

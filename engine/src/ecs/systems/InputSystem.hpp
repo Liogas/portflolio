@@ -9,11 +9,14 @@
 
 # include "config/ControlsConfig.hpp"
 
+# include "events/Events.hpp"
+
 
 class World;
 
 void InputSystem(
     entt::registry			&registry,
+    entt::dispatcher        &dispatcher,
     const InputSDL  		&input,
     const ControlsConfig    &cfg
 );
