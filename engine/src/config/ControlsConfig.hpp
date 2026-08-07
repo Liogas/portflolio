@@ -1,13 +1,16 @@
 #pragma once
+
+#include <nlohmann/json.hpp>
+#include <fstream>
 #include <SDL2/SDL.h>
 #include <string>
 #include <array>
 
 enum class Action
 {
-    MoveLeft, MoveRight, MoveUp, MoveDown,
-    Interact, OpenGithub,
-    CarousselLeft, CarousselRight,
+    MoveLeft,MoveRight, MoveUp, MoveDown,
+    Interact, 
+	OpenGithub, CarousselLeft, CarousselRight,
     ScrollUp, ScrollDown,
     Pause, Debug,
     COUNT
@@ -28,20 +31,20 @@ struct ControlsConfig
         { "Bas",			SDL_SCANCODE_S      },
         { "Interagir",		SDL_SCANCODE_E      },
         { "Ouvrir GitHub",	SDL_SCANCODE_RETURN },
-        { "Caroussel <",	SDL_SCANCODE_LEFT   },
-        { "Caroussel >",	SDL_SCANCODE_RIGHT  },
+        { "Precedent",		SDL_SCANCODE_LEFT   },
+        { "Suivant",		SDL_SCANCODE_RIGHT  },
         { "Scroll haut",	SDL_SCANCODE_UP     },
         { "Scroll bas",		SDL_SCANCODE_DOWN   },
         { "Pause",			SDL_SCANCODE_ESCAPE },
 		{ "Debug",			SDL_SCANCODE_F3		}
     }};
 
-    SDL_Scancode get(Action a) const
+    SDL_Scancode	get(Action a) const
     {
         return this->bindings[(int)a].scancode;
     }
 
-    void set(Action a, SDL_Scancode sc)
+    void			set(Action a, SDL_Scancode sc)
     {
         this->bindings[(int)a].scancode = sc;
     }

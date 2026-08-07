@@ -1,0 +1,14 @@
+{
+	"MoveLeft": "A",
+	"MoveRight": "D",
+	"MoveUp": "W",
+	"MoveDown": "S",
+	"Interact": "E",
+	"OpenGithub": "RETURN",
+	"Previous": "LEFT",
+	"Next": "RIGHT",
+	"ScrollUp": "UP",
+	"ScrollDown": "DOWN",
+	"Pause": "ESCAPE",
+	"Debug": "F3"
+}
